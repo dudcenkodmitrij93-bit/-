@@ -185,6 +185,8 @@
       mediaInner.innerHTML = url
         ? toEmbed(url)
         : '<div class="stub"><svg><use href="#i-play"/></svg>Видео скоро появится</div>';
+      // Вертикальные ролики (снятые на телефон) показываем высоким окном
+      mediaInner.classList.toggle('is-portrait', !!url && btn.hasAttribute('data-portrait'));
       openModal(mediaModal);
     });
   });
