@@ -523,7 +523,6 @@ svg { flex-shrink: 0; }
 }
 .footer__title { font-size: clamp(30px, 2.6vw, 38px); }
 .footer__cta p { font-size: 15px; line-height: 1.85; color: rgba(244, 239, 232, .9); }
-.footer__cta .btn { margin-top: 16px; min-height: 46px; }
 .socials { display: flex; gap: 22px; }
 .socials a { width: 40px; height: 40px; display: grid; place-items: center; color: #fff; transition: color .25s, transform .25s; }
 .socials a:hover { color: var(--gold); transform: translateY(-2px); }
