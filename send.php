@@ -39,8 +39,11 @@ $contact = field('contact', 30);
 $tariff  = field('tariff', 50);
 $topic   = field('topic', 100);
 $message = field('message', 2000);
+$guests  = field('guests', 30);
+$site    = field('site', 30);
 
-if (mb_strlen($name) < 2) respond(false, 'Укажите имя', 422);
+// Имя необязательно: в формах второй версии сайта только дата и телефон
+if ($name === '') $name = 'не указано';
 if (strlen(preg_replace('/\D/', '', $phone)) < 10) respond(false, 'Укажите телефон', 422);
 if (empty($_POST['agree'])) respond(false, 'Нужно согласие на обработку данных', 422);
 
@@ -61,7 +64,9 @@ if ($date)    $lines[] = 'Дата: ' . date('d.m.Y', strtotime($date));
 if ($tariff)  $lines[] = 'Тариф: ' . $tariff;
 if ($topic)   $lines[] = 'Тема: ' . $topic;
 if ($contact) $lines[] = 'Связь: ' . $contact;
+if ($guests)  $lines[] = 'Гостей: ' . $guests;
 if ($message) $lines[] = 'Комментарий: ' . $message;
+if ($site)    $lines[] = 'Версия сайта: ' . $site;
 $text = implode("\n", $lines);
 
 $sent = false;
