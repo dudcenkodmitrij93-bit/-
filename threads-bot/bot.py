@@ -36,7 +36,7 @@ MAX_TEXT = 500  # лимит Threads на длину поста
 
 # Ссылка на ТГ-канал: подставляется в посты вместо {tg}.
 # Можно переопределить переменной окружения TELEGRAM_URL.
-TELEGRAM_URL = "https://t.me/your_channel"
+TELEGRAM_URL = "https://t.me/dudchenko_dmitry"
 
 
 def request(method, url, params):
