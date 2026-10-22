@@ -1,0 +1,39 @@
+name: Threads bot
+
+on:
+  schedule:
+    # 5 постов в день: 09:07, 12:07, 15:07, 18:07, 21:07 по Москве (UTC+3)
+    - cron: "7 6,9,12,15,18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: threads-bot
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Publish next post
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+          TELEGRAM_URL: ${{ vars.TELEGRAM_URL }}
+        run: python threads-bot/bot.py
+
+      - name: Save progress
+        run: |
+          git config user.name "threads-bot"
+          git config user.email "threads-bot@users.noreply.github.com"
+          git add threads-bot/state.json
+          git diff --cached --quiet || git commit -m "threads-bot: next post"
+          git push
