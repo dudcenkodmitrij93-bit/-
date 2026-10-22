@@ -27,6 +27,7 @@ jobs:
         env:
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
           THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+          TELEGRAM_URL: ${{ vars.TELEGRAM_URL }}
         run: python threads-bot/bot.py
 
       - name: Save progress

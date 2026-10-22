@@ -8,6 +8,7 @@
 Переменные окружения:
   THREADS_ACCESS_TOKEN  — долгоживущий токен Threads API (обязательно)
   THREADS_USER_ID       — id профиля Threads (по умолчанию "me")
+  TELEGRAM_URL          — ссылка на ТГ-канал (по умолчанию из константы ниже)
   IMAGE_BASE_URL        — публичный адрес папки с картинками; если не задан,
                           берётся raw.githubusercontent.com текущего репозитория
 
@@ -32,6 +33,10 @@ HERE = Path(__file__).resolve().parent
 POSTS_FILE = HERE / "posts.json"
 STATE_FILE = HERE / "state.json"
 MAX_TEXT = 500  # лимит Threads на длину поста
+
+# Ссылка на ТГ-канал: подставляется в посты вместо {tg}.
+# Можно переопределить переменной окружения TELEGRAM_URL.
+TELEGRAM_URL = "https://t.me/your_channel"
 
 
 def request(method, url, params):
@@ -112,7 +117,11 @@ def main():
         return
 
     posts = json.loads(POSTS_FILE.read_text(encoding="utf-8"))
+    tg = os.environ.get("TELEGRAM_URL") or TELEGRAM_URL
+    if "your_channel" in tg and not args.dry_run:
+        sys.exit("Укажите ссылку на ТГ-канал в TELEGRAM_URL")
     for i, p in enumerate(posts):
+        p["text"] = p["text"].replace("{tg}", tg)
         if len(p["text"]) > MAX_TEXT:
             sys.exit(f"Пост #{i} длиннее {MAX_TEXT} символов")
 
