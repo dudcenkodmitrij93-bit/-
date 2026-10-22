@@ -18,7 +18,7 @@
    с вариантом использования «Access the Threads API» и включите разрешения
    `threads_basic` и `threads_content_publish`.
 3. **Токен.** В разделе Threads API → «User Token Generator» добавьте свой профиль
-   как тестировщика (подтвердите приглашение в настройках Threads: Аккаунт → Сайты и приложения)
+   как тестировщика (подтвердите приглашение в Threads: Настройки → Ещё настройки → Разрешения сайта → Приглашения)
    и сгенерируйте **долгоживущий** токен (действует 60 дней).
 4. **Секрет в GitHub.** В репозитории откройте Settings → Secrets and variables → Actions → New repository secret:
    - `THREADS_ACCESS_TOKEN` — токен из шага 3.
