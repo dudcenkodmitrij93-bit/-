@@ -7,6 +7,8 @@
 
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
 
   /* Шапка и меню */
   var header = $('#header'), nav = $('#nav'), burger = $('#burger');
@@ -14,6 +16,7 @@
   onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
   var setMenu = function (open) {
     nav.classList.toggle('is-open', open); burger.classList.toggle('is-open', open);
+    header.classList.toggle('menu-open', open);
     burger.setAttribute('aria-expanded', String(open));
     burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
   };
@@ -24,9 +27,86 @@
     a.addEventListener('click', function (e) {
       var id = a.getAttribute('href'); if (id.length < 2) return;
       var t = $(id); if (!t) return;
-      e.preventDefault(); setMenu(false); t.scrollIntoView({ behavior: 'smooth' });
+      e.preventDefault(); setMenu(false); t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
     });
   });
+
+  /* Видео на первом экране: горизонтальное для компьютера, вертикальное для телефона */
+  var hero = $('.js-hero-video');
+  if (hero) {
+    var mobile = window.matchMedia('(max-width: 760px)').matches;
+    hero.poster = hero.dataset[mobile ? 'posterMobile' : 'posterDesktop'];
+    if (!reduce) {
+      hero.src = hero.dataset[mobile ? 'srcMobile' : 'srcDesktop'];
+      var p = hero.play(); if (p && p.catch) p.catch(function () {});
+    }
+  }
+
+  /* Превью-видео в галерее и в финале играют, только когда видны */
+  var previews = $$('video[data-src]');
+  var playIn = function (v) {
+    if (reduce) return;
+    if (!v.src) v.src = v.dataset.src;
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+  };
+  if (hasIO) {
+    var vio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) playIn(e.target); else e.target.pause(); });
+    }, { threshold: .25 });
+    previews.forEach(function (v) { vio.observe(v); });
+  }
+
+  /* Появление блоков при прокрутке, соседи появляются по очереди */
+  var reveals = $$('.reveal');
+  if (hasIO && !reduce) {
+    var rio = new IntersectionObserver(function (es) {
+      var n = 0;
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.style.setProperty('--rd', (n++ * 0.08) + 's');
+        e.target.classList.add('is-in'); rio.unobserve(e.target);
+        if (e.target.classList.contains('js-steps')) e.target.classList.add('is-in');
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function (el) { rio.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  /* Счётчики цифр */
+  var counters = $$('.js-count');
+  var runCount = function (el) {
+    var to = +el.dataset.to, from = +el.dataset.from, t0 = null, dur = 1400;
+    var tick = function (t) {
+      if (!t0) t0 = t; var k = Math.min(1, (t - t0) / dur); k = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(from + (to - from) * k); if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  if (hasIO && !reduce) {
+    var cio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { runCount(e.target); cio.unobserve(e.target); } });
+    }, { threshold: .6 });
+    counters.forEach(function (c) { c.textContent = c.dataset.from; cio.observe(c); });
+  }
+
+  /* Лёгкий параллакс фото */
+  var par = $$('.js-parallax');
+  if (par.length && !reduce) {
+    var ticking = false;
+    var move = function () {
+      var h = window.innerHeight;
+      par.forEach(function (img) {
+        var r = img.parentNode.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > h) return;
+        var k = (r.top + r.height / 2 - h / 2) / h;
+        img.style.transform = 'translateY(' + (k * -40).toFixed(1) + 'px)';
+      });
+      ticking = false;
+    };
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(move); } }, { passive: true });
+    move();
+  }
 
   /* Маска телефона */
   $$('.js-phone').forEach(function (p) {
@@ -69,7 +149,7 @@
       form.classList.add('is-loading');
       send(form).then(function (res) {
         if (!res.ok) throw 0;
-        form.innerHTML = '<p class="form-ok">Заявка принята. Евгений проверит дату и напишет вам' + (DEMO ? ' (демо: заявка никуда не отправлена)' : '') + '</p>';
+        form.innerHTML = '<p class="form-ok"><svg><use href="#i-check"/></svg>Заявка принята. Евгений проверит дату и напишет вам' + (DEMO ? ' (демо: заявка никуда не отправлена)' : '') + '</p>';
       }).catch(function () { fail(form); }).then(function () { form.classList.remove('is-loading'); });
     });
   });
@@ -87,7 +167,7 @@
     o.addEventListener('click', function () {
       $$('.opt', o.parentNode).forEach(function (x) { x.classList.remove('is-on'); });
       o.classList.add('is-on'); qf[o.dataset.name].value = o.dataset.v;
-      setTimeout(function () { show(step + 1); }, 180);
+      setTimeout(function () { show(step + 1); }, 220);
     });
   });
   $$('.tab', qf).forEach(function (t) {
@@ -111,13 +191,7 @@
     b.addEventListener('click', function () { qf.tariff.value = b.dataset.tariff; $('.js-qt', qf).textContent = 'Формат: ' + b.dataset.tariff; });
   });
 
-  /* Слайдер галереи */
-  var track = $('.js-track');
-  var stepPx = function () { var t = $('.tile', track); return t ? t.getBoundingClientRect().width + 16 : 400; };
-  $('.js-prev').addEventListener('click', function () { track.scrollBy({ left: -stepPx(), behavior: 'smooth' }); });
-  $('.js-next').addEventListener('click', function () { track.scrollBy({ left: stepPx(), behavior: 'smooth' }); });
-
-  /* Просмотр фото и видео */
+  /* Просмотр фото и видео со звуком */
   var modal = $('#media'), inner = $('#mediaIn'), last = null;
   var open = function (html, portrait) {
     last = document.activeElement; inner.innerHTML = html; inner.classList.toggle('is-portrait', !!portrait);
