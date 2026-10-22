@@ -716,6 +716,10 @@ svg { flex-shrink: 0; }
   :root { --gutter: 20px; --header-h: 68px; }
   .header.is-scrolled { --header-h: 60px; }
   .section { padding: 40px 0; }
+  /* Блок «Моменты» ближе к соседним блокам */
+  .formats { padding-bottom: 20px; }
+  .moments { padding-top: 20px; padding-bottom: 20px; }
+  .prices { padding-top: 20px; }
   .logo { margin-right: auto; }
   .logo__name { font-size: 15px; }
   .logo__sub { font-size: 12px; }
