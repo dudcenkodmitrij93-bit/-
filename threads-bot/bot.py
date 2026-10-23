@@ -9,6 +9,8 @@
   THREADS_ACCESS_TOKEN  — долгоживущий токен Threads API (обязательно)
   THREADS_USER_ID       — id профиля Threads (по умолчанию "me")
   TELEGRAM_URL          — ссылка на ТГ-канал (по умолчанию из константы ниже)
+  THREADS_TOPIC         — тема поста в Threads (по умолчанию из константы ниже,
+                          пустая строка отключает)
   IMAGE_BASE_URL        — публичный адрес папки с картинками; если не задан,
                           берётся raw.githubusercontent.com текущего репозитория
 
@@ -38,6 +40,14 @@ MAX_TEXT = 500  # лимит Threads на длину поста
 # Можно переопределить переменной окружения TELEGRAM_URL.
 TELEGRAM_URL = "https://t.me/dudchenko_dmitry"
 
+# Тема (topic tag) помогает Threads показать пост тем, кто интересуется темой.
+# У поста можно задать свою тему полем "topic".
+TOPIC = "Веб-разработка"
+
+
+class ApiError(Exception):
+    pass
+
 
 def request(method, url, params):
     data = urllib.parse.urlencode(params).encode()
@@ -48,7 +58,7 @@ def request(method, url, params):
         with urllib.request.urlopen(req, timeout=60) as resp:
             return json.load(resp)
     except urllib.error.HTTPError as e:
-        sys.exit(f"Threads API {e.code}: {e.read().decode(errors='replace')}")
+        raise ApiError(f"Threads API {e.code}: {e.read().decode(errors='replace')}")
 
 
 def load_state():
@@ -74,7 +84,7 @@ def image_url(path):
     return f"{base.rstrip('/')}/{urllib.parse.quote(path)}"
 
 
-def publish(post, token, user_id):
+def publish(post, token, user_id, topic):
     params = {"text": post["text"], "access_token": token}
     url = image_url(post["image"]) if post.get("image") else None
     if url:
@@ -82,7 +92,18 @@ def publish(post, token, user_id):
     else:
         params["media_type"] = "TEXT"
 
-    container = request("POST", f"{API}/{user_id}/threads", params)
+    topic = post.get("topic", topic)
+    if topic:
+        try:
+            container = request(
+                "POST", f"{API}/{user_id}/threads", {**params, "topic_tag": topic}
+            )
+        except ApiError as e:
+            # Тема — не главное: если Threads её не принял, публикуем без неё.
+            print(f"Тема «{topic}» не принята ({e}), публикую без темы")
+            container = request("POST", f"{API}/{user_id}/threads", params)
+    else:
+        container = request("POST", f"{API}/{user_id}/threads", params)
     # Threads советует подождать, пока контейнер обработается.
     time.sleep(30 if url else 5)
     result = request(
@@ -134,11 +155,15 @@ def main():
         print(post["text"])
         return
 
-    post_id = publish(post, token, os.environ.get("THREADS_USER_ID") or "me")
+    topic = os.environ.get("THREADS_TOPIC", TOPIC)
+    post_id = publish(post, token, os.environ.get("THREADS_USER_ID") or "me", topic)
     print(f"Опубликован пост #{index}, id {post_id}")
     state["next_index"] = index + 1
     save_state(state)
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except ApiError as e:
+        sys.exit(str(e))
