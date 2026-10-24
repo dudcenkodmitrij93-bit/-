@@ -42,7 +42,7 @@ TELEGRAM_URL = "https://t.me/dudchenko_dmitry"
 
 # Тема (topic tag) помогает Threads показать пост тем, кто интересуется темой.
 # У поста можно задать свою тему полем "topic".
-TOPIC = "Веб-разработка"
+TOPIC = "Веб-дизайн"
 
 
 class ApiError(Exception):
