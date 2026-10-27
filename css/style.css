@@ -221,7 +221,8 @@ svg { flex-shrink: 0; }
 .moment:hover img { transform: scale(1.06); }
 
 /* ---------- Тарифы ---------- */
-.prices { padding-top: 20px; }
+.moments { padding-bottom: 40px; }
+.prices { padding-top: 20px; padding-bottom: 44px; }
 .prices__grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; margin-top: 36px; align-items: stretch; }
 .price { position: relative; display: flex; flex-direction: column; padding: 28px 26px 30px; background: #fbf9f6; border: 1px solid var(--line); border-radius: 8px; transition: box-shadow .35s, transform .35s var(--ease); }
 .price:hover { box-shadow: 0 20px 44px rgba(40, 30, 20, .09); transform: translateY(-4px); }
@@ -378,7 +379,7 @@ svg { flex-shrink: 0; }
   .reel { flex-basis: 62vw; }
 
   .reels-sec { padding-bottom: 8px; }
-  .guest { padding-top: 20px; }
+  .guest { padding-top: 40px; }
   .takes li { grid-template-columns: 42px 1fr; }
   .fears { padding: 44px 0; }
   .fears__grid { grid-template-columns: 1fr; margin-top: 28px; }
@@ -401,6 +402,8 @@ svg { flex-shrink: 0; }
   .steps__list h3 { margin-top: 4px; }
   .steps__list .is-final h3 { margin-top: 2px; font-size: 22px; }
 
+  .moments { padding-bottom: 28px; }
+  .prices { padding-top: 20px; padding-bottom: 8px; }
   .moments__grid { gap: 10px; margin-top: 24px; }
   .prices__grid { grid-template-columns: 1fr; gap: 24px; }
   .price:last-child { grid-column: auto; }
