@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Редактор сайта</title>
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+Display:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- Вход -->
+<section class="login" id="login" hidden>
+  <form class="login__box" id="loginForm">
+    <p class="brand">Евгений Глуховский</p>
+    <h1>Редактор сайта</h1>
+    <label class="f"><span>Пароль</span><input type="password" name="password" id="password" autocomplete="current-password" required></label>
+    <button class="btn btn--gold" type="submit">Войти</button>
+    <p class="login__err" id="loginErr" role="alert"></p>
+    <p class="login__hint" id="demoHint" hidden>Демо-версия: подойдёт любой пароль. Изменения не сохраняются на сайте.</p>
+  </form>
+</section>
+
+<!-- Редактор -->
+<div class="app" id="app" hidden>
+  <header class="top">
+    <div class="top__in">
+      <div><p class="brand">Евгений Глуховский</p><p class="top__title">Редактор сайта</p></div>
+      <div class="top__actions">
+        <a class="link" href="../" target="_blank" rel="noopener">Открыть сайт ↗</a>
+        <button class="link" type="button" id="logout">Выйти</button>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Разделы">
+      <a href="#s-hero">Первый экран</a>
+      <a href="#s-prices">Тарифы</a>
+      <a href="#s-scen">Сценарии</a>
+      <a href="#s-faq">Вопросы</a>
+      <a href="#s-about">Обо мне</a>
+      <a href="#s-fears">Страхи</a>
+      <a href="#s-takes">Что беру на себя</a>
+      <a href="#s-photos">Фото</a>
+      <a href="#s-socials">Соцсети</a>
+      <a href="#s-settings">Пароль</a>
+    </nav>
+  </header>
+
+  <main class="wrap" id="editor"></main>
+
+  <div class="bar" id="bar">
+    <p class="bar__status" id="status">Все изменения сохранены</p>
+    <div class="bar__btns">
+      <button class="btn btn--ghost" type="button" id="undo">Вернуть как было</button>
+      <button class="btn btn--gold" type="button" id="save" disabled>Сохранить</button>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

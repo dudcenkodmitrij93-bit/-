@@ -197,20 +197,20 @@
   <!-- ===================== ПЕРВЫЙ ЭКРАН ===================== -->
   <section class="hero">
     <div class="hero__bg">
-      <img src="img/hero.jpg" alt="Ведущий мероприятий Евгений Глуховский в смокинге с микрофоном у цветочной арки" fetchpriority="high">
+      <img data-c-src="hero.photo" src="img/hero.jpg" alt="Ведущий мероприятий Евгений Глуховский в смокинге с микрофоном у цветочной арки" fetchpriority="high">
     </div>
     <div class="container hero__inner">
-      <p class="eyebrow up" style="--d:.1s">Ведущий и певец на свадьбы, юбилеи и корпоративы</p>
-      <h1 class="hero__title up" style="--d:.2s">Вы наслаждаетесь праздником&nbsp;—<br><span class="gold">я беру его на&nbsp;себя.</span></h1>
-      <p class="hero__text up" style="--d:.35s">Сценарий под вашу пару и&nbsp;гостей, живой вокал и&nbsp;импровизация в&nbsp;моменте. Вам не&nbsp;придётся следить ни&nbsp;за&nbsp;одной минутой вечера.</p>
+      <p class="eyebrow up" style="--d:.1s" data-c="hero.eyebrow">Ведущий и певец на свадьбы, юбилеи и корпоративы</p>
+      <h1 class="hero__title up" style="--d:.2s"><span data-c="hero.title">Вы наслаждаетесь праздником&nbsp;—</span><br><span class="gold" data-c="hero.titleGold">я беру его на&nbsp;себя.</span></h1>
+      <p class="hero__text up" style="--d:.35s" data-c="hero.text">Сценарий под вашу пару и&nbsp;гостей, живой вокал и&nbsp;импровизация в&nbsp;моменте. Вам не&nbsp;придётся следить ни&nbsp;за&nbsp;одной минутой вечера.</p>
       <div class="hero__btns up" style="--d:.5s">
         <a href="#contacts" class="btn btn--gold btn--lg">Обсудить мероприятие <svg class="ico-arrow"><use href="#i-arrow"/></svg></a>
         <a href="#video" class="btn btn--outline btn--lg"><svg class="ico-play"><use href="#i-play"/></svg>Смотреть видео</a>
       </div>
       <ul class="hero__facts up" style="--d:.65s">
-        <li><b>2015</b><span>год выхода на&nbsp;профессиональную сцену</span></li>
-        <li><b>Live</b><span>пою вживую в&nbsp;каждой программе</span></li>
-        <li><b>5&nbsp;часов</b><span>праздника без&nbsp;пауз и&nbsp;провисаний</span></li>
+        <li><b data-c="facts.0.num">2015</b><span data-c="facts.0.text">год выхода на&nbsp;профессиональную сцену</span></li>
+        <li><b data-c="facts.1.num">Live</b><span data-c="facts.1.text">пою вживую в&nbsp;каждой программе</span></li>
+        <li><b data-c="facts.2.num">5&nbsp;часов</b><span data-c="facts.2.text">праздника без&nbsp;пауз и&nbsp;провисаний</span></li>
       </ul>
     </div>
   </section>
@@ -269,14 +269,14 @@
         <h2 class="h2 reveal">Вы можете быть гостем своего праздника, а&nbsp;не&nbsp;его организатором.</h2>
         <p class="muted reveal">Всё, что обычно отнимает у&nbsp;пары или юбиляра нервы и&nbsp;внимание, я&nbsp;беру на&nbsp;себя. Вы&nbsp;просто проживаете этот вечер вместе с&nbsp;гостями.</p>
         <ol class="takes">
-          <li class="reveal"><b>Сценарий под вас</b><span>Присылаю за&nbsp;2&nbsp;недели до&nbsp;праздника, правим вместе, пока всё не&nbsp;понравится</span></li>
-          <li class="reveal"><b>Подрядчики в&nbsp;день праздника</b><span>Договариваюсь с&nbsp;DJ, фотографом и&nbsp;площадкой, вам никого не&nbsp;нужно контролировать</span></li>
-          <li class="reveal"><b>Тайминг вечера</b><span>Слежу, чтобы горячее не&nbsp;остыло, а&nbsp;торт и&nbsp;первый танец были вовремя</span></li>
-          <li class="reveal"><b>Гости</b><span>Вовлекаю тех, кому хочется, и&nbsp;не&nbsp;трогаю тех, кому комфортнее за&nbsp;столом</span></li>
+          <li class="reveal"><b data-c="takes.0.title">Сценарий под вас</b><span data-c="takes.0.text">Присылаю за&nbsp;2&nbsp;недели до&nbsp;праздника, правим вместе, пока всё не&nbsp;понравится</span></li>
+          <li class="reveal"><b data-c="takes.1.title">Подрядчики в&nbsp;день праздника</b><span data-c="takes.1.text">Договариваюсь с&nbsp;DJ, фотографом и&nbsp;площадкой, вам никого не&nbsp;нужно контролировать</span></li>
+          <li class="reveal"><b data-c="takes.2.title">Тайминг вечера</b><span data-c="takes.2.text">Слежу, чтобы горячее не&nbsp;остыло, а&nbsp;торт и&nbsp;первый танец были вовремя</span></li>
+          <li class="reveal"><b data-c="takes.3.title">Гости</b><span data-c="takes.3.text">Вовлекаю тех, кому хочется, и&nbsp;не&nbsp;трогаю тех, кому комфортнее за&nbsp;столом</span></li>
         </ol>
       </div>
       <figure class="guest__photo reveal">
-        <img src="img/atmosphere.jpg" alt="Ведущий Евгений Глуховский поёт вместе с танцующими гостями" loading="lazy">
+        <img data-c-src="photos.atmosphere" src="img/atmosphere.jpg" alt="Ведущий Евгений Глуховский поёт вместе с танцующими гостями" loading="lazy">
       </figure>
     </div>
   </section>
@@ -286,12 +286,12 @@
     <div class="container">
       <h2 class="h2 h2--light reveal">Чего обычно боятся, когда выбирают ведущего, и&nbsp;как я&nbsp;это решаю</h2>
       <div class="fears__grid">
-        <div class="fear reveal"><p class="fear__q">«Будут пошлые конкурсы»</p><p>Конкурсов с&nbsp;переодеваниями и&nbsp;двусмысленностями не&nbsp;будет. Каждый интерактив вы&nbsp;видите в&nbsp;сценарии заранее и&nbsp;убираете всё лишнее</p></div>
-        <div class="fear reveal"><p class="fear__q">«Гостей заставят участвовать»</p><p>Участвуют только желающие. Никого не&nbsp;вытаскиваю из-за стола и&nbsp;не&nbsp;ставлю в&nbsp;неловкое положение</p></div>
-        <div class="fear reveal"><p class="fear__q">«Программа будет как у&nbsp;всех»</p><p>Сценарий собираю под вашу историю, состав гостей и&nbsp;площадку. Одинаковых вечеров у&nbsp;меня не&nbsp;бывает</p></div>
-        <div class="fear reveal"><p class="fear__q">«Будут паузы и&nbsp;скука»</p><p>Тосты, живой вокал, танцы и&nbsp;интерактивы идут без&nbsp;провисаний все 5&nbsp;часов</p></div>
-        <div class="fear reveal"><p class="fear__q">«Что-то пойдёт не&nbsp;по&nbsp;плану»</p><p>У&nbsp;сценария всегда есть запасной вариант. Задержки и&nbsp;накладки закрываю импровизацией, гости их&nbsp;не&nbsp;замечают</p></div>
-        <div class="fear reveal"><p class="fear__q">«Цена вырастет в&nbsp;процессе»</p><p>Сумма и&nbsp;состав программы прописаны в&nbsp;договоре и&nbsp;не&nbsp;меняются до&nbsp;дня праздника</p></div>
+        <div class="fear reveal"><p class="fear__q" data-c="fears.0.q">«Будут пошлые конкурсы»</p><p data-c="fears.0.a">Конкурсов с&nbsp;переодеваниями и&nbsp;двусмысленностями не&nbsp;будет. Каждый интерактив вы&nbsp;видите в&nbsp;сценарии заранее и&nbsp;убираете всё лишнее</p></div>
+        <div class="fear reveal"><p class="fear__q" data-c="fears.1.q">«Гостей заставят участвовать»</p><p data-c="fears.1.a">Участвуют только желающие. Никого не&nbsp;вытаскиваю из-за стола и&nbsp;не&nbsp;ставлю в&nbsp;неловкое положение</p></div>
+        <div class="fear reveal"><p class="fear__q" data-c="fears.2.q">«Программа будет как у&nbsp;всех»</p><p data-c="fears.2.a">Сценарий собираю под вашу историю, состав гостей и&nbsp;площадку. Одинаковых вечеров у&nbsp;меня не&nbsp;бывает</p></div>
+        <div class="fear reveal"><p class="fear__q" data-c="fears.3.q">«Будут паузы и&nbsp;скука»</p><p data-c="fears.3.a">Тосты, живой вокал, танцы и&nbsp;интерактивы идут без&nbsp;провисаний все 5&nbsp;часов</p></div>
+        <div class="fear reveal"><p class="fear__q" data-c="fears.4.q">«Что-то пойдёт не&nbsp;по&nbsp;плану»</p><p data-c="fears.4.a">У&nbsp;сценария всегда есть запасной вариант. Задержки и&nbsp;накладки закрываю импровизацией, гости их&nbsp;не&nbsp;замечают</p></div>
+        <div class="fear reveal"><p class="fear__q" data-c="fears.5.q">«Цена вырастет в&nbsp;процессе»</p><p data-c="fears.5.a">Сумма и&nbsp;состав программы прописаны в&nbsp;договоре и&nbsp;не&nbsp;меняются до&nbsp;дня праздника</p></div>
       </div>
     </div>
   </section>
@@ -317,7 +317,7 @@
     </div>
     <div class="container">
       <div class="about__more" id="aboutMore" hidden>
-        <div class="about__text">
+        <div class="about__text" data-c-paras="about.bio">
           <p>Я&nbsp;на&nbsp;профессиональной сцене с&nbsp;2015 года: артист эстрады, певец и&nbsp;конферансье. Режиссёрский опыт крупных проектов помогает выстраивать вечер как спектакль, с&nbsp;драматургией, паузами для эмоций и&nbsp;кульминацией.</p>
           <p>На&nbsp;свадьбах и&nbsp;юбилеях я&nbsp;не&nbsp;только веду, но&nbsp;и&nbsp;пою вживую: для пары, для родителей, для юбиляра. Часто к&nbsp;концу вечера поёт уже весь зал.</p>
           <p>Моя задача, чтобы вы не&nbsp;смотрели на&nbsp;часы и&nbsp;не&nbsp;думали об&nbsp;организации. Если что-то идёт не&nbsp;по&nbsp;плану, я&nbsp;перестраиваю программу на&nbsp;ходу.</p>
@@ -336,9 +336,9 @@
         <article class="scen__card reveal">
           <div class="scen__img"><img src="img/moment-3.jpg" alt="Первый танец жениха и невесты" loading="lazy"></div>
           <div class="scen__body">
-            <p class="scen__meta">Свадьба · 5-6 часов</p>
-            <h3>Классическая свадьба</h3>
-            <ol>
+            <p class="scen__meta" data-c="scenarios.0.meta">Свадьба · 5-6 часов</p>
+            <h3 data-c="scenarios.0.title">Классическая свадьба</h3>
+            <ol data-c-list="scenarios.0.steps">
               <li>Встреча гостей и&nbsp;welcome</li>
               <li>Выход пары и&nbsp;первые тосты</li>
               <li>Знакомство двух семей через лёгкие интерактивы</li>
@@ -352,9 +352,9 @@
         <article class="scen__card reveal">
           <div class="scen__img"><img src="img/moment-2.jpg" alt="Камерный праздник с гостями" loading="lazy"></div>
           <div class="scen__body">
-            <p class="scen__meta">Юбилей или камерная свадьба · до&nbsp;30 гостей</p>
-            <h3>Тёплый вечер для своих</h3>
-            <ol>
+            <p class="scen__meta" data-c="scenarios.1.meta">Юбилей или камерная свадьба · до&nbsp;30 гостей</p>
+            <h3 data-c="scenarios.1.title">Тёплый вечер для своих</h3>
+            <ol data-c-list="scenarios.1.steps">
               <li>Больше живого общения, меньше конкурсов</li>
               <li>Тосты-истории от&nbsp;самых близких</li>
               <li>Песни для юбиляра или пары вживую</li>
@@ -367,9 +367,9 @@
         <article class="scen__card reveal">
           <div class="scen__img"><img src="img/reel-songs.jpg" alt="Евгений поёт вместе с гостями" loading="lazy"></div>
           <div class="scen__body">
-            <p class="scen__meta">Любой праздник · акцент на&nbsp;музыке</p>
-            <h3>Вечер-концерт</h3>
-            <ol>
+            <p class="scen__meta" data-c="scenarios.2.meta">Любой праздник · акцент на&nbsp;музыке</p>
+            <h3 data-c="scenarios.2.title">Вечер-концерт</h3>
+            <ol data-c-list="scenarios.2.steps">
               <li>Живой вокал как основа программы</li>
               <li>Хиты, которые подпевает весь зал</li>
               <li>Танцевальные блоки с&nbsp;DJ</li>
@@ -381,9 +381,9 @@
         <article class="scen__card reveal">
           <div class="scen__img"><img src="img/reel-corporate.jpg" alt="Евгений на новогоднем корпоративе" loading="lazy"></div>
           <div class="scen__body">
-            <p class="scen__meta">Корпоратив · от&nbsp;20 до&nbsp;200 гостей</p>
-            <h3>Праздник для команды</h3>
-            <ol>
+            <p class="scen__meta" data-c="scenarios.3.meta">Корпоратив · от&nbsp;20 до&nbsp;200 гостей</p>
+            <h3 data-c="scenarios.3.title">Праздник для команды</h3>
+            <ol data-c-list="scenarios.3.steps">
               <li>Поздравления и&nbsp;награждения от&nbsp;руководства</li>
               <li>Командные интерактивы без&nbsp;неловкости</li>
               <li>Концертный блок вживую</li>
@@ -415,10 +415,10 @@
     <div class="container">
       <h2 class="h2 reveal">Моменты, которые хочется пересматривать.</h2>
       <div class="moments__grid">
-        <button class="moment reveal" data-photo="img/moment-1.jpg"><img src="img/moment-1.jpg" alt="Ведущий проводит интерактив с гостьей в маске" loading="lazy"></button>
-        <button class="moment reveal" data-photo="img/moment-2.jpg"><img src="img/moment-2.jpg" alt="Ведущий Евгений Глуховский с гостями на дне рождения" loading="lazy"></button>
-        <button class="moment reveal" data-photo="img/moment-3.jpg"><img src="img/moment-3.jpg" alt="Первый танец жениха и невесты на свадьбе" loading="lazy"></button>
-        <button class="moment reveal" data-photo="img/moment-4.jpg"><img src="img/moment-4.jpg" alt="Весёлый интерактив с гостями в сомбреро" loading="lazy"></button>
+        <button class="moment reveal" data-photo="img/moment-1.jpg" data-c-photo="photos.moment1"><img data-c-src="photos.moment1" src="img/moment-1.jpg" alt="Ведущий проводит интерактив с гостьей в маске" loading="lazy"></button>
+        <button class="moment reveal" data-photo="img/moment-2.jpg" data-c-photo="photos.moment2"><img data-c-src="photos.moment2" src="img/moment-2.jpg" alt="Ведущий Евгений Глуховский с гостями на дне рождения" loading="lazy"></button>
+        <button class="moment reveal" data-photo="img/moment-3.jpg" data-c-photo="photos.moment3"><img data-c-src="photos.moment3" src="img/moment-3.jpg" alt="Первый танец жениха и невесты на свадьбе" loading="lazy"></button>
+        <button class="moment reveal" data-photo="img/moment-4.jpg" data-c-photo="photos.moment4"><img data-c-src="photos.moment4" src="img/moment-4.jpg" alt="Весёлый интерактив с гостями в сомбреро" loading="lazy"></button>
       </div>
     </div>
   </section>
@@ -429,10 +429,12 @@
       <h2 class="h2 reveal">Выберите формат,<br>а&nbsp;остальное я&nbsp;возьму на&nbsp;себя.</h2>
       <div class="prices__grid">
         <article class="price reveal">
-          <h3>Старт</h3>
+          <h3 data-c="prices.0.name">Старт</h3>
+          <div data-c-costs="prices.0.costs">
           <p class="price__cost"><b>от&nbsp;55&nbsp;000&nbsp;₽</b> / 5&nbsp;часов</p>
           <p class="price__cost"><b>от&nbsp;65&nbsp;000&nbsp;₽</b> / 6&nbsp;часов</p>
-          <ul>
+          </div>
+          <ul data-c-list="prices.0.features">
             <li>Ведущий + DJ</li>
             <li>Индивидуальный сценарий</li>
             <li>Координация</li>
@@ -441,19 +443,23 @@
         </article>
         <article class="price price--popular reveal">
           <span class="price__badge">Популярный</span>
-          <h3>Комфорт</h3>
+          <h3 data-c="prices.1.name">Комфорт</h3>
+          <div data-c-costs="prices.1.costs">
           <p class="price__cost"><b>от&nbsp;65&nbsp;000&nbsp;₽</b> / 5&nbsp;часов</p>
           <p class="price__cost"><b>от&nbsp;75&nbsp;000&nbsp;₽</b> / 6&nbsp;часов</p>
-          <ul>
+          </div>
+          <ul data-c-list="prices.1.features">
             <li>Всё из&nbsp;«Старта» +</li>
             <li>Видео-интервью с&nbsp;гостями</li>
             <li>Съёмка Reels / фотограф</li>
           </ul>
         </article>
         <article class="price reveal">
-          <h3>Максимум</h3>
+          <h3 data-c="prices.2.name">Максимум</h3>
+          <div data-c-costs="prices.2.costs">
           <p class="price__cost"><b>от&nbsp;85&nbsp;000&nbsp;₽</b></p>
-          <ul>
+          </div>
+          <ul data-c-list="prices.2.features">
             <li>Всё из&nbsp;предыдущих тарифов +</li>
             <li>Аэросъёмки и&nbsp;интерактивы</li>
             <li>Съёмка роликов (3&nbsp;ролика)</li>
@@ -462,7 +468,7 @@
           </ul>
         </article>
       </div>
-      <p class="prices__note reveal">* Стоимость может меняться в&nbsp;зависимости от&nbsp;даты и&nbsp;сезона. Точную цену назову после короткого обсуждения вашего праздника.</p>
+      <p class="prices__note reveal" data-c="pricesNote">* Стоимость может меняться в&nbsp;зависимости от&nbsp;даты и&nbsp;сезона. Точную цену назову после короткого обсуждения вашего праздника.</p>
     </div>
   </section>
 
@@ -473,7 +479,7 @@
         <h2 class="h2 reveal">Остались вопросы?</h2>
         <p class="muted reveal">Здесь ответы на&nbsp;самые частые:</p>
       </div>
-      <div class="faq__list">
+      <div class="faq__list" data-c-faq="faq">
         <details class="faq__item reveal">
           <summary>А если гости не любят конкурсы?<svg><use href="#i-plus"/></svg></summary>
           <p>Отлично — значит, конкурсов не будет. Я строю вечер на живом общении, интерактивах без принуждения и музыкальных номерах. Никто не почувствует себя неловко.</p>
@@ -511,10 +517,10 @@
       <h2 class="h2 h2--light footer__title reveal">Ваш праздник.<br>Моя ответственность.</h2>
       <p class="footer__lead reveal">Расскажите, каким вы хотите видеть свой вечер. Я&nbsp;свяжусь с&nbsp;вами, и&nbsp;вместе подберём формат и&nbsp;детали.</p>
       <div class="socials reveal">
-        <a href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram"><svg><use href="#i-telegram"/></svg></a>
-        <a href="https://vk.com/" target="_blank" rel="noopener" aria-label="ВКонтакте"><svg><use href="#i-vk"/></svg></a>
-        <a href="https://youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><svg><use href="#i-youtube"/></svg></a>
-        <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
+        <a href="https://t.me/" data-c-href="socials.telegram" target="_blank" rel="noopener" aria-label="Telegram"><svg><use href="#i-telegram"/></svg></a>
+        <a href="https://vk.com/" data-c-href="socials.vk" target="_blank" rel="noopener" aria-label="ВКонтакте"><svg><use href="#i-vk"/></svg></a>
+        <a href="https://youtube.com/" data-c-href="socials.youtube" target="_blank" rel="noopener" aria-label="YouTube"><svg><use href="#i-youtube"/></svg></a>
+        <a href="https://instagram.com/" data-c-href="socials.instagram" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
       </div>
     </div>
     <form class="lead reveal" id="leadForm" action="send.php" method="post" novalidate>
@@ -559,6 +565,7 @@
   </div>
 </div>
 
+<script src="js/content.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
