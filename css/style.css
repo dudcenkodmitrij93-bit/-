@@ -137,6 +137,8 @@ svg { flex-shrink: 0; }
 .reel__cap small { font-size: 12.5px; opacity: .75; }
 
 /* ---------- Гость, а не организатор ---------- */
+.reels-sec { padding-bottom: 36px; }
+.guest { padding-top: 48px; }
 .guest__inner { display: grid; grid-template-columns: 1.25fr .75fr; gap: 64px; align-items: stretch; }
 .guest .muted { margin-top: 20px; max-width: 600px; }
 .takes { margin-top: 30px; counter-reset: t; }
@@ -357,6 +359,7 @@ svg { flex-shrink: 0; }
   .hero::after { background: linear-gradient(0deg, rgba(34, 22, 15, .96) 0%, rgba(34, 22, 15, .82) 52%, rgba(34, 22, 15, .6) 66%, rgba(34, 22, 15, .08) 82%, rgba(34, 22, 15, .5) 100%); }
   .hero__inner { padding-top: 250px; padding-bottom: 32px; }
   .eyebrow { font-size: 11.5px; margin-bottom: 12px; }
+  .hero__title { font-size: clamp(28px, 9.4vw, 44px); }
   .hero__text { font-size: 16px; margin-top: 16px; }
   .hero__btns { flex-direction: column; gap: 12px; margin-top: 26px; }
   .hero__btns .btn { width: 100%; min-height: 58px; }
@@ -370,6 +373,8 @@ svg { flex-shrink: 0; }
   .reels { margin-top: 28px; }
   .reel { flex-basis: 62vw; }
 
+  .reels-sec { padding-bottom: 8px; }
+  .guest { padding-top: 20px; }
   .takes li { grid-template-columns: 42px 1fr; }
   .fears { padding: 56px 0; }
   .fears__grid { grid-template-columns: 1fr; margin-top: 28px; }
