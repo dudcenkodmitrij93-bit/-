@@ -44,7 +44,10 @@ $site    = field('site', 30);
 
 // Имя необязательно: в формах второй версии сайта только дата и телефон
 if ($name === '') $name = 'не указано';
-if (strlen(preg_replace('/\D/', '', $phone)) < 10) respond(false, 'Укажите телефон', 422);
+$telegram = ltrim(field('telegram', 40), '@');
+if ($telegram !== '' && !preg_match('/^[A-Za-z0-9_]{4,32}$/', $telegram)) respond(false, 'Проверьте ник в Telegram', 422);
+$hasPhone = strlen(preg_replace('/\D/', '', $phone)) >= 10;
+if (!$hasPhone && $telegram === '') respond(false, 'Укажите телефон или ник в Telegram', 422);
 if (empty($_POST['agree'])) respond(false, 'Нужно согласие на обработку данных', 422);
 
 // Простое ограничение частоты: не чаще 1 заявки в 20 секунд с одного IP
@@ -57,8 +60,9 @@ $lines = [
     '🎉 Новая заявка с сайта',
     '',
     'Имя: ' . $name,
-    'Телефон: ' . $phone,
 ];
+if ($telegram !== '') $lines[] = 'Telegram: @' . $telegram . ' (https://t.me/' . $telegram . ')';
+if ($hasPhone)        $lines[] = 'Телефон: ' . $phone;
 if ($event)   $lines[] = 'Праздник: ' . $event;
 if ($date)    $lines[] = 'Дата: ' . date('d.m.Y', strtotime($date));
 if ($tariff)  $lines[] = 'Тариф: ' . $tariff;

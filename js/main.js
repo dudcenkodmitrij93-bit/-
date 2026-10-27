@@ -177,16 +177,53 @@
   var today = new Date();
   form.date.min = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 
+  // Telegram: можно оставить ник вместо телефона. WhatsApp и звонок: нужен телефон
+  var tg = $('.js-tg', form);
+  var tgField = $('.js-tg-field', form);
+  var tgHint = $('.js-tg-hint', form);
+  var phoneLabel = $('.js-phone-label', form);
+  var isTg = function () { return form.contact.value === 'Telegram'; };
+  var syncContact = function () {
+    tgField.hidden = !isTg();
+    tgHint.hidden = !isTg();
+    phoneLabel.textContent = isTg() ? 'Или телефон' : 'Телефон *';
+    tgField.classList.remove('is-err');
+    phone.closest('.line-field').classList.remove('is-err');
+  };
+  Array.prototype.forEach.call(form.contact, function (r) { r.addEventListener('change', syncContact); });
+  syncContact();
+  tg.addEventListener('input', function () { tgField.classList.remove('is-err'); phone.closest('.line-field').classList.remove('is-err'); });
+  tg.addEventListener('blur', function () {
+    var v = tg.value.trim().replace(/^https?:\/\/t\.me\//i, '').replace(/^@+/, '');
+    tg.value = v ? '@' + v : '';
+  });
+  var tgOk = function () { return /^@?[A-Za-z0-9_]{4,32}$/.test(tg.value.trim()); };
+
   var status = $('.form__status', form);
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     status.textContent = '';
     status.classList.remove('is-err');
     var phoneOk = phone.value.replace(/\D/g, '').length === 11;
-    phone.closest('.line-field').classList.toggle('is-err', !phoneOk);
+    var phoneEmpty = phone.value.replace(/\D/g, '').length <= 1;
+    var ok;
+    if (isTg()) {
+      var tgFilled = tg.value.trim() !== '';
+      var nickOk = !tgFilled || tgOk();
+      ok = (tgFilled && nickOk && (phoneEmpty || phoneOk)) || (!tgFilled && phoneOk);
+      tgField.classList.toggle('is-err', !ok && (tgFilled ? !nickOk : true));
+      phone.closest('.line-field').classList.toggle('is-err', !ok && (!phoneEmpty ? !phoneOk : !tgFilled));
+      if (!ok) {
+        status.textContent = tgFilled && !nickOk ? 'Ник в Telegram: латиница, цифры и _, от 4 символов' : 'Оставьте ник в Telegram или телефон';
+        status.classList.add('is-err');
+      }
+    } else {
+      ok = phoneOk;
+      phone.closest('.line-field').classList.toggle('is-err', !ok);
+      if (!ok) phone.focus();
+    }
     form.agree.closest('.agree').classList.toggle('is-err', !form.agree.checked);
-    if (!phoneOk) { phone.focus(); return; }
-    if (!form.agree.checked) return;
+    if (!ok || !form.agree.checked) return;
 
     form.classList.add('is-loading');
     var req = DEMO

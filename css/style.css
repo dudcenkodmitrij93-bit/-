@@ -268,6 +268,8 @@ svg { flex-shrink: 0; }
 .line-field.is-err input { border-color: #e2725b; }
 .line-field.is-err span { color: #f19a87; }
 .lead__contact { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 22px; }
+.lead__hint { margin: 6px 0 10px; font-size: 13px; color: rgba(244, 239, 232, .55); }
+.js-tg-field[hidden] + .line-field { margin-top: 0; }
 .lead__contact > span { width: 100%; font-size: 12.5px; color: var(--gold-2); margin-bottom: 2px; }
 .chip input { position: absolute; opacity: 0; pointer-events: none; }
 .chip span { display: inline-block; padding: 8px 16px; border: 1px solid rgba(244, 239, 232, .25); border-radius: 40px; font-size: 14px; cursor: pointer; transition: all .2s; }
@@ -349,7 +351,9 @@ svg { flex-shrink: 0; }
 @media (max-width: 768px) {
   :root { --gutter: 20px; --header-h: 68px; }
   .header.is-scrolled { --header-h: 60px; }
-  .section { padding: 56px 0; }
+  .section { padding: 44px 0; }
+  .about { padding-bottom: 32px; }
+  .scenarios { padding-top: 36px; }
   .logo__name { font-size: 15px; }
   .logo__sub { font-size: 12px; }
 
@@ -376,7 +380,7 @@ svg { flex-shrink: 0; }
   .reels-sec { padding-bottom: 8px; }
   .guest { padding-top: 20px; }
   .takes li { grid-template-columns: 42px 1fr; }
-  .fears { padding: 56px 0; }
+  .fears { padding: 44px 0; }
   .fears__grid { grid-template-columns: 1fr; margin-top: 28px; }
   .fear { padding: 20px 0; }
   .fear__q { font-size: 21px; }
@@ -390,7 +394,7 @@ svg { flex-shrink: 0; }
   .scen::-webkit-scrollbar { display: none; }
   .scen__card { flex: 0 0 80vw; scroll-snap-align: start; }
 
-  .steps { padding: 56px 0; }
+  .steps { padding: 44px 0; }
   .steps__list { grid-template-columns: 1fr; gap: 22px; margin-top: 32px; }
   .steps__list li { display: grid; grid-template-columns: 52px 1fr; column-gap: 16px; padding: 0; }
   .steps__list li::before { grid-row: 1 / 3; }

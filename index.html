@@ -528,15 +528,17 @@
       <input type="hidden" name="site" value="основной">
       <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <label class="line-field"><input type="text" name="name" placeholder=" " autocomplete="name"><span>Ваше имя</span></label>
-      <label class="line-field"><input type="tel" name="phone" class="js-phone" placeholder=" " autocomplete="tel"><span>Телефон *</span></label>
-      <label class="line-field line-field--date"><input type="date" name="date" class="js-date"><span>Дата праздника</span></label>
-      <label class="line-field"><input type="text" name="message" placeholder=" "><span>Что за праздник и сколько гостей</span></label>
       <div class="lead__contact">
         <span>Как удобнее связаться</span>
         <label class="chip"><input type="radio" name="contact" value="Telegram" checked><span>Telegram</span></label>
         <label class="chip"><input type="radio" name="contact" value="WhatsApp"><span>WhatsApp</span></label>
         <label class="chip"><input type="radio" name="contact" value="Звонок"><span>Звонок</span></label>
       </div>
+      <label class="line-field js-tg-field"><input type="text" name="telegram" class="js-tg" placeholder=" " autocomplete="off" autocapitalize="off" spellcheck="false"><span>Ник в Telegram, например @evgeniy</span></label>
+      <label class="line-field"><input type="tel" name="phone" class="js-phone" placeholder=" " autocomplete="tel"><span class="js-phone-label">Телефон</span></label>
+      <p class="lead__hint js-tg-hint">Оставьте ник или телефон, напишу вам в Telegram</p>
+      <label class="line-field line-field--date"><input type="date" name="date" class="js-date"><span>Дата праздника</span></label>
+      <label class="line-field"><input type="text" name="message" placeholder=" "><span>Что за праздник и сколько гостей</span></label>
       <label class="agree"><input type="checkbox" name="agree" checked><span>Согласен на&nbsp;обработку персональных данных по&nbsp;<a href="privacy.html" target="_blank">политике конфиденциальности</a></span></label>
       <button type="submit" class="btn btn--gold btn--lg">Обсудить мероприятие <svg class="ico-arrow"><use href="#i-arrow"/></svg></button>
       <p class="form__status" role="status" aria-live="polite"></p>
