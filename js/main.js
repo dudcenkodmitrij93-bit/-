@@ -204,7 +204,7 @@
       .then(function (res) {
         if (!res.ok) throw new Error(res.error || 'send failed');
         form.reset();
-        form.agree.checked = true;
+        form.agree.checked = false;
         syncContact();
         formBody.hidden = true;
         formSuccess.hidden = false;
@@ -341,6 +341,18 @@
         mediaInner.classList.remove('is-portrait');
         openModal(mediaModal);
       });
+    });
+  }
+
+  /* ---------- Уведомление о cookie (для Яндекс Метрики) ---------- */
+  var cookie = $('#cookie');
+  var seen = false;
+  try { seen = localStorage.getItem('cookieOk') === '1'; } catch (e) {}
+  if (cookie && !seen) {
+    cookie.hidden = false;
+    $('button', cookie).addEventListener('click', function () {
+      cookie.hidden = true;
+      try { localStorage.setItem('cookieOk', '1'); } catch (e) {}
     });
   }
 

@@ -589,8 +589,8 @@
           <textarea name="message" rows="3" placeholder="Количество гостей, площадка, пожелания"></textarea>
         </label>
         <label class="agree">
-          <input type="checkbox" name="agree" required checked>
-          <span>Согласен(на) на обработку персональных данных в соответствии с <a href="privacy.html" target="_blank">политикой конфиденциальности</a></span>
+          <input type="checkbox" name="agree" required>
+          <span>Даю <a href="soglasie.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> и&nbsp;соглашаюсь с&nbsp;<a href="privacy.html" target="_blank">политикой конфиденциальности</a></span>
         </label>
         <button type="submit" class="btn btn--gold btn--lg btn--block">Отправить заявку <svg class="ico-arrow"><use href="#i-arrow"/></svg></button>
         <p class="form__status" role="status" aria-live="polite"></p>
@@ -659,6 +659,11 @@
     <button class="modal__close modal__close--light" data-close aria-label="Закрыть"><svg><use href="#i-close"/></svg></button>
     <div class="modal__media-inner" id="mediaInner"></div>
   </div>
+</div>
+
+<div class="cookie" id="cookie" role="region" aria-label="Уведомление о cookie" hidden>
+  <p>Сайт использует файлы cookie и Яндекс Метрику, чтобы становиться удобнее. Подробнее — в&nbsp;<a href="privacy.html" target="_blank">политике конфиденциальности</a>.</p>
+  <button class="btn btn--gold btn--sm">Понятно</button>
 </div>
 
 <script src="js/formats.js"></script>
