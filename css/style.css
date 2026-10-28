@@ -392,7 +392,7 @@ svg { flex-shrink: 0; }
 .fun__photo.is-empty::before { top: 22px; transform: translateX(-50%); }
 
 /* ---------- Как это происходит ---------- */
-.how { padding-top: 20px; padding-bottom: 32px; }
+.how { padding-top: 20px; padding-bottom: 48px; }
 .how__inner { display: grid; grid-template-columns: 1fr 330px; gap: 52px; align-items: center; margin-top: 18px; }
 .how__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
 .thumb { display: block; text-align: center; }
@@ -969,7 +969,6 @@ svg { flex-shrink: 0; }
 .modal--format { grid-template-columns: minmax(0, 1fr); }
 .modal--format .fmt { min-width: 0; max-width: min(1100px, 100%); justify-self: center; }
 .fmt__title { overflow-wrap: anywhere; }
-.footer__cta .btn { margin-top: 22px; }
 @media (max-width: 768px) {
   /* меньше воздуха между блоками */
   .pro { padding-bottom: 8px; }
@@ -985,5 +984,4 @@ svg { flex-shrink: 0; }
   .nums b { font-size: 30px; }
   .nums > div > span { margin: 0; max-width: none; font-size: 14px; line-height: 1.45; }
   .fmt__title { font-size: 26px; }
-  .footer__cta .btn { width: 100%; }
 }
