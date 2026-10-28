@@ -1,0 +1,56 @@
+/* Страница «Обо мне»: те же цвета и шрифты, что на главной */
+.about-page { background: var(--bg); }
+.ab-top { position: sticky; top: 0; z-index: 20; background: rgba(21, 18, 16, .96); color: #fff; }
+.ab-top__in { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 68px; }
+.ab-back { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--gold-2); }
+.ab-back svg { width: 18px; height: 18px; transition: transform .25s; }
+.ab-back:hover svg { transform: translateX(-3px); }
+.ab-top .logo { text-align: right; }
+
+.ab-hero { background: linear-gradient(100deg, #2a1c14 0%, #3d2a1e 55%, #5a3f2b 100%); color: #fff; overflow: hidden; }
+.ab-hero__in { display: grid; grid-template-columns: 1.2fr .8fr; gap: 48px; align-items: center; padding-top: 64px; padding-bottom: 64px; }
+.ab-title { font-family: var(--serif); font-weight: 400; font-size: clamp(36px, 4.6vw, 62px); line-height: 1.05; letter-spacing: -.02em; }
+.ab-lead { margin-top: 22px; max-width: 560px; font-size: 18px; line-height: 1.65; color: rgba(255, 255, 255, .88); }
+.ab-hero__photo { margin: 0; border-radius: 8px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: 0 30px 60px rgba(0, 0, 0, .35); }
+.ab-hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+
+.ab-videos, .ab-bio, .ab-links { padding: 64px 0; }
+.ab-videos__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; }
+.ab-video { margin: 0; }
+.ab-video video, .ab-ph { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 8px; background: #000; }
+.ab-ph { display: grid; place-content: center; justify-items: center; gap: 8px; padding: 20px; text-align: center; background: linear-gradient(160deg, #3a2a20, #1b1411); border: 1.5px dashed rgba(241, 197, 125, .45); color: #fff; }
+.ab-ph svg { width: 44px; height: 44px; padding: 14px; box-sizing: content-box; border-radius: 50%; background: rgba(241, 197, 125, .15); color: var(--gold); }
+.ab-ph b { font-size: 17px; color: var(--gold-2); }
+.ab-ph span { font-size: 14px; color: rgba(255, 255, 255, .6); }
+.ab-video figcaption { margin-top: 12px; font-size: 15px; font-weight: 500; color: var(--text-2); }
+
+.ab-bio { background: var(--bg-tile); }
+.ab-bio__in { display: grid; grid-template-columns: 340px 1fr; gap: 56px; align-items: start; }
+.ab-bio__text p { font-size: 17px; line-height: 1.8; color: var(--text-2); }
+.ab-bio__text p + p { margin-top: 16px; }
+
+.ab-links__sub { margin-top: 10px; color: var(--muted); }
+.ab-links__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+.ab-link { position: relative; display: grid; gap: 6px; padding: 24px 56px 24px 24px; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--line); transition: border-color .25s, transform .25s, box-shadow .25s; }
+.ab-link:hover { border-color: var(--gold-ring); transform: translateY(-3px); box-shadow: 0 14px 30px rgba(40, 28, 18, .1); }
+.ab-link__name { font-family: var(--serif); font-size: 24px; }
+.ab-link__desc { font-size: 14.5px; color: var(--muted); }
+.ab-link svg { position: absolute; top: 24px; right: 22px; width: 22px; height: 22px; color: var(--gold-deep); }
+.ab-link.is-empty { border-style: dashed; cursor: default; }
+.ab-link.is-empty:hover { transform: none; box-shadow: none; }
+.ab-link.is-empty::after { content: "Ссылка появится"; justify-self: start; margin-top: 6px; padding: 3px 10px; border-radius: 4px; background: var(--bg-tile); font-size: 12px; font-weight: 600; color: var(--muted); }
+
+.ab-cta { background: var(--dark); color: #fff; }
+.ab-cta__in { padding-top: 64px; padding-bottom: 72px; display: grid; gap: 28px; }
+.ab-cta__btns { display: flex; flex-wrap: wrap; gap: 16px; }
+
+@media (max-width: 900px) {
+  .ab-hero__in { grid-template-columns: 1fr; gap: 32px; padding-top: 40px; padding-bottom: 48px; }
+  .ab-hero__photo { aspect-ratio: 4 / 3; }
+  .ab-videos__grid, .ab-links__grid { grid-template-columns: 1fr; }
+  .ab-bio__in { grid-template-columns: 1fr; gap: 20px; }
+  .ab-videos, .ab-bio, .ab-links { padding: 44px 0; }
+  .ab-lead { font-size: 16px; }
+  .ab-cta__btns .btn { width: 100%; }
+}
+@media (max-width: 480px) { .ab-top .logo__sub { display: none; } }
