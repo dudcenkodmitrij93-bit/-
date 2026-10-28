@@ -106,11 +106,16 @@
       openModal(formModal);
     });
   });
-  // Переход со страницы «Обо мне» по кнопке «Обсудить мероприятие»
-  if (location.hash === '#zayavka') {
-    history.replaceState(null, '', location.pathname);
-    openModal(formModal);
-  }
+  /* ---------- Окно «Обо мне» ---------- */
+  var aboutModal = $('#aboutModal');
+  $$('[data-open-about]').forEach(function (btn) {
+    btn.addEventListener('click', function () { openModal(aboutModal); });
+  });
+  // Пустые ссылки пока не кликаются
+  $$('.about__link.is-empty').forEach(function (a) {
+    a.setAttribute('aria-disabled', 'true');
+    a.addEventListener('click', function (e) { e.preventDefault(); });
+  });
 
   // Маска телефона +7 (XXX) XXX-XX-XX
   var phone = form.phone;

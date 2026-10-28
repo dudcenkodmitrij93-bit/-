@@ -923,3 +923,67 @@ svg { flex-shrink: 0; }
   .how__more .btn { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { .marquee__track, .btn--gold::after { animation: none; } }
+
+/* ---------- Окно «Обо мне» ---------- */
+.modal--about { place-items: start center; overflow-y: auto; padding: 40px 20px; }
+.about { position: relative; width: 100%; max-width: 760px; padding: 40px; border-radius: 8px; background: var(--bg); animation: pop .3s; }
+.about .modal__close { top: 14px; right: 14px; }
+.about__head { display: grid; grid-template-columns: 150px 1fr; gap: 26px; align-items: center; padding-right: 30px; }
+.about__photo { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; object-position: 50% 18%; }
+.about__title { font-family: var(--serif); font-weight: 400; font-size: 36px; line-height: 1.1; }
+.about__lead { margin-top: 10px; font-size: 15px; line-height: 1.6; color: var(--text-2); }
+.about__text { margin-top: 26px; }
+.about__text p { font-size: 15.5px; line-height: 1.75; color: var(--text-2); }
+.about__text p + p { margin-top: 12px; }
+.about__videos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+.about__videos figure { margin: 0; }
+.about__videos video, .about__ph { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; background: #000; }
+.about__ph { display: grid; place-content: center; justify-items: center; gap: 6px; padding: 14px; text-align: center; background: linear-gradient(160deg, #3a2a20, #1b1411); border: 1.5px dashed rgba(241, 197, 125, .45); }
+.about__ph svg { width: 34px; height: 34px; padding: 11px; box-sizing: content-box; border-radius: 50%; background: rgba(241, 197, 125, .15); color: var(--gold); }
+.about__ph b { font-size: 15px; color: var(--gold-2); }
+.about__ph span { font-size: 12.5px; color: rgba(255, 255, 255, .6); }
+.about__videos figcaption { margin-top: 8px; font-size: 14px; font-weight: 500; color: var(--text-2); }
+.about__more { margin-top: 28px; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-deep); }
+.about__links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+.about__link { position: relative; display: grid; gap: 2px; padding: 14px 40px 14px 16px; border-radius: 6px; background: var(--bg-card); border: 1px solid var(--line); transition: border-color .25s; }
+.about__link:hover { border-color: var(--gold-ring); }
+.about__link span { font-weight: 600; font-size: 15px; }
+.about__link small { font-size: 12.5px; color: var(--muted); }
+.about__link svg { position: absolute; top: 15px; right: 14px; width: 18px; height: 18px; color: var(--gold-deep); }
+.about__link.is-empty { border-style: dashed; cursor: default; }
+.about__link.is-empty small::after { content: " · ссылка появится"; }
+.about__cta { margin-top: 28px; }
+@media (max-width: 640px) {
+  .modal--about { padding: 0; }
+  .about { min-height: 100%; max-width: none; padding: 28px 20px 24px; border-radius: 0; }
+  .about__head { grid-template-columns: 84px 1fr; gap: 16px; padding-right: 36px; }
+  .about__photo { width: 84px; height: 84px; }
+  .about__title { font-size: 26px; }
+  .about__lead { font-size: 14px; }
+  .about__videos, .about__links { grid-template-columns: 1fr; }
+}
+
+/* ---------- Правки композиции ---------- */
+.pro__text, .fun__text { min-width: 0; }
+/* окно форматов не должно растягиваться шире экрана */
+.modal--format { grid-template-columns: minmax(0, 1fr); }
+.modal--format .fmt { min-width: 0; max-width: min(1100px, 100%); justify-self: center; }
+.fmt__title { overflow-wrap: anywhere; }
+.footer__cta .btn { margin-top: 22px; }
+@media (max-width: 768px) {
+  /* меньше воздуха между блоками */
+  .pro { padding-bottom: 8px; }
+  .fun { padding-top: 24px; padding-bottom: 4px; }
+  .how { padding-top: 32px; }
+  /* навыки: значок и подпись слева, ровными колонками */
+  .skills { gap: 20px 16px; }
+  .skills li { flex-direction: row; align-items: center; text-align: left; gap: 12px; font-size: 14.5px; }
+  .skills svg { flex: none; width: 36px; height: 36px; }
+  /* цифры: строками, число слева, пояснение справа */
+  .nums { grid-template-columns: 1fr; gap: 0; margin-bottom: 24px; border-top: 1px solid var(--line); }
+  .nums > div { display: grid; grid-template-columns: 112px 1fr; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .nums b { font-size: 30px; }
+  .nums > div > span { margin: 0; max-width: none; font-size: 14px; line-height: 1.45; }
+  .fmt__title { font-size: 26px; }
+  .footer__cta .btn { width: 100%; }
+}
