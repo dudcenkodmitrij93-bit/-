@@ -974,6 +974,8 @@ svg { flex-shrink: 0; }
   .pro { padding-bottom: 8px; }
   .fun { padding-top: 24px; padding-bottom: 4px; }
   .how { padding-top: 32px; }
+  .prices { padding-bottom: 8px; }
+  .faq { padding-top: 28px; }
   /* навыки: значок и подпись слева, ровными колонками */
   .skills { gap: 20px 16px; }
   .skills li { flex-direction: row; align-items: center; text-align: left; gap: 12px; font-size: 14.5px; }
