@@ -1,13 +1,15 @@
 <?php
 /**
  * Обработчик заявок с сайта.
- * Отправляет заявку в Telegram и/или на e-mail.
+ * Отправляет заявку в Telegram, ВКонтакте и/или на e-mail (можно включить любые сразу).
  * Заполните настройки ниже (или задайте переменные окружения на хостинге).
  */
 
 // ===== НАСТРОЙКИ =====
 $TELEGRAM_BOT_TOKEN = getenv('TG_BOT_TOKEN') ?: '';   // токен бота от @BotFather
 $TELEGRAM_CHAT_ID   = getenv('TG_CHAT_ID') ?: '';     // ваш chat_id (узнать: @userinfobot)
+$VK_GROUP_TOKEN     = getenv('VK_GROUP_TOKEN') ?: ''; // ключ доступа сообщества ВК с правом «Сообщения сообщества»
+$VK_USER_ID         = getenv('VK_USER_ID') ?: '';     // числовой id страницы ВК, куда присылать заявки
 $MAIL_TO            = getenv('MAIL_TO') ?: '';        // e-mail для заявок, напр. info@example.ru
 $MAIL_FROM          = getenv('MAIL_FROM') ?: 'no-reply@' . ($_SERVER['HTTP_HOST'] ?? 'localhost');
 // =====================
@@ -87,6 +89,28 @@ if ($TELEGRAM_BOT_TOKEN && $TELEGRAM_CHAT_ID) {
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
     if ($res !== false && $code === 200) $sent = true;
+}
+
+// ВКонтакте: сообщение от имени сообщества. Получатель должен один раз написать сообществу,
+// иначе ВК не разрешит сообществу присылать ему сообщения.
+if ($VK_GROUP_TOKEN && $VK_USER_ID) {
+    $ch = curl_init('https://api.vk.com/method/messages.send');
+    curl_setopt_array($ch, [
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => [
+            'access_token' => $VK_GROUP_TOKEN,
+            'v'            => '5.199',
+            'peer_id'      => $VK_USER_ID,
+            'random_id'    => random_int(1, PHP_INT_MAX),
+            'message'      => $text,
+        ],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 10,
+    ]);
+    $res = curl_exec($ch);
+    curl_close($ch);
+    $json = $res !== false ? json_decode($res, true) : null;
+    if (isset($json['response'])) $sent = true;
 }
 
 if ($MAIL_TO) {
