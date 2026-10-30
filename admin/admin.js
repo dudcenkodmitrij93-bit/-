@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  // В превью на claude.ai сервера нет: всё работает в демо-режиме и никуда не сохраняется
+  // В превью без сервера всё работает в демо-режиме и никуда не сохраняется
   var DEMO = !!window.ADMIN_DEMO;
   var API = 'api.php';
   var SITE = window.ADMIN_SITE || '../';
