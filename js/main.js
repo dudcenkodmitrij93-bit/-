@@ -329,20 +329,84 @@
   });
   $$('[data-close]', fModal).forEach(function (b) { b.addEventListener('click', stopAll); });
 
-  /* ---------- Живая карусель атмосферы ---------- */
+  /* ---------- Живая карусель атмосферы: едет сама, листается пальцем ---------- */
   var atmo = $('.js-atmo');
   if (atmo) {
+    var atmoView = atmo.parentElement;
+    var count = atmo.children.length;
     // Дублируем ленту, чтобы она крутилась без разрыва
     atmo.innerHTML += atmo.innerHTML;
     $$('[data-photo]', atmo).forEach(function (btn, i) {
-      if (i >= atmo.children.length / 2) btn.setAttribute('aria-hidden', 'true'), btn.tabIndex = -1;
+      if (i >= count / 2) btn.setAttribute('aria-hidden', 'true'), btn.tabIndex = -1;
       btn.addEventListener('click', function () {
         mediaInner.innerHTML = '<img src="' + btn.getAttribute('data-photo') + '" alt="">';
         mediaInner.classList.remove('is-portrait');
         openModal(mediaModal);
       });
     });
+    var loopW = function () { return atmo.children[count].offsetLeft - atmo.children[0].offsetLeft; };
+    var atmoVisible = false, atmoHold = 0, atmoPos = 0;
+    var holdAtmo = function () { atmoHold = Date.now() + 2500; };
+    ['pointerdown', 'touchstart', 'wheel'].forEach(function (ev) { atmoView.addEventListener(ev, holdAtmo, { passive: true }); });
+    atmoView.addEventListener('mouseenter', function () { atmoHold = Infinity; });
+    atmoView.addEventListener('mouseleave', holdAtmo);
+    atmoView.addEventListener('scroll', function () {
+      var w = loopW();
+      if (atmoView.scrollLeft >= w) atmoView.scrollLeft -= w;
+      else if (atmoView.scrollLeft <= 0) atmoView.scrollLeft += w;
+      atmoPos = atmoView.scrollLeft;
+    }, { passive: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { atmoVisible = es[0].isIntersecting; }).observe(atmoView);
+    } else atmoVisible = true;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var lastT = 0;
+    var tick = function (t) {
+      var dt = lastT ? Math.min(t - lastT, 50) : 0;
+      lastT = t;
+      if (atmoVisible && !reduce && Date.now() > atmoHold) {
+        atmoPos += dt * 0.04; // около 40 px в секунду
+        atmoView.scrollLeft = atmoPos;
+      }
+      requestAnimationFrame(tick);
+    };
+    atmoView.scrollLeft = atmoPos = 1;
+    requestAnimationFrame(tick);
   }
+
+  /* ---------- Альбом фото: листается пальцем, стрелками и сам ---------- */
+  $$('.js-album').forEach(function (album) {
+    var track = $('.album__track', album);
+    var slides = $$('.album__slide', track);
+    var dots = $('.album__dots', album);
+    slides.forEach(function (sl, i) {
+      var d = document.createElement('button');
+      d.setAttribute('aria-label', 'Фото ' + (i + 1));
+      d.addEventListener('click', function () { go(i); hold(); });
+      dots.appendChild(d);
+    });
+    var current = function () { return Math.round(track.scrollLeft / track.clientWidth); };
+    var go = function (i) {
+      i = (i + slides.length) % slides.length;
+      track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+    };
+    var mark = function () {
+      var c = current();
+      $$('button', dots).forEach(function (d, i) { d.classList.toggle('is-active', i === c); });
+    };
+    track.addEventListener('scroll', mark, { passive: true });
+    mark();
+    var holdUntil = 0;
+    var hold = function () { holdUntil = Date.now() + 6000; };
+    $('.album__nav--prev', album).addEventListener('click', function () { go(current() - 1); hold(); });
+    $('.album__nav--next', album).addEventListener('click', function () { go(current() + 1); hold(); });
+    ['pointerdown', 'touchstart', 'wheel'].forEach(function (ev) { track.addEventListener(ev, hold, { passive: true }); });
+    var visible = false;
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(album);
+    setInterval(function () {
+      if (visible && Date.now() > holdUntil && !document.hidden) go(current() + 1);
+    }, 4000);
+  });
 
   /* ---------- Уведомление о cookie (для Яндекс Метрики) ---------- */
   var cookie = $('#cookie');

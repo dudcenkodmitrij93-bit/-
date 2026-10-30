@@ -781,7 +781,6 @@ svg { flex-shrink: 0; }
   .formats__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .atmo { margin-top: 32px; }
   .atmo__item { width: 190px; height: 250px; }
-  .atmo__track { animation-duration: 45s; }
   .fmt { padding: 22px 0 20px; }
   .fmt__title { font-size: 28px; padding: 0 20px; }
   .fmt .eyebrow { padding: 0 20px; }
@@ -836,9 +835,7 @@ svg { flex-shrink: 0; }
 .atmo { margin-top: 44px; }
 .atmo__label { font-family: var(--serif); font-size: 26px; line-height: 1.2; margin-bottom: 18px; }
 .atmo__viewport { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
-.atmo__track { display: flex; gap: 16px; width: max-content; padding: 10px 0 14px; animation: atmo 60s linear infinite; }
-.atmo__viewport:hover .atmo__track { animation-play-state: paused; }
-@keyframes atmo { to { transform: translateX(-50%); } }
+.atmo__track { display: flex; gap: 16px; width: max-content; padding: 10px 0 14px; }
 .atmo__item { position: relative; flex: 0 0 auto; width: 260px; height: 330px; border-radius: 6px; overflow: hidden; background: #2a201a; box-shadow: 0 10px 26px rgba(40, 28, 18, .14); transition: transform .5s cubic-bezier(.2, .8, .2, 1), box-shadow .5s; }
 .atmo__item:nth-child(odd) { transform: translateY(8px) rotate(-1deg); }
 .atmo__item:nth-child(even) { transform: translateY(-4px) rotate(1deg); }
@@ -877,7 +874,7 @@ svg { flex-shrink: 0; }
 .fmt__cta { display: flex; width: max-content; margin: 22px auto 0; }
 .fmt .modal__close--light { top: 22px; right: 22px; }
 
-@media (prefers-reduced-motion: reduce) { .atmo__track, .atmo__item img { animation: none; } .atmo__viewport { overflow-x: auto; } }
+@media (prefers-reduced-motion: reduce) { .atmo__item img { animation: none; } }
 
 /* ---------- Из второй версии: бегущая строка, рилсы, цифры, блик ---------- */
 .marquee { overflow: hidden; background: var(--dark); color: var(--gold-2); padding: 16px 0; border-top: 1px solid rgba(241, 197, 125, .2); }
@@ -994,3 +991,68 @@ svg { flex-shrink: 0; }
 .cookie a { color: var(--gold-2); text-decoration: underline; }
 .cookie .btn { flex: none; }
 @media (max-width: 560px) { .cookie { left: 12px; right: 12px; bottom: 12px; max-width: none; } }
+
+/* ---------- Атмосфера: отдельный блок, листается пальцем ---------- */
+.atmo-sec .atmo { margin-top: 0; }
+.atmo__sub { margin-top: 8px; margin-bottom: 18px; font-size: 15px; color: var(--muted); }
+.atmo__viewport { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; cursor: grab; }
+.atmo__viewport::-webkit-scrollbar { display: none; }
+
+/* ---------- Альбом «Настоящие эмоции» ---------- */
+.album { position: relative; aspect-ratio: 16 / 9.4; border-radius: 4px; overflow: hidden; background: #2a201a; }
+.album__track { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.album__track::-webkit-scrollbar { display: none; }
+.album__slide { flex: 0 0 100%; height: 100%; scroll-snap-align: start; position: relative; }
+.album__slide img { width: 100%; height: 100%; object-fit: cover; }
+.album__slide--ph { display: grid; place-items: center; background: repeating-linear-gradient(135deg, #efe8de 0 14px, #e8dfd3 14px 28px); }
+.album__slide--ph span { padding: 6px 12px; border-radius: 4px; background: rgba(255, 255, 255, .85); font-size: 13px; font-weight: 600; color: #8a7a68; }
+.album::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0, 0, 0, .55), transparent 45%); pointer-events: none; }
+.album__cap { position: absolute; z-index: 2; left: 22px; bottom: 22px; margin: 0; color: #fff; font-weight: 600; font-size: 16px; line-height: 1.4; pointer-events: none; }
+.album__nav { position: absolute; z-index: 3; top: 50%; width: 40px; height: 40px; margin-top: -20px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, .88); color: var(--text); box-shadow: 0 6px 16px rgba(0, 0, 0, .18); transition: transform .2s, background-color .2s; }
+.album__nav:hover { transform: scale(1.08); background: var(--gold); }
+.album__nav svg { width: 18px; height: 18px; }
+.album__nav--prev { left: 12px; }
+.album__nav--prev svg { transform: rotate(180deg); }
+.album__nav--next { right: 12px; }
+.album__dots { position: absolute; z-index: 3; right: 18px; bottom: 22px; display: flex; gap: 6px; }
+.album__dots button { width: 8px; height: 8px; padding: 0; border-radius: 50%; background: rgba(255, 255, 255, .5); transition: width .25s, background-color .25s; }
+.album__dots button.is-active { width: 22px; border-radius: 4px; background: var(--gold); }
+
+/* ---------- Плитки форматов: видно, что на них можно нажать ---------- */
+.format { position: relative; border: 1px solid var(--line); background: #fff; box-shadow: 0 6px 18px rgba(40, 30, 20, .06); }
+.format svg { color: var(--gold-deep); }
+.format span { font-weight: 600; color: var(--text); }
+.format__cta { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px 5px 9px; border-radius: 999px; background: linear-gradient(135deg, #f6d9a5, #e8b96c); color: #3a2a17; font-style: normal; font-size: 12px; font-weight: 600; line-height: 1; }
+.format .format__cta svg { width: 10px; height: 10px; color: currentColor; }
+.format:hover { border-color: var(--gold-ring); box-shadow: 0 14px 30px rgba(40, 30, 20, .14); }
+.format:hover .format__cta { background: var(--dark); color: var(--gold-2); }
+.format::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; border: 2px solid var(--gold); opacity: 0; pointer-events: none; }
+.formats__grid.is-visible .format::after { animation: fmt-hint 2.4s ease-out 1; }
+.format:nth-child(2)::after { animation-delay: .15s !important; }
+.format:nth-child(3)::after { animation-delay: .3s !important; }
+.format:nth-child(4)::after { animation-delay: .45s !important; }
+.format:nth-child(5)::after { animation-delay: .6s !important; }
+.format:nth-child(6)::after { animation-delay: .75s !important; }
+@keyframes fmt-hint { 0% { opacity: 0; transform: scale(1); } 25% { opacity: .9; } 100% { opacity: 0; transform: scale(1.06); } }
+@media (prefers-reduced-motion: reduce) { .format::after { animation: none !important; } }
+
+/* ---------- «Обо мне»: рассказ Евгения ---------- */
+.about__videos { margin-top: 24px; }
+.about__text h4 { margin: 26px 0 10px; font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1.25; color: var(--text); }
+.about__text ul, .about__text ol { margin: 8px 0 12px; padding-left: 22px; }
+.about__text ul { list-style: disc; }
+.about__text ol { list-style: decimal; }
+.about__text li { margin-bottom: 8px; font-size: 15.5px; line-height: 1.65; color: var(--text-2); }
+.about__text li::marker { color: var(--gold-deep); }
+.about__gift { margin-top: 12px; padding: 12px 16px; border-radius: 6px; background: #f6ecdc; }
+.about__quote { font-family: var(--serif); font-size: 19px !important; font-style: italic; color: var(--gold-deep) !important; }
+.about__links { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 640px) {
+  .about__text h4 { font-size: 20px; }
+  .about__links { grid-template-columns: 1fr; }
+}
+.atmo-sec { padding-top: 24px; padding-bottom: 36px; }
+@media (max-width: 768px) {
+  .guest { padding-bottom: 8px; }
+  .atmo-sec { padding-top: 36px; padding-bottom: 32px; }
+}
