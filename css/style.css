@@ -1022,10 +1022,7 @@ svg { flex-shrink: 0; }
 .format { position: relative; border: 1px solid var(--line); background: #fff; box-shadow: 0 6px 18px rgba(40, 30, 20, .06); }
 .format svg { color: var(--gold-deep); }
 .format span { font-weight: 600; color: var(--text); }
-.format__cta { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px 5px 9px; border-radius: 999px; background: linear-gradient(135deg, #f6d9a5, #e8b96c); color: #3a2a17; font-style: normal; font-size: 12px; font-weight: 600; line-height: 1; }
-.format .format__cta svg { width: 10px; height: 10px; color: currentColor; }
 .format:hover { border-color: var(--gold-ring); box-shadow: 0 14px 30px rgba(40, 30, 20, .14); }
-.format:hover .format__cta { background: var(--dark); color: var(--gold-2); }
 .format::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; border: 2px solid var(--gold); opacity: 0; pointer-events: none; }
 .formats__grid.is-visible .format::after { animation: fmt-hint 2.4s ease-out 1; }
 .format:nth-child(2)::after { animation-delay: .15s !important; }
