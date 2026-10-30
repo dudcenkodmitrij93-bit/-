@@ -392,7 +392,7 @@ svg { flex-shrink: 0; }
 .fun__photo.is-empty::before { top: 22px; transform: translateX(-50%); }
 
 /* ---------- Как это происходит ---------- */
-.how { padding-top: 20px; padding-bottom: 48px; }
+.how { padding-top: 44px; padding-bottom: 48px; }
 .how__inner { display: grid; grid-template-columns: 1fr 330px; gap: 52px; align-items: center; margin-top: 18px; }
 .how__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
 .thumb { display: block; text-align: center; }
@@ -970,7 +970,7 @@ svg { flex-shrink: 0; }
   /* меньше воздуха между блоками */
   .pro { padding-bottom: 8px; }
   .fun { padding-top: 24px; padding-bottom: 4px; }
-  .how { padding-top: 32px; }
+  .how { padding-top: 36px; }
   .prices { padding-bottom: 8px; }
   .faq { padding-top: 28px; }
   /* навыки: значок и подпись слева, ровными колонками */
