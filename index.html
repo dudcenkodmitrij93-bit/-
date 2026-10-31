@@ -205,7 +205,7 @@
       <a href="#services">Услуги</a>
       <a href="#formats">Форматы</a>
       <a href="#video">Видео</a>
-      <a href="#moments">Отзывы</a>
+      <a href="#reviews">Отзывы</a>
       <a href="#contacts">Контакты</a>
       <button class="btn btn--gold nav__cta" data-open-form>Обсудить мероприятие</button>
     </nav>
@@ -299,12 +299,12 @@
       <h2 class="h2">Какой праздник вы планируете?</h2>
       <p class="formats__sub">Нажмите на формат, чтобы посмотреть, как я его провожу</p>
       <div class="formats__grid">
-        <button class="format" data-format="Свадьба"><svg><use href="#i-rings"/></svg><span>Свадьба</span></button>
-        <button class="format" data-format="Юбилей"><svg><use href="#i-cake"/></svg><span>Юбилей</span></button>
-        <button class="format" data-format="Корпоратив"><svg><use href="#i-people"/></svg><span>Корпоратив</span></button>
-        <button class="format" data-format="Выпускной"><svg><use href="#i-grad"/></svg><span>Выпускной</span></button>
-        <button class="format" data-format="Городское событие"><svg><use href="#i-bars"/></svg><span>Городское событие</span></button>
-        <button class="format" data-format="Специальное мероприятие"><svg><use href="#i-star"/></svg><span>Специальное мероприятие</span></button>
+        <button class="format" data-format="Свадьба"><svg><use href="#i-rings"/></svg><span>Свадьба</span><i class="format__go" aria-hidden="true"><svg><use href="#i-play"/></svg></i></button>
+        <button class="format" data-format="Юбилей"><svg><use href="#i-cake"/></svg><span>Юбилей</span><i class="format__go" aria-hidden="true"><svg><use href="#i-play"/></svg></i></button>
+        <button class="format" data-format="Корпоратив"><svg><use href="#i-people"/></svg><span>Корпоратив</span><i class="format__go" aria-hidden="true"><svg><use href="#i-play"/></svg></i></button>
+        <button class="format" data-format="Выпускной"><svg><use href="#i-grad"/></svg><span>Выпускной</span><i class="format__go" aria-hidden="true"><svg><use href="#i-play"/></svg></i></button>
+        <button class="format" data-format="Городское событие"><svg><use href="#i-bars"/></svg><span>Городское событие</span><i class="format__go" aria-hidden="true"><svg><use href="#i-play"/></svg></i></button>
+        <button class="format" data-format="Специальное мероприятие"><svg><use href="#i-star"/></svg><span>Специальное мероприятие</span><i class="format__go" aria-hidden="true"><svg><use href="#i-play"/></svg></i></button>
       </div>
     </div>
   </section>
@@ -411,6 +411,24 @@
         <button class="moment media" data-photo="img/moment-2.jpg" data-label="Фото 2"><img src="img/moment-2.jpg" alt="Ведущий Евгений Глуховский с гостями на дне рождения" loading="lazy"></button>
         <button class="moment media" data-photo="img/moment-3.jpg" data-label="Фото 3"><img src="img/moment-3.jpg" alt="Первый танец жениха и невесты на свадьбе" loading="lazy"></button>
         <button class="moment media" data-photo="img/moment-4.jpg" data-label="Фото 4"><img src="img/moment-4.jpg" alt="Весёлый конкурс с гостями в сомбреро" loading="lazy"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ОТЗЫВЫ ===================== -->
+  <!-- Места под настоящие отзывы. Скриншот: замените div на <button class="review review--shot" data-photo="img/review-shot-1.jpg"><img src="img/review-shot-1.jpg" alt="Отзыв: имя, праздник" loading="lazy"><small>Имя, праздник</small></button> -->
+  <section class="section reviews-sec" id="reviews">
+    <div class="container">
+      <h2 class="h2">Что говорят пары и&nbsp;юбиляры после праздника</h2>
+      <p class="reviews__sub">Видеоотзывы и&nbsp;скриншоты переписок с&nbsp;гостями</p>
+      <div class="reviews">
+        <!-- Чтобы поставить видеоотзыв: замените div на <button class="review review--video" data-video="video/review-1.mp4" data-portrait><video muted loop playsinline preload="none" poster="img/review-1.jpg" data-src="video/review-1.mp4"></video><span class="reel__play"><svg><use href="#i-play"/></svg></span></button> -->
+        <div class="review review--video review--ph"><span class="review__play"><svg><use href="#i-play"/></svg></span><b>Видеоотзыв 1</b><small>Имя, праздник</small></div>
+        <div class="review review--shot review--ph"><span class="review__ico"><svg><use href="#i-doc"/></svg></span><b>Скриншот отзыва 1</b><small>Имя, праздник</small></div>
+        <!-- Чтобы поставить видеоотзыв: замените div на <button class="review review--video" data-video="video/review-2.mp4" data-portrait><video muted loop playsinline preload="none" poster="img/review-2.jpg" data-src="video/review-2.mp4"></video><span class="reel__play"><svg><use href="#i-play"/></svg></span></button> -->
+        <div class="review review--video review--ph"><span class="review__play"><svg><use href="#i-play"/></svg></span><b>Видеоотзыв 2</b><small>Имя, праздник</small></div>
+        <div class="review review--shot review--ph"><span class="review__ico"><svg><use href="#i-doc"/></svg></span><b>Скриншот отзыва 2</b><small>Имя, праздник</small></div>
+        <div class="review review--shot review--ph"><span class="review__ico"><svg><use href="#i-doc"/></svg></span><b>Скриншот отзыва 3</b><small>Имя, праздник</small></div>
       </div>
     </div>
   </section>
