@@ -91,7 +91,7 @@ scene("s01", f'''
 tw("#s01-a", {"opacity": 1}, {"opacity": 1, "duration": 0.01}, 0)
 pop("#s01-k", 0.2)
 slam("#s01-b", 5.00)
-tw("#s01-b", {"x": -14}, {"x": 0, "duration": 0.25, "ease": "rough({strength: 3, points: 12, randomize: false})"}, 5.05)
+tw("#s01-b", {"x": -18}, {"x": 0, "duration": 0.3, "ease": "elastic.out(1.2, 0.2)"}, 5.05)
 pop("#s01-c", 5.30)
 sfx("glitch-1", 0.05, 0.5)
 sfx("impact-bass-1", 5.01, 0.9)
@@ -115,7 +115,7 @@ sfx("whoosh-short", 9.12, 0.5)
 # ---------- S03 now: me + AI ----------
 scene("s03", f'''
 <div class="kicker mono teal" id="s03-k">// сейчас</div>
-<div class="huge" id="s03-a">СЕЙЧАС</div>
+<div class="huge" id="s03-a" data-layout-ignore>СЕЙЧАС</div>
 <div class="eq">
   <div class="eqrow" id="s03-b"><span class="big">1 ЧЕЛОВЕК</span></div>
   <div class="eqrow" id="s03-c"><span class="big teal">+ ИИ</span></div>
@@ -284,16 +284,16 @@ glyphs = "01{}/;=()abcdefgконстсайт"
 cols = ""
 for c in range(14):
     txt = "<br>".join("".join(rnd.choice(glyphs) for _ in range(rnd.randint(2, 5))) for _ in range(26))
-    cols += f'<div class="rc mono" id="s13-r{c}" style="left:{c * 78}px">{txt}</div>'
+    cols += f'<div class="rc mono" data-layout-ignore id="s13-r{c}" style="left:{c * 78}px">{txt}</div>'
 scene("s13", f'''
-<div class="rain">{cols}</div>
+<div class="rain" data-layout-ignore>{cols}</div>
 <h1 class="t1" id="s13-a">КСТАТИ,<br>ЭТОТ РОЛИК —</h1>
 <div class="huge teal" id="s13-b">ТОЖЕ САЙТ</div>
-<div class="zero"><b id="s13-z">0</b><span class="mono">кадров в монтаже</span></div>
+<div class="zero" id="s13-zw"><b id="s13-z">0</b><span class="mono">кадров в монтаже</span></div>
 <div class="tag2 mono" id="s13-c">&lt;только код /&gt;</div>''')
 pop("#s13-a", 50.62)
 slam("#s13-b", 51.58)
-pop("#s13-z", 52.4)
+pop("#s13-zw", 52.4)
 for c in range(14):
     tw(f"#s13-r{c}", {"y": -900 - (c * 137) % 400}, {"y": 200, "duration": 5.3, "ease": "none"}, 50.55)
 tw(".rain", {"opacity": 0}, {"opacity": 0.22, "duration": 0.6}, 52.4)
@@ -350,8 +350,7 @@ page = f'''<!doctype html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=1080, height=1920" />
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/EasePack.min.js"></script>
+<script src="assets/gsap.min.js"></script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
 html,body{{width:1080px;height:1920px;overflow:hidden;background:{DARK}}}
