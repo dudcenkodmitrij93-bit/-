@@ -65,8 +65,9 @@ SFX_N = [0]
 def sfx(name, at, vol=0.8):
     SFX_N[0] += 1
     d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", f"assets/sfx/{name}.mp3"], capture_output=True, text=True).stdout)
-    d = min(d, DUR - at)
-    audio.append(f'<audio id="fx{SFX_N[0]:02d}" class="clip" src="assets/sfx/{name}.mp3" data-start="{T(at)}" data-duration="{d:.3f}" data-track-index="{3 + SFX_N[0]}" data-volume="{vol}"></audio>')
+    d = min(d, 0.6 if name.startswith("impact") else 1.5, DUR - at)  # short hits only: long tails read as noise under the voice
+    vol = min(vol, 0.55) if name.startswith("impact") else vol
+    audio.append(f'<audio id="fx{SFX_N[0]:02d}" class="clip" src="assets/sfx/{name}.mp3" data-start="{T(at)}" data-duration="{d:.3f}" data-fade-out="0.3" data-track-index="{3 + SFX_N[0]}" data-volume="{vol}"></audio>')
 
 
 def scene(sid, inner):
@@ -93,7 +94,6 @@ pop("#s01-k", 0.2)
 slam("#s01-b", 5.00)
 tw("#s01-b", {"x": -18}, {"x": 0, "duration": 0.3, "ease": "elastic.out(1.2, 0.2)"}, 5.05)
 pop("#s01-c", 5.30)
-sfx("glitch-1", 0.05, 0.5)
 sfx("impact-bass-1", 5.01, 0.9)
 
 # ---------- S02 the team ----------
@@ -248,7 +248,6 @@ pop("#s10-a", 37.86)
 tw("#s10-s", {"scaleX": 0}, {"scaleX": 1, "duration": 0.3, "ease": "power3.out"}, 39.80)
 slam("#s10-b", 39.96)
 sfx("whoosh-short", 37.8, 0.5)
-sfx("error", 39.8, 0.35)
 sfx("impact-bass-1", 39.97, 0.8)
 
 # ---------- S11 nuance ----------
@@ -258,9 +257,7 @@ scene("s11", '''
 pop("#s11-a", 41.24)
 tw("#s11-a .hl", {"scale": 0.6, "opacity": 0}, {"scale": 1, "opacity": 1, "duration": 0.3, "ease": "back.out(3)"}, 42.4)
 slam("#s11-b", 43.02)
-sfx("glitch-2", 41.2, 0.4)
 sfx("impact-bass-2", 42.42, 0.7)
-sfx("glitch-3", 43.04, 0.45)
 
 # ---------- S12 sells meaning ----------
 scene("s12", '''
