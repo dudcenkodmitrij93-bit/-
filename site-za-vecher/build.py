@@ -445,7 +445,6 @@ body{{font-family:"Oswald",sans-serif;-webkit-font-smoothing:antialiased}}
 {chr(10).join(caps)}
 </div>
 <audio id="voice" class="clip" src="assets/voice.wav" data-start="0" data-duration="{DUR}" data-track-index="2" data-volume="1"></audio>
-<audio id="bgm" class="clip" src="assets/bgm.mp3" data-start="0" data-duration="{DUR}" data-track-index="3" data-volume="1"></audio>
 {chr(10).join(audio)}
 </div>
 <script>
