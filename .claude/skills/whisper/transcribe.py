@@ -3,8 +3,18 @@
 import argparse
 import json
 import os
+import subprocess
+
+import numpy as np
 
 from faster_whisper import WhisperModel
+
+
+def load_audio(path, sr=16000):
+    # decode with ffmpeg directly (avoids PyAV version issues)
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", path, "-vn", "-ac", "1", "-ar", str(sr), "-f", "f32le", "-"],
+                         check=True, stdout=subprocess.PIPE).stdout
+    return np.frombuffer(raw, dtype=np.float32)
 
 
 def ts_srt(t):
@@ -53,7 +63,7 @@ def main():
     os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
     compute = "int8" if a.device in ("auto", "cpu") else "float16"
     model = WhisperModel(a.model, device=a.device, compute_type=compute)
-    segments, info = model.transcribe(a.input, language=a.lang, word_timestamps=True, vad_filter=True)
+    segments, info = model.transcribe(load_audio(a.input), language=a.lang, word_timestamps=True, vad_filter=True)
     print(f"language={info.language} p={info.language_probability:.2f} duration={info.duration:.1f}s")
 
     segs, words = [], []
