@@ -297,10 +297,10 @@ pop("#s13-zw", 52.4)
 for c in range(14):
     tw(f"#s13-r{c}", {"y": -900 - (c * 137) % 400}, {"y": 200, "duration": 5.3, "ease": "none"}, 50.55)
 tw(".rain", {"opacity": 0}, {"opacity": 0.22, "duration": 0.6}, 52.4)
-pop("#s13-c", 55.06)
+pop("#s13-c", 54.50)
 sfx("riser", 50.9, 0.4)
 sfx("impact-bass-2", 51.6, 0.85)
-sfx("typing", 55.06, 0.35)
+sfx("typing", 54.50, 0.35)
 
 # ---------- S14 CTA ----------
 scene("s14", '''
