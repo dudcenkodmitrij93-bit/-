@@ -250,7 +250,13 @@
     <div class="container">
       <h2 class="h2">Посмотрите, как это происходит.</h2>
       <p class="how__sub">Живые эмоции, настоящие события, реальные гости. Нажмите на видео, чтобы смотреть со звуком</p>
-<div class="reels">
+<div class="reels__nav"><button class="prev" aria-label="Предыдущие видео"><svg><use href="#i-arrow"/></svg></button><button class="next" aria-label="Следующие видео"><svg><use href="#i-arrow"/></svg></button></div>
+      <div class="reels">
+        <button class="reel" data-video="video/reels/promo.mp4">
+          <video muted loop playsinline preload="none" poster="img/reel-promo.jpg" data-src="video/preview/promo-v.mp4"></video>
+          <span class="reel__play"><svg><use href="#i-play"/></svg></span>
+          <span class="reel__cap"><b>Свадьба = эмоции 💍</b><small>1:14</small></span>
+        </button>
         <button class="reel" data-video="video/songs.mp4" data-portrait>
           <video muted loop playsinline preload="none" poster="img/reel-songs.jpg" data-src="video/preview/songs.mp4"></video>
           <span class="reel__play"><svg><use href="#i-play"/></svg></span>
@@ -272,7 +278,12 @@
           <span class="reel__play"><svg><use href="#i-play"/></svg></span>
           <span class="reel__cap"><b>Селфи-баттл 📸</b><small>1:23</small></span>
         </button>
-        <div class="reel reel--ph"><span class="reel__play"><svg><use href="#i-play"/></svg></span><span class="reel__cap"><b>Домашний очаг 🕯</b><small>Видео скоро появится</small></span></div>
+        <button class="reel" data-video="video/reels/ochag.mp4" data-portrait>
+          <video muted loop playsinline preload="none" poster="img/reel-ochag.jpg" data-src="video/preview/ochag-v.mp4"></video>
+          <span class="reel__play"><svg><use href="#i-play"/></svg></span>
+          <span class="reel__cap"><b>Домашний очаг 🕯</b><small>3:48</small></span>
+        </button>
+        <div class="reel reel--ph"><span class="reel__play"><svg><use href="#i-play"/></svg></span><span class="reel__cap"><b>Летний вайб ☀️</b><small>Видео скоро появится</small></span></div>
       </div>
     </div>
   </section>

@@ -374,6 +374,18 @@
     requestAnimationFrame(tick);
   }
 
+  /* ---------- Reels: стрелки на компьютере ---------- */
+  var reelsRow = $('.reels');
+  if (reelsRow && $('.reels__nav')) {
+    var step = function (dir) {
+      var card = $('.reel', reelsRow);
+      var w = card ? card.offsetWidth + 16 : 240;
+      reelsRow.scrollBy({ left: dir * w * 2, behavior: 'smooth' });
+    };
+    $('.reels__nav .prev').addEventListener('click', function () { step(-1); });
+    $('.reels__nav .next').addEventListener('click', function () { step(1); });
+  }
+
   /* ---------- Альбом фото: листается пальцем, стрелками и сам ---------- */
   $$('.js-album').forEach(function (album) {
     var track = $('.album__track', album);

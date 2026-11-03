@@ -1093,6 +1093,15 @@ svg { flex-shrink: 0; }
 }
 
 /* ---------- Reels: 6 роликов, место под ролик, который ещё не пришёл ---------- */
-.reels { grid-template-columns: repeat(6, 1fr); }
+.reels { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; padding-bottom: 6px; }
+.reels::-webkit-scrollbar { display: none; }
+.reel { flex: 0 0 calc((100% - 16px * 4) / 5.3); scroll-snap-align: start; }
+.how .container { position: relative; }
+.reels__nav { position: absolute; right: var(--gutter); top: 4px; display: flex; gap: 10px; }
+.reels__nav button { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: #fff; color: var(--text); box-shadow: 0 6px 16px rgba(40, 28, 18, .1); transition: background-color .2s, transform .2s; }
+.reels__nav button:hover { background: var(--gold); transform: scale(1.06); }
+.reels__nav svg { width: 18px; height: 18px; }
+.reels__nav .prev svg { transform: rotate(180deg); }
+@media (max-width: 1100px) { .reels__nav { display: none; } }
 .reel--ph { display: block; background: linear-gradient(160deg, #3a2a20, #1b1411); border: 1.5px dashed rgba(241, 197, 125, .45); box-shadow: none; }
 .reel--ph .reel__play { pointer-events: none; }
