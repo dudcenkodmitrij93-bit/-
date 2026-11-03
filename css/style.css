@@ -1093,9 +1093,11 @@ svg { flex-shrink: 0; }
 }
 
 /* ---------- Reels: 6 роликов, место под ролик, который ещё не пришёл ---------- */
-.reels { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; padding-bottom: 6px; }
-.reels::-webkit-scrollbar { display: none; }
-.reel { flex: 0 0 calc((100% - 16px * 4) / 5.3); scroll-snap-align: start; }
+@media (min-width: 1101px) {
+  .reels { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; padding-bottom: 6px; }
+  .reels::-webkit-scrollbar { display: none; }
+  .reel { flex: 0 0 calc((100% - 16px * 4) / 5.3); scroll-snap-align: start; }
+}
 .how .container { position: relative; }
 .reels__nav { position: absolute; right: var(--gutter); top: 4px; display: flex; gap: 10px; }
 .reels__nav button { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: #fff; color: var(--text); box-shadow: 0 6px 16px rgba(40, 28, 18, .1); transition: background-color .2s, transform .2s; }
