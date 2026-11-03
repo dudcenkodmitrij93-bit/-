@@ -452,16 +452,47 @@
   <!-- Места под настоящие отзывы. Скриншот: замените div на <button class="review review--shot" data-photo="img/review-shot-1.jpg"><img src="img/review-shot-1.jpg" alt="Отзыв: имя, праздник" loading="lazy"><small>Имя, праздник</small></button> -->
   <section class="section reviews-sec" id="reviews">
     <div class="container">
-      <h2 class="h2">Что говорят пары и&nbsp;юбиляры после праздника</h2>
-      <p class="reviews__sub">Видеоотзывы и&nbsp;скриншоты переписок с&nbsp;гостями</p>
+      <h2 class="h2">Что говорят после праздника</h2>
+      <p class="reviews__sub">Видеоотзывы и&nbsp;сообщения от&nbsp;заказчиков. Нажмите на&nbsp;отзыв, чтобы прочитать целиком</p>
+      <!-- Вкладки строятся сами из data-group у отзывов; группа без отзывов не показывается -->
+      <div class="reviews__tabs" role="tablist" aria-label="Отзывы по формату"></div>
       <div class="reviews">
-        <!-- Чтобы поставить видеоотзыв: замените div на <button class="review review--video" data-video="video/review-1.mp4" data-portrait><video muted loop playsinline preload="none" poster="img/review-1.jpg" data-src="video/review-1.mp4"></video><span class="reel__play"><svg><use href="#i-play"/></svg></span></button> -->
-        <div class="review review--video review--ph"><span class="review__play"><svg><use href="#i-play"/></svg></span><b>Видеоотзыв 1</b><small>Имя, праздник</small></div>
-        <div class="review review--shot review--ph"><span class="review__ico"><svg><use href="#i-doc"/></svg></span><b>Скриншот отзыва 1</b><small>Имя, праздник</small></div>
-        <!-- Чтобы поставить видеоотзыв: замените div на <button class="review review--video" data-video="video/review-2.mp4" data-portrait><video muted loop playsinline preload="none" poster="img/review-2.jpg" data-src="video/review-2.mp4"></video><span class="reel__play"><svg><use href="#i-play"/></svg></span></button> -->
-        <div class="review review--video review--ph"><span class="review__play"><svg><use href="#i-play"/></svg></span><b>Видеоотзыв 2</b><small>Имя, праздник</small></div>
-        <div class="review review--shot review--ph"><span class="review__ico"><svg><use href="#i-doc"/></svg></span><b>Скриншот отзыва 2</b><small>Имя, праздник</small></div>
-        <div class="review review--shot review--ph"><span class="review__ico"><svg><use href="#i-doc"/></svg></span><b>Скриншот отзыва 3</b><small>Имя, праздник</small></div>
+        <button class="review review--video" data-group="Свадьбы" data-video="video/reviews/wedding-1.mp4" data-portrait>
+          <video muted loop playsinline preload="none" poster="img/review-wedding-1.jpg" data-src="video/reviews/wedding-1-v.mp4"></video>
+          <span class="reel__play"><svg><use href="#i-play"/></svg></span>
+          <small>Видеоотзыв · свадьба</small>
+        </button>
+        <button class="review review--shot" data-group="Свадьбы" data-photo="img/reviews/wedding-01.jpg"><img src="img/reviews/wedding-01.jpg" alt="Отзыв о свадьбе: Владимир" loading="lazy"><small>Владимир</small></button>
+        <button class="review review--shot" data-group="Свадьбы" data-photo="img/reviews/wedding-02.jpg"><img src="img/reviews/wedding-02.jpg" alt="Отзыв о свадьбе: Даша" loading="lazy"><small>Даша</small></button>
+        <button class="review review--shot" data-group="Свадьбы" data-photo="img/reviews/wedding-03.jpg"><img src="img/reviews/wedding-03.jpg" alt="Отзыв о свадьбе: Маргарита и Антон" loading="lazy"><small>Маргарита и Антон</small></button>
+        <button class="review review--shot" data-group="Свадьбы" data-photo="img/reviews/wedding-04.jpg"><img src="img/reviews/wedding-04.jpg" alt="Отзыв о свадьбе: Кирилл и Катя" loading="lazy"><small>Кирилл и Катя</small></button>
+        <button class="review review--shot" data-group="Свадьбы" data-photo="img/reviews/wedding-05.jpg"><img src="img/reviews/wedding-05.jpg" alt="Отзыв о свадьбе: Катерина" loading="lazy"><small>Катерина</small></button>
+        <button class="review review--shot" data-group="Свадьбы" data-photo="img/reviews/wedding-06.jpg"><img src="img/reviews/wedding-06.jpg" alt="Отзыв о свадьбе: Станислав" loading="lazy"><small>Станислав</small></button>
+        <button class="review review--shot" data-group="Свадьбы" data-photo="img/reviews/wedding-07.jpg"><img src="img/reviews/wedding-07.jpg" alt="Отзыв о свадьбе: Отзыв в Instagram" loading="lazy"><small>Отзыв в Instagram</small></button>
+        <button class="review review--shot" data-group="Свадьбы" data-photo="img/reviews/wedding-08.jpg"><img src="img/reviews/wedding-08.jpg" alt="Отзыв о свадьбе: Gilyana, Авито" loading="lazy"><small>Gilyana, Авито</small></button>
+        <button class="review review--shot" data-group="Свадьбы" data-photo="img/reviews/wedding-09.jpg"><img src="img/reviews/wedding-09.jpg" alt="Отзыв о свадьбе: Анастасия" loading="lazy"><small>Анастасия</small></button>
+        <button class="review review--shot" data-group="Свадьбы" data-photo="img/reviews/wedding-10.jpg"><img src="img/reviews/wedding-10.jpg" alt="Отзыв о свадьбе: Екатерина, Авито" loading="lazy"><small>Екатерина, Авито</small></button>
+        <button class="review review--shot" data-group="Свадьбы" data-photo="img/reviews/wedding-11.jpg"><img src="img/reviews/wedding-11.jpg" alt="Отзыв о свадьбе: Валентина, Авито" loading="lazy"><small>Валентина, Авито</small></button>
+        <button class="review review--shot" data-group="Юбилеи" data-photo="img/reviews/jubilee-01.jpg"><img src="img/reviews/jubilee-01.jpg" alt="Отзыв: ТриЕли, Авито" loading="lazy"><small>ТриЕли, Авито</small></button>
+        <button class="review review--shot" data-group="Юбилеи" data-photo="img/reviews/jubilee-02.jpg"><img src="img/reviews/jubilee-02.jpg" alt="Отзыв: Олимпиада" loading="lazy"><small>Олимпиада</small></button>
+        <button class="review review--shot" data-group="Юбилеи" data-photo="img/reviews/jubilee-03.jpg"><img src="img/reviews/jubilee-03.jpg" alt="Отзыв: Вероника, Авито" loading="lazy"><small>Вероника, Авито</small></button>
+        <button class="review review--shot" data-group="Юбилеи" data-photo="img/reviews/jubilee-04.jpg"><img src="img/reviews/jubilee-04.jpg" alt="Отзыв: Анастасия" loading="lazy"><small>Анастасия</small></button>
+        <button class="review review--shot" data-group="Юбилеи" data-photo="img/reviews/jubilee-05.jpg"><img src="img/reviews/jubilee-05.jpg" alt="Отзыв: Кирилл, Авито" loading="lazy"><small>Кирилл, Авито</small></button>
+        <button class="review review--shot" data-group="Юбилеи" data-photo="img/reviews/jubilee-06.jpg"><img src="img/reviews/jubilee-06.jpg" alt="Отзыв: Ксения, Авито" loading="lazy"><small>Ксения, Авито</small></button>
+        <button class="review review--shot" data-group="Юбилеи" data-photo="img/reviews/jubilee-07.jpg"><img src="img/reviews/jubilee-07.jpg" alt="Отзыв: Юлия, Авито" loading="lazy"><small>Юлия, Авито</small></button>
+        <button class="review review--shot" data-group="Юбилеи" data-photo="img/reviews/jubilee-08.jpg"><img src="img/reviews/jubilee-08.jpg" alt="Отзыв: Светлана, Авито" loading="lazy"><small>Светлана, Авито</small></button>
+        <button class="review review--shot" data-group="Корпоративы" data-photo="img/reviews/corporate-01.jpg"><img src="img/reviews/corporate-01.jpg" alt="Отзыв: Новогодний корпоратив" loading="lazy"><small>Новогодний корпоратив</small></button>
+        <button class="review review--shot" data-group="Корпоративы" data-photo="img/reviews/corporate-02.jpg"><img src="img/reviews/corporate-02.jpg" alt="Отзыв: Степан, Авито" loading="lazy"><small>Степан, Авито</small></button>
+        <button class="review review--shot" data-group="Корпоративы" data-photo="img/reviews/corporate-03.jpg"><img src="img/reviews/corporate-03.jpg" alt="Отзыв: Дарья, Авито" loading="lazy"><small>Дарья, Авито</small></button>
+        <button class="review review--shot" data-group="Корпоративы" data-photo="img/reviews/corporate-04.jpg"><img src="img/reviews/corporate-04.jpg" alt="Отзыв: Екатерина" loading="lazy"><small>Екатерина</small></button>
+        <button class="review review--shot" data-group="Корпоративы" data-photo="img/reviews/corporate-05.jpg"><img src="img/reviews/corporate-05.jpg" alt="Отзыв: Антон, TennisTour" loading="lazy"><small>Антон, TennisTour</small></button>
+        <button class="review review--shot" data-group="Выпускные" data-photo="img/reviews/graduation-01.jpg"><img src="img/reviews/graduation-01.jpg" alt="Отзыв: Инна, Авито" loading="lazy"><small>Инна, Авито</small></button>
+        <button class="review review--shot" data-group="Выпускные" data-photo="img/reviews/graduation-02.jpg"><img src="img/reviews/graduation-02.jpg" alt="Отзыв: Анна, Авито" loading="lazy"><small>Анна, Авито</small></button>
+        <button class="review review--shot" data-group="Выпускные" data-photo="img/reviews/graduation-03.jpg"><img src="img/reviews/graduation-03.jpg" alt="Отзыв: Юлия, Авито" loading="lazy"><small>Юлия, Авито</small></button>
+        <button class="review review--shot" data-group="Выпускные" data-photo="img/reviews/graduation-04.jpg"><img src="img/reviews/graduation-04.jpg" alt="Отзыв: Родительский комитет" loading="lazy"><small>Родительский комитет</small></button>
+        <button class="review review--shot" data-group="Выпускные" data-photo="img/reviews/graduation-05.jpg"><img src="img/reviews/graduation-05.jpg" alt="Отзыв: Светлана" loading="lazy"><small>Светлана</small></button>
+        <button class="review review--shot" data-group="Выпускные" data-photo="img/reviews/graduation-06.jpg"><img src="img/reviews/graduation-06.jpg" alt="Отзыв: Елена" loading="lazy"><small>Елена</small></button>
+        <button class="review review--shot" data-group="Выпускные" data-photo="img/reviews/graduation-07.jpg"><img src="img/reviews/graduation-07.jpg" alt="Отзыв: Мария" loading="lazy"><small>Мария</small></button>
       </div>
     </div>
   </section>

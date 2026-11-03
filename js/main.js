@@ -374,6 +374,28 @@
     requestAnimationFrame(tick);
   }
 
+  /* ---------- Отзывы: вкладки по группам ---------- */
+  var revTabs = $('.reviews__tabs');
+  if (revTabs) {
+    var order = ['Свадьбы', 'Юбилеи', 'Корпоративы', 'Выпускные'];
+    var revs = $$('.reviews .review');
+    var groups = order.filter(function (g) { return revs.some(function (r) { return r.getAttribute('data-group') === g; }); });
+    if (!groups.length) revTabs.hidden = true;
+    ['Все'].concat(groups).forEach(function (g, k) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = g;
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-selected', k === 0 ? 'true' : 'false');
+      b.addEventListener('click', function () {
+        $$('button', revTabs).forEach(function (x) { x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+        revs.forEach(function (r) { r.hidden = g !== 'Все' && r.getAttribute('data-group') !== g; });
+        $('.reviews').scrollLeft = 0;
+      });
+      revTabs.appendChild(b);
+    });
+  }
+
   /* ---------- Reels: стрелки на компьютере ---------- */
   var reelsRow = $('.reels');
   if (reelsRow && $('.reels__nav')) {

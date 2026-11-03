@@ -1112,3 +1112,31 @@ svg { flex-shrink: 0; }
 /* Фото атмосферы в своих пропорциях: высота общая, ширина по снимку */
 .atmo__item--fit { width: auto; }
 .atmo__item--fit img { width: 100%; height: 100%; }
+
+/* ---------- Отзывы: вкладки и карточки ---------- */
+.reviews__tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.reviews__tabs button { padding: 9px 18px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-size: 14px; font-weight: 600; color: var(--text); transition: background-color .2s, color .2s, border-color .2s; }
+.reviews__tabs button:hover { border-color: var(--gold-ring); }
+.reviews__tabs button[aria-selected="true"] { background: var(--dark); border-color: var(--dark); color: var(--gold-2); }
+.reviews__tabs + .reviews { margin-top: 18px; }
+.review[hidden] { display: none; }
+@media (min-width: 1101px) {
+  .reviews { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 6px; }
+  .reviews::-webkit-scrollbar { display: none; }
+  .review { flex: 0 0 calc((100% - 16px * 4) / 4.6); scroll-snap-align: start; }
+}
+.review--shot img { object-fit: cover; object-position: top; }
+.review--shot::after { content: ""; position: absolute; inset: auto 0 0 0; height: 40%; background: linear-gradient(0deg, rgba(0,0,0,.45), transparent); pointer-events: none; }
+.review--video video { position: absolute; inset: 0; }
+.review--video::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.55), transparent 40%); pointer-events: none; }
+.review .reel__play { z-index: 2; }
+/* Скриншоты отзывов целиком по ширине, без обрезки по бокам */
+.review--shot { background: #fff; }
+.review--shot img { object-fit: contain; object-position: top center; background: #fff; }
+.review--shot::after { height: 30%; background: linear-gradient(0deg, rgba(255,255,255,1) 10%, rgba(255,255,255,0)); }
+.review--shot > small { background: var(--dark); }
+@media (max-width: 768px) {
+  .reviews__tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1); padding: 0 var(--gutter); }
+  .reviews__tabs::-webkit-scrollbar { display: none; }
+  .reviews__tabs button { flex: none; }
+}
