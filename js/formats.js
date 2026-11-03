@@ -16,8 +16,8 @@ window.FORMATS = {
     { title: 'Финал с бенгальскими огнями 🎇', video: 'video/formats/wedding-7.mp4', poster: 'img/format-wedding-7.jpg', vertical: true }
   ],
   'Юбилей': [
-    { title: 'Видео с юбилея 1', video: '', poster: '', vertical: true },
-    { title: 'Видео с юбилея 2', video: '', poster: '', vertical: true },
+    { title: 'Весёлый конкурс «Face to face» 😎', video: 'video/formats/jubilee-1.mp4', poster: 'img/format-jubilee-1.jpg', vertical: false },
+    { title: 'Импровизация. Вручение подарков 🎁', video: 'video/improv.mp4', poster: 'img/reel-improv.jpg', vertical: false },
     { title: 'Видео с юбилея 3', video: '', poster: '', vertical: true }
   ],
   'Корпоратив': [
