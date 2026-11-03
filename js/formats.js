@@ -7,7 +7,7 @@
 */
 window.FORMATS = {
   'Свадьба': [
-    { title: 'Видео со свадьбы 1', video: '', poster: '', vertical: true },
+    { title: 'Свадьба в ускоренной перемотке 😉', video: 'video/wedding-fast.mp4', poster: 'img/video-wedding-fast.jpg', vertical: false },
     { title: 'Видео со свадьбы 2', video: '', poster: '', vertical: true },
     { title: 'Видео со свадьбы 3', video: '', poster: '', vertical: true }
   ],

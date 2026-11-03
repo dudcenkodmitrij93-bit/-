@@ -1140,3 +1140,4 @@ svg { flex-shrink: 0; }
   .reviews__tabs::-webkit-scrollbar { display: none; }
   .reviews__tabs button { flex: none; }
 }
+@media (max-width: 768px) { .video-card__caption { font-size: 13px; left: 14px; bottom: 12px; right: 14px; } }
