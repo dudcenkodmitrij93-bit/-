@@ -20,7 +20,8 @@ window.FORMATS = {
     { title: 'Импровизация. Вручение подарков 🎁', video: 'video/improv.mp4', poster: 'img/reel-improv.jpg', vertical: false },
     { title: 'Выход юбиляра 🔥', video: 'video/formats/jubilee-3.mp4', poster: 'img/format-jubilee-3.jpg', vertical: true },
     { title: 'Семейный праздник: один годик 🎈', video: 'video/formats/jubilee-4.mp4', poster: 'img/format-jubilee-4.jpg', vertical: false },
-    { title: 'С днём рождения! 🎂', video: 'video/formats/jubilee-5.mp4', poster: 'img/format-jubilee-5.jpg', vertical: true }
+    { title: 'С днём рождения! 🎂', video: 'video/formats/jubilee-5.mp4', poster: 'img/format-jubilee-5.jpg', vertical: true },
+    { title: 'Тортик в ресторане «Старая басня» 🕯', video: 'video/formats/jubilee-6.mp4', poster: 'img/format-jubilee-6.jpg', vertical: true }
   ],
   'Корпоратив': [
     { title: 'Видео с корпоратива 1', video: '', poster: '', vertical: true },
