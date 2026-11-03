@@ -11,7 +11,8 @@ window.FORMATS = {
     { title: 'Свадебный ведущий Евгений Глуховский 💍', video: 'video/reels/promo.mp4', poster: 'img/promo-wedding-h.jpg', vertical: false },
     { title: 'Свадебный вечер за минуту ✨', video: 'video/formats/wedding-3.mp4', poster: 'img/format-wedding-3.jpg', vertical: true },
     { title: 'Выездная регистрация. Авторский текст ✍️', video: 'video/formats/wedding-4.mp4', poster: 'img/format-wedding-4.jpg', vertical: false },
-    { title: 'Свет, тепло и улыбки ☀️', video: 'video/formats/wedding-5.mp4', poster: 'img/format-wedding-5.jpg', vertical: true }
+    { title: 'Свет, тепло и улыбки ☀️', video: 'video/formats/wedding-5.mp4', poster: 'img/format-wedding-5.jpg', vertical: true },
+    { title: 'Встречаем красиво наших молодожёнов 💐', video: 'video/formats/wedding-6.mp4', poster: 'img/format-wedding-6.jpg', vertical: true }
   ],
   'Юбилей': [
     { title: 'Видео с юбилея 1', video: '', poster: '', vertical: true },
