@@ -1141,3 +1141,25 @@ svg { flex-shrink: 0; }
   .reviews__tabs button { flex: none; }
 }
 @media (max-width: 768px) { .video-card__caption { font-size: 13px; left: 14px; bottom: 12px; right: 14px; } }
+
+/* ---------- Окно формата: карточки как в reels ---------- */
+.fmt__stage { position: relative; }
+.fmt__track { align-items: flex-start; }
+.fmt__item.reel { flex: 0 0 260px; aspect-ratio: 9 / 16; height: auto; scroll-snap-align: center; }
+.fmt__item.reel video { aspect-ratio: auto; max-height: none; border-radius: 0; }
+.fmt__item--ph { flex: 0 0 260px; }
+.fmt__item--ph .fmt__ph { aspect-ratio: 9 / 16; max-height: none; border-radius: 14px; }
+.fmt__nav { position: absolute; z-index: 3; top: 50%; width: 46px; height: 46px; margin-top: -23px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, .92); color: var(--text); box-shadow: 0 6px 16px rgba(0, 0, 0, .3); transition: background-color .2s, transform .2s; }
+.fmt__nav:hover { background: var(--gold); transform: scale(1.06); }
+.fmt__nav svg { width: 18px; height: 18px; }
+.fmt__nav--prev { left: 10px; }
+.fmt__nav--prev svg { transform: rotate(180deg); }
+.fmt__nav--next { right: 10px; }
+.fmt__hint { margin-top: 10px; text-align: center; font-size: 13px; color: rgba(255, 255, 255, .6); }
+@media (max-width: 768px) {
+  .fmt__item.reel, .fmt__item--ph { flex-basis: 68vw; }
+  .fmt__nav { width: 38px; height: 38px; margin-top: -19px; }
+  .fmt__nav--prev { left: 6px; }
+  .fmt__nav--next { right: 6px; }
+  .fmt__track { padding-left: 16vw; padding-right: 16vw; scroll-padding: 0 16vw; }
+}

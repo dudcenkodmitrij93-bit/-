@@ -701,7 +701,12 @@
     <button class="modal__close modal__close--light" data-close aria-label="Закрыть"><svg><use href="#i-close"/></svg></button>
     <p class="eyebrow">Как я провожу</p>
     <h3 class="fmt__title" id="formatTitle"></h3>
-    <div class="fmt__track" id="formatTrack"></div>
+    <div class="fmt__stage">
+      <button type="button" class="fmt__nav fmt__nav--prev" aria-label="Предыдущее видео"><svg><use href="#i-arrow"/></svg></button>
+      <div class="fmt__track" id="formatTrack"></div>
+      <button type="button" class="fmt__nav fmt__nav--next" aria-label="Следующее видео"><svg><use href="#i-arrow"/></svg></button>
+    </div>
+    <p class="fmt__hint">Листайте и нажмите на видео, чтобы смотреть со звуком</p>
     <div class="fmt__dots" id="formatDots"></div>
     <button class="btn btn--gold fmt__cta" data-open-form>Обсудить мероприятие <svg class="ico-arrow"><use href="#i-arrow"/></svg></button>
   </div>

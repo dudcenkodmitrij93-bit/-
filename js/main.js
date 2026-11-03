@@ -298,33 +298,60 @@
       var list = (window.FORMATS && window.FORMATS[name]) || [];
       fModal.setAttribute('data-current', name);
       $('#formatTitle').textContent = name;
+      // Карточки как в reels: без звука крутится видимое видео, по нажатию — полное со звуком
       fTrack.innerHTML = list.map(function (it, i) {
-        var cls = 'fmt__item' + (it.vertical === false ? ' fmt__item--wide' : '');
-        var inner = it.video
-          ? '<video src="' + esc(it.video) + '"' + (it.poster ? ' poster="' + esc(it.poster) + '"' : '') + ' controls playsinline preload="metadata"></video>'
-          : '<div class="fmt__ph"><svg><use href="#i-play"/></svg><b>' + esc(it.title) + '</b><span>Видео появится здесь</span></div>';
-        return '<figure class="' + cls + '" data-i="' + i + '">' + inner + '<figcaption>' + esc(it.title) + '</figcaption></figure>';
+        if (!it.video) {
+          return '<div class="fmt__item fmt__item--ph" data-i="' + i + '"><div class="fmt__ph"><svg><use href="#i-play"/></svg><b>' + esc(it.title) + '</b><span>Видео появится здесь</span></div></div>';
+        }
+        return '<button type="button" class="fmt__item reel" data-i="' + i + '" data-video="' + esc(it.video) + '"' + (it.vertical === false ? '' : ' data-portrait') + '>' +
+          '<video muted loop playsinline preload="none"' + (it.poster ? ' poster="' + esc(it.poster) + '"' : '') + ' data-fsrc="' + esc(it.video) + '"></video>' +
+          '<span class="reel__play"><svg><use href="#i-play"/></svg></span>' +
+          '<span class="reel__cap"><b>' + esc(it.title) + '</b></span></button>';
       }).join('');
       fDots.innerHTML = list.map(function (_, i) { return '<button type="button" aria-label="Видео ' + (i + 1) + '" data-go="' + i + '"></button>'; }).join('');
       var mark = function () {
         var items = $$('.fmt__item', fTrack), mid = fTrack.scrollLeft + fTrack.clientWidth / 2, best = 0, bd = 1e9;
         items.forEach(function (el, i) { var c = el.offsetLeft + el.offsetWidth / 2, d = Math.abs(c - mid); if (d < bd) { bd = d; best = i; } });
         $$('button', fDots).forEach(function (d, i) { d.classList.toggle('is-on', i === best); });
+        return best;
       };
-      fTrack.onscroll = function () { requestAnimationFrame(mark); };
       $$('button', fDots).forEach(function (d) {
         d.addEventListener('click', function () {
           var el = $$('.fmt__item', fTrack)[+d.getAttribute('data-go')];
           fTrack.scrollTo({ left: el.offsetLeft - (fTrack.clientWidth - el.offsetWidth) / 2, behavior: 'smooth' });
         });
       });
-      // Играет только одно видео одновременно
-      $$('video', fTrack).forEach(function (v) {
-        v.addEventListener('play', function () { $$('video', fTrack).forEach(function (o) { if (o !== v) o.pause(); }); });
+      var playCurrent = function (k) {
+        $$('.fmt__item', fTrack).forEach(function (el, n) {
+          var v = $('video', el);
+          if (!v) return;
+          if (n === k) {
+            if (!v.getAttribute('src')) v.src = v.getAttribute('data-fsrc');
+            var pr = v.play();
+            if (pr && pr.catch) pr.catch(function () {});
+          } else v.pause();
+        });
+      };
+      fTrack.onscroll = function () { requestAnimationFrame(function () { playCurrent(mark()); }); };
+      $$('.fmt__item.reel', fTrack).forEach(function (b) {
+        b.addEventListener('click', function () {
+          stopAll();
+          mediaInner.innerHTML = '<video src="' + b.getAttribute('data-video') + '" controls autoplay playsinline></video>';
+          mediaInner.classList.toggle('is-portrait', b.hasAttribute('data-portrait'));
+          openModal(mediaModal);
+        });
       });
+      var fStep = function (dir) {
+        var items = $$('.fmt__item', fTrack);
+        var k = Math.max(0, Math.min(items.length - 1, mark() + dir));
+        var el = items[k];
+        fTrack.scrollTo({ left: el.offsetLeft - (fTrack.clientWidth - el.offsetWidth) / 2, behavior: 'smooth' });
+      };
+      $('.fmt__nav--prev', fModal).onclick = function () { fStep(-1); };
+      $('.fmt__nav--next', fModal).onclick = function () { fStep(1); };
       openModal(fModal);
       fTrack.scrollLeft = 0;
-      mark();
+      setTimeout(function () { playCurrent(mark()); }, 350);
     });
   });
   $$('[data-close]', fModal).forEach(function (b) { b.addEventListener('click', stopAll); });
