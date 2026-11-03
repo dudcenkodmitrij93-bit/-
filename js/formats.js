@@ -18,7 +18,7 @@ window.FORMATS = {
   'Юбилей': [
     { title: 'Весёлый конкурс «Face to face» 😎', video: 'video/formats/jubilee-1.mp4', poster: 'img/format-jubilee-1.jpg', vertical: false },
     { title: 'Импровизация. Вручение подарков 🎁', video: 'video/improv.mp4', poster: 'img/reel-improv.jpg', vertical: false },
-    { title: 'Видео с юбилея 3', video: '', poster: '', vertical: true }
+    { title: 'Выход юбиляра 🔥', video: 'video/formats/jubilee-3.mp4', poster: 'img/format-jubilee-3.jpg', vertical: true }
   ],
   'Корпоратив': [
     { title: 'Видео с корпоратива 1', video: '', poster: '', vertical: true },
