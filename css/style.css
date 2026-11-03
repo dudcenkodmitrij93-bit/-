@@ -1091,3 +1091,8 @@ svg { flex-shrink: 0; }
   .reviews-sec { padding-top: 12px; padding-bottom: 12px; }
   .review { flex-basis: 58vw; }
 }
+
+/* ---------- Reels: 6 роликов, место под ролик, который ещё не пришёл ---------- */
+.reels { grid-template-columns: repeat(6, 1fr); }
+.reel--ph { display: block; background: linear-gradient(160deg, #3a2a20, #1b1411); border: 1.5px dashed rgba(241, 197, 125, .45); box-shadow: none; }
+.reel--ph .reel__play { pointer-events: none; }
