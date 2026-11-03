@@ -9,7 +9,7 @@ window.FORMATS = {
   'Свадьба': [
     { title: 'Свадьба в ускоренной перемотке 😉', video: 'video/wedding-fast.mp4', poster: 'img/video-wedding-fast.jpg', vertical: false },
     { title: 'Свадебный ведущий Евгений Глуховский 💍', video: 'video/reels/promo.mp4', poster: 'img/promo-wedding-h.jpg', vertical: false },
-    { title: 'Видео со свадьбы 3', video: '', poster: '', vertical: true }
+    { title: 'Свадебный вечер за минуту ✨', video: 'video/formats/wedding-3.mp4', poster: 'img/format-wedding-3.jpg', vertical: true }
   ],
   'Юбилей': [
     { title: 'Видео с юбилея 1', video: '', poster: '', vertical: true },
