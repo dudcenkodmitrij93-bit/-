@@ -24,7 +24,7 @@ window.FORMATS = {
     { title: 'Тортик в ресторане «Старая басня» 🕯', video: 'video/formats/jubilee-6.mp4', poster: 'img/format-jubilee-6.jpg', vertical: true }
   ],
   'Корпоратив': [
-    { title: 'Видео с корпоратива 1', video: '', poster: '', vertical: true },
+    { title: 'Твой номер один: муз-лото 🎵', video: 'video/formats/corporate-1.mp4', poster: 'img/format-corporate-1.jpg', vertical: true },
     { title: 'Видео с корпоратива 2', video: '', poster: '', vertical: true },
     { title: 'Видео с корпоратива 3', video: '', poster: '', vertical: true }
   ],
