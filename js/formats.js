@@ -38,8 +38,8 @@ window.FORMATS = {
     { title: 'Песня «Я — это ты» 🎤', video: 'video/formats/graduation-5.mp4', poster: 'img/format-graduation-5.jpg', vertical: false }
   ],
   'Городское событие': [
-    { title: 'Видео с городского события 1', video: '', poster: '', vertical: true },
-    { title: 'Видео с городского события 2', video: '', poster: '', vertical: true },
+    { title: 'Зима в Москве: репортаж «Вестей» 📺', video: 'video/formats/city-1.mp4', poster: 'img/format-city-1.jpg', vertical: false },
+    { title: 'Самые весёлые развлечения у нас 🎉', video: 'video/formats/city-2.mp4', poster: 'img/format-city-2.jpg', vertical: true },
     { title: 'Видео с городского события 3', video: '', poster: '', vertical: true }
   ],
   'Специальное мероприятие': [
