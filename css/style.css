@@ -1169,3 +1169,29 @@ svg { flex-shrink: 0; }
 /* Фото и скриншоты отзывов в окне просмотра — целиком, по высоте экрана */
 .modal__media-inner.is-photo { aspect-ratio: auto; width: auto; max-width: 100%; height: auto; max-height: calc(100vh - 110px); background: transparent; margin: 0 auto; }
 .modal__media-inner.is-photo img { width: auto; height: auto; max-width: 100%; max-height: calc(100vh - 110px); object-fit: contain; border-radius: 6px; }
+
+/* ---------- «Беру на себя всё»: ровные тексты ---------- */
+.take__list p { max-width: 240px; text-wrap: balance; }
+.take__list p br { display: none; }
+@media (max-width: 768px) {
+  .take__list { grid-template-columns: 1fr; gap: 0; text-align: left; }
+  .take__list li { display: grid; grid-template-columns: 64px 1fr; grid-template-rows: auto auto; column-gap: 18px; align-items: center; padding: 18px 0; border-bottom: 1px solid rgba(241, 197, 125, .14); }
+  .take__list li:last-child { border-bottom: 0; }
+  .take__list .ring { grid-row: 1 / 3; width: 64px; height: 64px; }
+  .take__list .ring svg { width: 26px; height: 26px; }
+  .take__list b { margin-top: 0; align-self: end; font-size: 17px; }
+  .take__list p { margin-top: 4px; max-width: none; align-self: start; text-wrap: pretty; font-size: 14.5px; line-height: 1.55; }
+}
+
+/* ---------- Отзывы: карточка по высоте скриншота, без пустого места ---------- */
+.reviews { align-items: flex-start; }
+.review--shot { aspect-ratio: auto; max-height: 520px; }
+.review--shot img { display: block; width: 100%; height: auto; max-height: 520px; object-fit: cover; object-position: top center; }
+.review--shot::after { height: 90px; }
+@media (max-width: 768px) { .review--shot, .review--shot img { max-height: 440px; } }
+/* Имя под скриншотом, а не поверх текста */
+.review--shot { display: flex; flex-direction: column; max-height: none; }
+.review--shot::after { display: none; }
+.review--shot img { max-height: 470px; }
+.review--shot > small { position: static; align-self: stretch; padding: 10px 14px; border-radius: 0; background: #fff; color: var(--text); font-size: 13px; font-weight: 600; border-top: 1px solid var(--line); }
+@media (max-width: 768px) { .review--shot img { max-height: 400px; } }
