@@ -1212,3 +1212,15 @@ svg { flex-shrink: 0; }
 .reviews__col--pair .review--shot img { flex: 1; min-height: 0; max-height: none; object-fit: cover; object-position: top center; }
 .review--shot.is-cut::after { display: block; content: ""; position: absolute; left: 0; right: 0; bottom: 42px; height: 46px; background: linear-gradient(0deg, #fff, rgba(255, 255, 255, 0)); pointer-events: none; }
 .reviews__col--pair .review--shot:not(.is-cut) img { object-fit: contain; object-position: center; background: #fff; }
+
+/* ---------- «Обо мне»: дипломы, сертификаты и благодарности ---------- */
+.about__docs-title { margin: 30px 0 12px; font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1.25; color: var(--text); }
+.about__docs { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+.about__docs::-webkit-scrollbar { display: none; }
+.about__doc { flex: none; height: 200px; padding: 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); background: #fff; scroll-snap-align: start; box-shadow: 0 6px 16px rgba(40, 28, 18, .08); transition: transform .2s, box-shadow .2s; }
+.about__doc:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(40, 28, 18, .14); }
+.about__doc img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 640px) { .about__doc { height: 170px; } .about__docs-title { font-size: 20px; } }
+.about { min-width: 0; }
+.about__docs { width: 100%; max-width: 100%; min-width: 0; }
+.modal--about { overflow-x: hidden; }
