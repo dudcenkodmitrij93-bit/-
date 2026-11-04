@@ -45,7 +45,7 @@ window.FORMATS = {
   ],
   'Специальное мероприятие': [
     { title: 'Выступление на сцене 🎤', video: 'video/formats/special-1.mp4', poster: 'img/format-special-1.jpg', vertical: false },
-    { title: 'Видео со специального мероприятия 2', video: '', poster: '', vertical: true },
+    { title: 'Промо «Глобус» 🌍', video: 'video/formats/special-2.mp4', poster: 'img/format-special-2.jpg', vertical: false },
     { title: 'Видео со специального мероприятия 3', video: '', poster: '', vertical: true }
   ]
 };
