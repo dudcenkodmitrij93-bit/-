@@ -32,7 +32,7 @@ window.FORMATS = {
   ],
   'Выпускной': [
     { title: '«Энергия этого вечера ⚡»', video: 'video/reels/energy.mp4', poster: 'img/reel-energy.jpg', vertical: true },
-    { title: 'Видео с выпускного 2', video: '', poster: '', vertical: true },
+    { title: '«Мы смеялись и играли ❤️‍🔥»', video: 'video/formats/graduation-2.mp4', poster: 'img/format-graduation-2.jpg', vertical: true },
     { title: 'Видео с выпускного 3', video: '', poster: '', vertical: true }
   ],
   'Городское событие': [
