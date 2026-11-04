@@ -184,6 +184,9 @@
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 012-2h2.5l1.5-2h6l1.5 2H19a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="13" r="3.8"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z" fill="currentColor"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M21.6 3.2L2.4 10.6c-1.3.5-1.3 1.3-.2 1.6l4.9 1.5 1.9 5.8c.2.6.4.9.9.9.4 0 .6-.2.9-.4l2.4-2.3 4.9 3.6c.9.5 1.6.2 1.8-.8l3.3-15.4c.3-1.3-.5-1.9-1.6-1.4zM8.4 13.4l9.5-6c.5-.3.9-.1.5.2l-8 7.3-.3 3.4z" fill="currentColor"/></symbol>
     <symbol id="i-vk" viewBox="0 0 24 24"><path d="M13 18.5C5.9 18.5 1.8 13.6 1.6 5.5h3.6c.1 5.9 2.7 8.4 4.8 8.9V5.5h3.4v5.1c2-.2 4.2-2.5 4.9-5.1h3.4c-.6 3.1-2.9 5.4-4.5 6.4 1.6.8 4.2 2.8 5.2 6.6h-3.7c-.8-2.5-2.8-4.4-5.3-4.7v4.7z" fill="currentColor"/></symbol>
@@ -201,11 +204,12 @@
     </a>
     <nav class="nav" id="nav" aria-label="Основное меню">
       <a href="#about">Обо мне</a>
-      <a href="#prices">Тарифы</a>
+      <a href="#prices">Стоимость</a>
       <a href="#services">Услуги</a>
       <a href="#formats">Форматы</a>
       <a href="#video">Видео</a>
       <a href="#reviews">Отзывы</a>
+      <a href="#faq">Вопросы</a>
       <a href="#contacts">Контакты</a>
       <button class="btn btn--gold nav__cta" data-open-form>Обсудить мероприятие</button>
     </nav>
@@ -267,7 +271,17 @@
           <span class="reel__play"><svg><use href="#i-play"/></svg></span>
           <span class="reel__cap"><b>Весь зал поёт</b><small>1:00</small></span>
         </button>
+        <button class="reel" data-video="video/formats/corporate-1.mp4" data-portrait>
+          <video muted loop playsinline preload="none" poster="img/format-corporate-1.jpg" data-src="video/preview/muzloto-v.mp4"></video>
+          <span class="reel__play"><svg><use href="#i-play"/></svg></span>
+          <span class="reel__cap"><b>Муз-лото, или Твой номер один&nbsp;😎</b><small>0:56</small></span>
+        </button>
         <div class="reel reel--ph"><span class="reel__play"><svg><use href="#i-play"/></svg></span><span class="reel__cap"><b>Когда хочется лететь</b><small>Видео скоро появится</small></span></div>
+        <button class="reel" data-video="video/reels/summer.mp4" data-portrait>
+          <video muted loop playsinline preload="none" poster="img/reel-summer.jpg" data-src="video/preview/summer-v.mp4"></video>
+          <span class="reel__play"><svg><use href="#i-play"/></svg></span>
+          <span class="reel__cap"><b>Летний вайб ☀️</b><small>1:15</small></span>
+        </button>
         <button class="reel" data-video="video/reels/dopoiki.mp4" data-portrait>
           <video muted loop playsinline preload="none" poster="img/reel-dopoiki.jpg" data-src="video/preview/dopoiki-v.mp4"></video>
           <span class="reel__play"><svg><use href="#i-play"/></svg></span>
@@ -288,15 +302,10 @@
           <span class="reel__play"><svg><use href="#i-play"/></svg></span>
           <span class="reel__cap"><b>Домашний очаг 🕯</b><small>3:48</small></span>
         </button>
-        <button class="reel" data-video="video/reels/summer.mp4" data-portrait>
-          <video muted loop playsinline preload="none" poster="img/reel-summer.jpg" data-src="video/preview/summer-v.mp4"></video>
-          <span class="reel__play"><svg><use href="#i-play"/></svg></span>
-          <span class="reel__cap"><b>Летний вайб ☀️</b><small>1:15</small></span>
-        </button>
         <button class="reel" data-video="video/reels/mexico.mp4">
           <video muted loop playsinline preload="none" poster="img/reel-mexico.jpg" data-src="video/preview/mexico-v.mp4"></video>
           <span class="reel__play"><svg><use href="#i-play"/></svg></span>
-          <span class="reel__cap"><b>Однажды в Мексике 🌮</b><small>0:20</small></span>
+          <span class="reel__cap"><b>Однажды в Мексике 🇲🇽</b><small>0:20</small></span>
         </button>
       </div>
     </div>
@@ -308,9 +317,9 @@
       <h2 class="h2 h2--light">Поэтому я беру на&nbsp;себя абсолютно всё:</h2>
       <ul class="take__list">
         <li><span class="ring"><svg><use href="#i-doc"/></svg></span><b>Сценарий</b><p>Не готовая программа, <br>а вечер под вас.</p></li>
-        <li><span class="ring"><svg><use href="#i-people"/></svg></span><b>Гости</b><p>Вовлечение естественно <br>и без давления.</p></li>
-        <li><span class="ring"><svg><use href="#i-bolt"/></svg></span><b>Момент</b><p>Если что-то меняется, <br>я&nbsp;не&nbsp;теряюсь&nbsp;— <br>я&nbsp;импровизирую.</p></li>
-        <li><span class="ring"><svg><use href="#i-question"/></svg></span><b>Ответы</b><p>Мой опыт и&nbsp;насмотренность позволяют найти ответ на&nbsp;любой ваш&nbsp;вопрос.</p></li>
+        <li><span class="ring"><svg><use href="#i-music"/></svg></span><b>Звук и&nbsp;свет</b><p>DJ, полный комплект звукового и&nbsp;светового оборудования, плазма (экран).</p></li>
+        <li><span class="ring"><svg><use href="#i-camera"/></svg></span><b>Съёмка</b><p>Фотографы, видеографы, рилсмейкеры.</p></li>
+        <li><span class="ring"><svg><use href="#i-star"/></svg></span><b>Артисты</b><p>Кавер-группы, танцоры, иллюзионисты, аниматоры и&nbsp;артисты оригинального жанра.</p></li>
       </ul>
     </div>
   </section>
@@ -331,35 +340,6 @@
     </div>
   </section>
 
-  <!-- ===================== ВЕСЕЛИТЬСЯ БЕЗ НЕЛОВКОСТИ ===================== -->
-  <section class="section fun">
-    <div class="container fun__inner">
-      <div class="fun__text">
-        <h2 class="h2">Можно веселиться <br class="d-only">без неловкости.</h2>
-        <ul class="fun__list">
-          <li><svg><use href="#i-ban"/></svg><span>Без пошлых конкурсов</span></li>
-          <li><svg><use href="#i-scale"/></svg><span>Со знанием чувства меры</span></li>
-          <li><svg><use href="#i-heart"/></svg><span>С глубоким уважением к каждому</span></li>
-          <li><svg><use href="#i-gift"/></svg><span>Комфортно вам и всем гостям</span></li>
-        </ul>
-      </div>
-      <!-- Альбом: листается пальцем и стрелками. Пустые места пронумерованы, сюда встанут фото, которые выберет Евгений -->
-      <div class="album js-album" aria-label="Альбом: настоящие эмоции">
-        <div class="album__track">
-          <button class="album__slide" data-photo="img/emotions.jpg"><img src="img/emotions.jpg" alt="Жених и невеста с гостями на свадьбе, которую ведёт Евгений Глуховский" loading="lazy"></button>
-          <div class="album__slide album__slide--ph"><span>Фото 2</span></div>
-          <div class="album__slide album__slide--ph"><span>Фото 3</span></div>
-          <div class="album__slide album__slide--ph"><span>Фото 4</span></div>
-          <div class="album__slide album__slide--ph"><span>Фото 5</span></div>
-        </div>
-        <p class="album__cap">Настоящие эмоции.<br>Живые люди.</p>
-        <button class="album__nav album__nav--prev" aria-label="Предыдущее фото"><svg><use href="#i-arrow"/></svg></button>
-        <button class="album__nav album__nav--next" aria-label="Следующее фото"><svg><use href="#i-arrow"/></svg></button>
-        <div class="album__dots"></div>
-      </div>
-    </div>
-  </section>
-
   <!-- ===================== АТМОСФЕРА ===================== -->
   <section class="section atmo-sec" id="atmosphere">
     <!-- Атмосфера: живая карусель фото Евгения -->
@@ -367,32 +347,32 @@
       <div class="container"><h2 class="h2">Атмосфера вашего праздника</h2><p class="atmo__sub">Листайте, чтобы посмотреть все фото</p></div>
       <div class="atmo__viewport">
         <div class="atmo__track js-atmo">
+          <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/666" data-photo="img/atmo/a18.jpg"><img src="img/atmo/a18.jpg" alt="Свадебная церемония под аркой" loading="lazy" width="1000" height="666"></button>
+          <button class="atmo__item atmo__item--fit" style="aspect-ratio:587/760" data-photo="img/atmo/a15.jpg"><img src="img/atmo/a15.jpg" alt="Евгений и жених поют дуэтом" loading="lazy" width="587" height="760"></button>
+          <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/566" data-photo="img/atmo/a17.jpg"><img src="img/atmo/a17.jpg" alt="Гости смеются на банкете" loading="lazy" width="1000" height="566"></button>
           <button class="atmo__item" data-photo="img/atmosphere.jpg"><img src="img/atmosphere.jpg" alt="Евгений поёт вместе с танцующими гостями" loading="lazy"></button>
           <button class="atmo__item" data-photo="img/moment-2.jpg"><img src="img/moment-2.jpg" alt="Гости на дне рождения" loading="lazy"></button>
-          <button class="atmo__item" data-photo="img/moment-1.jpg"><img src="img/moment-1.jpg" alt="Интерактив с гостьей" loading="lazy"></button>
-          <button class="atmo__item" data-photo="img/moment-3.jpg"><img src="img/moment-3.jpg" alt="Первый танец пары" loading="lazy"></button>
           <button class="atmo__item" data-photo="img/moment-4.jpg"><img src="img/moment-4.jpg" alt="Веселье с гостями" loading="lazy"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/667" data-photo="img/atmo/a01.jpg"><img src="img/atmo/a01.jpg" alt="Гости танцуют с поднятыми руками" loading="lazy" width="1000" height="667"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/666" data-photo="img/atmo/a02.jpg"><img src="img/atmo/a02.jpg" alt="Награждение гостьи на празднике" loading="lazy" width="1000" height="666"></button>
-          <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/588" data-photo="img/atmo/a03.jpg"><img src="img/atmo/a03.jpg" alt="Интерактив с гостями на свадьбе" loading="lazy" width="1000" height="588"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:985/760" data-photo="img/atmo/a04.jpg"><img src="img/atmo/a04.jpg" alt="Евгений ведёт свадебную церемонию на открытом воздухе" loading="lazy" width="985" height="760"></button>
+          <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/588" data-photo="img/atmo/a03.jpg"><img src="img/atmo/a03.jpg" alt="Интерактив с гостями на свадьбе" loading="lazy" width="1000" height="588"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:890/760" data-photo="img/atmo/a05.jpg"><img src="img/atmo/a05.jpg" alt="Гостья смеётся с подарком в руках" loading="lazy" width="890" height="760"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:506/760" data-photo="img/atmo/a06.jpg"><img src="img/atmo/a06.jpg" alt="Евгений поёт на празднике в саду" loading="lazy" width="506" height="760"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/667" data-photo="img/atmo/a07.jpg"><img src="img/atmo/a07.jpg" alt="Евгений с мягкой игрушкой на празднике" loading="lazy" width="1000" height="667"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:623/760" data-photo="img/atmo/a08.jpg"><img src="img/atmo/a08.jpg" alt="Евгений ведёт банкет в ресторане" loading="lazy" width="623" height="760"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/666" data-photo="img/atmo/a09.jpg"><img src="img/atmo/a09.jpg" alt="Евгений с микрофоном на фоне фотозоны" loading="lazy" width="1000" height="666"></button>
-          <button class="atmo__item atmo__item--fit" style="aspect-ratio:557/760" data-photo="img/atmo/a10.jpg"><img src="img/atmo/a10.jpg" alt="Ведущий Евгений Глуховский" loading="lazy" width="557" height="760"></button>
+          <button class="atmo__item atmo__item--fit" style="aspect-ratio:556/760" data-photo="img/atmo/a10.jpg"><img src="img/atmo/a10.jpg" alt="Евгений Глуховский с микрофоном на празднике" loading="lazy" width="556" height="760"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/666" data-photo="img/atmo/a11.jpg"><img src="img/atmo/a11.jpg" alt="Евгений проводит игру с гостями на улице" loading="lazy" width="1000" height="666"></button>
-          <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/666" data-photo="img/atmo/a12.jpg"><img src="img/atmo/a12.jpg" alt="Гости водят хоровод с лентами" loading="lazy" width="1000" height="666"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:623/760" data-photo="img/atmo/a13.jpg"><img src="img/atmo/a13.jpg" alt="Евгений поёт на празднике" loading="lazy" width="623" height="760"></button>
+          <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/666" data-photo="img/atmo/a12.jpg"><img src="img/atmo/a12.jpg" alt="Гости водят хоровод с лентами" loading="lazy" width="1000" height="666"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/666" data-photo="img/atmo/a14.jpg"><img src="img/atmo/a14.jpg" alt="Евгений общается с гостями" loading="lazy" width="1000" height="666"></button>
-          <button class="atmo__item atmo__item--fit" style="aspect-ratio:587/760" data-photo="img/atmo/a15.jpg"><img src="img/atmo/a15.jpg" alt="Евгений и жених поют дуэтом" loading="lazy" width="587" height="760"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:543/760" data-photo="img/atmo/a16.jpg"><img src="img/atmo/a16.jpg" alt="Портрет Евгения Глуховского" loading="lazy" width="543" height="760"></button>
-          <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/566" data-photo="img/atmo/a17.jpg"><img src="img/atmo/a17.jpg" alt="Гости смеются на банкете" loading="lazy" width="1000" height="566"></button>
-          <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/666" data-photo="img/atmo/a18.jpg"><img src="img/atmo/a18.jpg" alt="Свадебная церемония под аркой" loading="lazy" width="1000" height="666"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:974/760" data-photo="img/atmo/a19.jpg"><img src="img/atmo/a19.jpg" alt="Выпускной: Евгений с выпускницами" loading="lazy" width="974" height="760"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/666" data-photo="img/atmo/a20.jpg"><img src="img/atmo/a20.jpg" alt="Евгений ведёт праздник на теплоходе" loading="lazy" width="1000" height="666"></button>
           <button class="atmo__item atmo__item--fit" style="aspect-ratio:1000/666" data-photo="img/atmo/a21.jpg"><img src="img/atmo/a21.jpg" alt="Евгений ведёт свадьбу в шатре" loading="lazy" width="1000" height="666"></button>
+          <button class="atmo__item" data-photo="img/moment-1.jpg"><img src="img/moment-1.jpg" alt="Интерактив с гостьей" loading="lazy"></button>
+          <button class="atmo__item" data-photo="img/moment-3.jpg"><img src="img/moment-3.jpg" alt="Первый танец пары" loading="lazy"></button>
         </div>
       </div>
     </div>
@@ -403,13 +383,13 @@
     <div class="container steps__inner">
       <div class="steps__text">
         <h2 class="h2 h2--light">«Один ведущий —<br>и ни одного похожего вечера»</h2>
-        <p>Ваши пожелания, формат, события и особенности гостей становятся основой программы.</p>
+        <p>Ваши пожелания, формат праздника и&nbsp;особенности гостей&nbsp;— это фундамент для создания уникальной программы.</p>
       </div>
       <ol class="steps__list">
-        <li><span class="ring"><svg><use href="#i-calendar"/></svg></span><b>Знакомимся</b><p>Обсуждаем ваши идеи.</p></li>
-        <li><span class="ring"><svg><use href="#i-people"/></svg></span><b>Анализируем</b><p>Аудиторию, формат, площадку.</p></li>
-        <li><span class="ring"><svg><use href="#i-star"/></svg></span><b>Создаём сценарий</b><p>Программу и структуру.</p></li>
-        <li><span class="ring"><svg><use href="#i-star"/></svg></span><b>Проводим</b><p>Вы наслаждаетесь и&nbsp;помните.</p></li>
+        <li><span class="ring"><svg><use href="#i-calendar"/></svg></span><b>Знакомимся</b><p>Обсуждаем ваши пожелания и&nbsp;делимся идеями.</p></li>
+        <li><span class="ring"><svg><use href="#i-people"/></svg></span><b>Анализируем</b><p>Формат, аудиторию, площадку.</p></li>
+        <li><span class="ring"><svg><use href="#i-bolt"/></svg></span><b>Создаём сценарий</b><p>Программу с&nbsp;чётким тайминг-планом, где продумана каждая деталь и&nbsp;учтено каждое пожелание.</p></li>
+        <li><span class="ring"><svg><use href="#i-star"/></svg></span><b>Проводим</b><p>Вы наслаждаетесь в&nbsp;моменте и&nbsp;запоминаете на&nbsp;всю жизнь.</p></li>
       </ol>
     </div>
   </section>
@@ -420,7 +400,7 @@
       <button class="video-card media" data-video="video/wedding-fast.mp4" data-label="Видео со свадьбы" aria-label="Смотреть видео со свадьбы">
         <img src="img/video-wedding-fast.jpg" alt="Евгений Глуховский с микрофоном среди гостей на свадьбе" loading="lazy">
         <span class="play-btn"><svg><use href="#i-play"/></svg></span>
-        <span class="video-card__caption">Свадьба в&nbsp;ускоренной перемотке&nbsp;😉<br>(здесь собраны все основные события одной свадьбы)</span>
+        <span class="video-card__caption">История одной свадьбы</span>
       </button>
       <div class="pro__text">
         <h2 class="h2">Профессионализм <br class="d-only">в&nbsp;каждой детали.</h2>
@@ -432,8 +412,8 @@
         </ul>
         <div class="nums">
           <div><b><span class="js-count" data-from="1995" data-to="2015">2015</span></b><span>год выхода на&nbsp;профессиональную сцену</span></div>
-          <div><b>2&nbsp;в&nbsp;1</b><span>ведущий и&nbsp;певец в&nbsp;одном лице</span></div>
-          <div><b><span class="js-count" data-from="0" data-to="5">5</span>&nbsp;часов</b><span>программы в&nbsp;базовом формате</span></div>
+          <div><b>3&nbsp;в&nbsp;1</b><span>ведущий, певец, режиссёр</span></div>
+          <div><b><span class="js-count" data-from="0" data-to="7">7</span>&nbsp;лет</b><span>успешной работы в&nbsp;event-индустрии</span></div>
         </div>
         <button class="btn btn--dark" data-open-about>Узнать больше обо мне <svg class="ico-arrow"><use href="#i-arrow"/></svg></button>
       </div>
@@ -444,8 +424,8 @@
   <!-- Места под настоящие отзывы. Скриншот: замените div на <button class="review review--shot" data-photo="img/review-shot-1.jpg"><img src="img/review-shot-1.jpg" alt="Отзыв: имя, праздник" loading="lazy"><small>Имя, праздник</small></button> -->
   <section class="section reviews-sec" id="reviews">
     <div class="container">
-      <h2 class="h2">Что говорят после праздника</h2>
-      <p class="reviews__sub">Видеоотзывы и&nbsp;сообщения от&nbsp;заказчиков. Нажмите на&nbsp;отзыв, чтобы прочитать целиком</p>
+      <h2 class="h2">Что говорят счастливые пары и&nbsp;герои праздника</h2>
+      <p class="reviews__sub">Видеоотзывы и&nbsp;сообщения от&nbsp;заказчиков. Нажмите на&nbsp;отзыв, чтобы увидеть целиком</p>
       <!-- Вкладки строятся сами из data-group у отзывов; группа без отзывов не показывается -->
       <div class="reviews__tabs" role="tablist" aria-label="Отзывы по формату"></div>
       <div class="reviews">
@@ -502,7 +482,7 @@
             <li>Ведущий + DJ</li>
             <li>Индивидуальный сценарий</li>
             <li>Координация</li>
-            <li>Программа</li>
+            <li>Проведение программы</li>
           </ul>
           <button class="btn btn--light" data-open-form data-tariff="Старт">Обсудить мероприятие <svg class="ico-arrow"><use href="#i-arrow"/></svg></button>
         </article>
@@ -523,15 +503,15 @@
           <p class="price__cost"><b>от 85 000 ₽</b></p>
           <ul>
             <li>Всё из предыдущих тарифов +</li>
-            <li>Аэросъёмки и интерактивы</li>
+            <li>Конкурсы и&nbsp;интерактивы под заказ</li>
             <li>Съёмка роликов (3 ролика)</li>
             <li>Фото и видео (4-5 часов)</li>
-            <li>Подарок</li>
+            <li>Секретный подарок от&nbsp;ведущего</li>
           </ul>
           <button class="btn btn--light" data-open-form data-tariff="Максимум">Обсудить мероприятие <svg class="ico-arrow"><use href="#i-arrow"/></svg></button>
         </article>
       </div>
-      <p class="prices__note">* Стоимость может меняться в&nbsp;зависимости от&nbsp;даты и&nbsp;сезона. Точную цену назову после короткого обсуждения вашего праздника.</p>
+      <p class="prices__note">* Стоимость может меняться в&nbsp;зависимости от&nbsp;даты и&nbsp;сезона. Точную стоимость назову после короткого обсуждения вашего праздника.</p>
     </div>
   </section>
 
@@ -582,13 +562,13 @@
   <div class="container footer__top">
     <h2 class="h2 h2--light footer__title">Ваш праздник.<br>Моя ответственность.</h2>
     <div class="footer__cta">
-      <p>Напишите мне в&nbsp;Telegram или&nbsp;соцсетях: расскажите, каким хотите видеть свой вечер, <br>и&nbsp;вместе подберём формат и&nbsp;детали.</p>
+      <p>Напишите мне в&nbsp;Telegram или&nbsp;соцсетях: расскажите, каким хотите видеть свой вечер, <br>а&nbsp;я&nbsp;предложу идеальный формат и&nbsp;сценарий для вашего события.</p>
     </div>
     <div class="socials">
       <a href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram"><svg><use href="#i-telegram"/></svg></a>
-      <a href="https://vk.com/" target="_blank" rel="noopener" aria-label="ВКонтакте"><svg><use href="#i-vk"/></svg></a>
-      <a href="https://youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><svg><use href="#i-youtube"/></svg></a>
-      <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
+      <a href="https://vk.ru/evgenii_glukhovskiy" target="_blank" rel="noopener" aria-label="ВКонтакте"><svg><use href="#i-vk"/></svg></a>
+      <a href="https://wa.me/79214117500" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-whatsapp"/></svg></a>
+      <a href="https://www.instagram.com/evgeniy_glukhovskiy" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
     </div>
   </div>
   <div class="footer__bottom">
@@ -786,7 +766,6 @@
       <a class="about__link" href="https://www.kino-teatr.ru/kino/acter/m/ros/549290/bio/" target="_blank" rel="noopener"><span>Кино-Театр.ру</span><small>Актёрская анкета и&nbsp;фильмография</small><svg><use href="#i-link"/></svg></a>
       <a class="about__link" href="https://music.yandex.ru/artist/16664975" target="_blank" rel="noopener"><span>Яндекс Музыка</span><small>Мои песни</small><svg><use href="#i-link"/></svg></a>
       <a class="about__link" href="https://www.avito.ru/user/732bc84f62032f5a46ccdd5b5e880c14/profile" target="_blank" rel="noopener"><span>Бюро мероприятий</span><small>«Глуховский / бюро мероприятий» на&nbsp;Авито</small><svg><use href="#i-link"/></svg></a>
-      <a class="about__link is-empty" href="#" target="_blank" rel="noopener"><span>Театр</span><small>Сайт театра</small><svg><use href="#i-link"/></svg></a>
     </div>
     <button class="btn btn--gold btn--block about__cta" data-open-form>Обсудить мероприятие <svg class="ico-arrow"><use href="#i-arrow"/></svg></button>
   </div>

@@ -1165,3 +1165,7 @@ svg { flex-shrink: 0; }
 }
 .reviews-sec { padding-top: 40px; }
 @media (max-width: 768px) { .reviews-sec { padding-top: 24px; } }
+
+/* Фото и скриншоты отзывов в окне просмотра — целиком, по высоте экрана */
+.modal__media-inner.is-photo { aspect-ratio: auto; width: auto; max-width: 100%; height: auto; max-height: calc(100vh - 110px); background: transparent; margin: 0 auto; }
+.modal__media-inner.is-photo img { width: auto; height: auto; max-width: 100%; max-height: calc(100vh - 110px); object-fit: contain; border-radius: 6px; }

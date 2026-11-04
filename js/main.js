@@ -236,6 +236,7 @@
         ? toEmbed(url)
         : '<div class="stub"><svg><use href="#i-play"/></svg>Видео скоро появится</div>';
       // Вертикальные ролики (снятые на телефон) показываем высоким окном
+      mediaInner.classList.remove('is-photo');
       mediaInner.classList.toggle('is-portrait', !!url && btn.hasAttribute('data-portrait'));
       openModal(mediaModal);
     });
@@ -248,6 +249,8 @@
       } else {
         mediaInner.innerHTML = '<img src="' + btn.getAttribute('data-photo') + '" alt="">';
       }
+      mediaInner.classList.remove('is-portrait');
+      mediaInner.classList.add('is-photo');
       openModal(mediaModal);
     });
   });
@@ -337,6 +340,7 @@
         b.addEventListener('click', function () {
           stopAll();
           mediaInner.innerHTML = '<video src="' + b.getAttribute('data-video') + '" controls autoplay playsinline></video>';
+          mediaInner.classList.remove('is-photo');
           mediaInner.classList.toggle('is-portrait', b.hasAttribute('data-portrait'));
           openModal(mediaModal);
         });
@@ -368,6 +372,7 @@
       btn.addEventListener('click', function () {
         mediaInner.innerHTML = '<img src="' + btn.getAttribute('data-photo') + '" alt="">';
         mediaInner.classList.remove('is-portrait');
+        mediaInner.classList.add('is-photo');
         openModal(mediaModal);
       });
     });
