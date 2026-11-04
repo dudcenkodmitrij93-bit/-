@@ -40,10 +40,11 @@ window.FORMATS = {
   'Городское событие': [
     { title: 'Зима в Москве: репортаж «Вестей» 📺', video: 'video/formats/city-1.mp4', poster: 'img/format-city-1.jpg', vertical: false },
     { title: 'Самые весёлые развлечения у нас 🎉', video: 'video/formats/city-2.mp4', poster: 'img/format-city-2.jpg', vertical: true },
-    { title: 'Видео с городского события 3', video: '', poster: '', vertical: true }
+    { title: 'Концерт 9 мая 🎖', video: 'video/formats/city-3.mp4', poster: 'img/format-city-3.jpg', vertical: false },
+    { title: 'Памятная церемония 🕊', video: 'video/formats/city-4.mp4', poster: 'img/format-city-4.jpg', vertical: true }
   ],
   'Специальное мероприятие': [
-    { title: 'Видео со специального мероприятия 1', video: '', poster: '', vertical: true },
+    { title: 'Выступление на сцене 🎤', video: 'video/formats/special-1.mp4', poster: 'img/format-special-1.jpg', vertical: false },
     { title: 'Видео со специального мероприятия 2', video: '', poster: '', vertical: true },
     { title: 'Видео со специального мероприятия 3', video: '', poster: '', vertical: true }
   ]
