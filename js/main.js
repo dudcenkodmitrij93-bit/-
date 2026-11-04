@@ -422,11 +422,59 @@
       b.addEventListener('click', function () {
         $$('button', revTabs).forEach(function (x) { x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
         revs.forEach(function (r) { r.hidden = g !== 'Все' && r.getAttribute('data-group') !== g; });
+        packReviews();
         $('.reviews').scrollLeft = 0;
       });
       revTabs.appendChild(b);
     });
   }
+
+  // Короткие отзывы встают друг под другом в один столбец, чтобы под ними не было пустого места
+  function packReviews() {
+    var row = $('.reviews');
+    if (!row) return;
+    var all = $$('.review', row);
+    all.forEach(function (r) { row.appendChild(r); });
+    $$('.reviews__col', row).forEach(function (c) { row.removeChild(c); });
+    var probe = document.createElement('div');
+    probe.className = 'reviews__col';
+    row.appendChild(probe);
+    var colW = probe.offsetWidth;
+    row.removeChild(probe);
+    var gap = 14, cap = 42;
+    var colH = Math.round(colW * 16 / 9);
+    row.style.setProperty('--rev-col-h', colH + 'px');
+    // Видеоотзыв занимает столбец целиком, скриншоты идут по два в столбец.
+    // Длинный скриншот показывается началом, целиком он открывается по нажатию.
+    var half = Math.floor((colH - gap) / 2);
+    row.style.setProperty('--rev-half', half + 'px');
+    var cols = [], open = null;
+    all.forEach(function (r) {
+      if (r.hidden) return;
+      if (!r.classList.contains('review--shot')) {
+        var v = { el: document.createElement('div') };
+        v.el.className = 'reviews__col';
+        cols.push(v);
+        v.el.appendChild(r);
+        return;
+      }
+      var w = +r.getAttribute('data-w') || 1, ih = +r.getAttribute('data-h') || 1;
+      r.classList.toggle('is-cut', colW * ih / w > half - cap);
+      if (!open) {
+        open = { el: document.createElement('div') };
+        open.el.className = 'reviews__col reviews__col--pair';
+        cols.push(open);
+        open.el.appendChild(r);
+      } else {
+        open.el.appendChild(r);
+        open = null;
+      }
+    });
+    cols.forEach(function (c) { row.appendChild(c.el); });
+  }
+  packReviews();
+  var packT;
+  window.addEventListener('resize', function () { clearTimeout(packT); packT = setTimeout(packReviews, 200); });
 
   /* ---------- Reels: стрелки на компьютере ---------- */
   var reelsRow = $('.reels');
