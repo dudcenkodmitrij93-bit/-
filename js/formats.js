@@ -26,7 +26,8 @@ window.FORMATS = {
   'Корпоратив': [
     { title: 'Твой номер один: муз-лото 🎵', video: 'video/formats/corporate-1.mp4', poster: 'img/format-corporate-1.jpg', vertical: true },
     { title: 'Корпоратив 2025 🎄', video: 'video/formats/corporate-2.mp4', poster: 'img/format-corporate-2.jpg', vertical: true },
-    { title: 'Видео с корпоратива 3', video: '', poster: '', vertical: true }
+    { title: 'Летний волейбольный турнир 🏐☀️', video: 'video/reels/summer.mp4', poster: 'img/reel-summer.jpg', vertical: true },
+    { title: 'Корпоративо-мексикано 🇲🇽', video: 'video/reels/mexico.mp4', poster: 'img/reel-mexico.jpg', vertical: false }
   ],
   'Выпускной': [
     { title: 'Видео с выпускного 1', video: '', poster: '', vertical: true },
