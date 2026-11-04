@@ -21,7 +21,7 @@ window.FORMATS = {
     { title: 'Выход юбиляра 🔥', video: 'video/formats/jubilee-3.mp4', poster: 'img/format-jubilee-3.jpg', vertical: true },
     { title: 'Семейный праздник: один годик 🎈', video: 'video/formats/jubilee-4.mp4', poster: 'img/format-jubilee-4.jpg', vertical: false },
     { title: 'С днём рождения! 🎂', video: 'video/formats/jubilee-5.mp4', poster: 'img/format-jubilee-5.jpg', vertical: true },
-    { title: 'Тортик в ресторане «Старая басня» 🕯', video: 'video/formats/jubilee-6.mp4', poster: 'img/format-jubilee-6.jpg', vertical: true }
+    { title: 'Тортик в ресторане «Старая Башня» 🕯', video: 'video/formats/jubilee-6.mp4', poster: 'img/format-jubilee-6.jpg', vertical: true }
   ],
   'Корпоратив': [
     { title: 'Твой номер один: муз-лото 🎵', video: 'video/formats/corporate-1.mp4', poster: 'img/format-corporate-1.jpg', vertical: true },
