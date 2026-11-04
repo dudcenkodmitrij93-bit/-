@@ -34,7 +34,8 @@ window.FORMATS = {
     { title: '«Энергия этого вечера ⚡»', video: 'video/reels/energy.mp4', poster: 'img/reel-energy.jpg', vertical: true },
     { title: '«Мы смеялись и играли ❤️‍🔥»', video: 'video/formats/graduation-2.mp4', poster: 'img/format-graduation-2.jpg', vertical: true },
     { title: '«Импровизация и живые эмоции ✌️»', video: 'video/formats/graduation-3.mp4', poster: 'img/format-graduation-3.jpg', vertical: true },
-    { title: 'Слова благодарности 💐', video: 'video/formats/graduation-4.mp4', poster: 'img/format-graduation-4.jpg', vertical: false }
+    { title: 'Слова благодарности 💐', video: 'video/formats/graduation-4.mp4', poster: 'img/format-graduation-4.jpg', vertical: false },
+    { title: 'Песня «Я — это ты» 🎤', video: 'video/formats/graduation-5.mp4', poster: 'img/format-graduation-5.jpg', vertical: false }
   ],
   'Городское событие': [
     { title: 'Видео с городского события 1', video: '', poster: '', vertical: true },
