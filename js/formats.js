@@ -25,7 +25,7 @@ window.FORMATS = {
   ],
   'Корпоратив': [
     { title: 'Твой номер один: муз-лото 🎵', video: 'video/formats/corporate-1.mp4', poster: 'img/format-corporate-1.jpg', vertical: true },
-    { title: 'Видео с корпоратива 2', video: '', poster: '', vertical: true },
+    { title: 'Корпоратив 2025 🎄', video: 'video/formats/corporate-2.mp4', poster: 'img/format-corporate-2.jpg', vertical: true },
     { title: 'Видео с корпоратива 3', video: '', poster: '', vertical: true }
   ],
   'Выпускной': [
