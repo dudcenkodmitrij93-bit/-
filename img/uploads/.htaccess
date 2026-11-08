@@ -1,0 +1,4 @@
+# В папку загрузок можно класть только картинки, скрипты здесь не выполняются
+<FilesMatch "\.(php|phtml|php\d|phar|cgi|pl|py|sh)$">
+  Require all denied
+</FilesMatch>
