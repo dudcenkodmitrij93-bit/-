@@ -25,7 +25,7 @@ window.FORMATS = {
   ],
   'Корпоратив': [
     { title: 'Твой номер один: муз-лото 🎵', video: 'video/formats/corporate-1.mp4', poster: 'img/format-corporate-1.jpg', vertical: true },
-    { title: 'Корпоратив 2025 🎄', video: 'video/formats/corporate-2.mp4', poster: 'img/format-corporate-2.jpg', vertical: true },
+    { title: 'Новогодний корпоратив 🎄', video: 'video/formats/corporate-2.mp4', poster: 'img/format-corporate-2.jpg', vertical: true },
     { title: 'Летний волейбольный турнир 🏐☀️', video: 'video/reels/summer.mp4', poster: 'img/reel-summer.jpg', vertical: true },
     { title: 'Корпоративо-мексикано 🇲🇽', video: 'video/reels/mexico.mp4', poster: 'img/reel-mexico.jpg', vertical: false },
     { title: 'Корпоратив компании «Бани с Чехова» 🪆 Русские традиции', video: 'video/formats/corporate-5.mp4', poster: 'img/format-corporate-5.jpg', vertical: true }
@@ -39,15 +39,16 @@ window.FORMATS = {
   ],
   'Городское событие': [
     { title: 'Зима в Москве: репортаж «Вестей» 📺', video: 'video/formats/city-1.mp4', poster: 'img/format-city-1.jpg', vertical: false },
-    { title: 'Самые весёлые развлечения у нас 🎉', video: 'video/formats/city-2.mp4', poster: 'img/format-city-2.jpg', vertical: true },
+    { title: 'ВДНХ. Масленица ☀️', video: 'video/formats/city-2.mp4', poster: 'img/format-city-2.jpg', vertical: true },
     { title: 'Концерт 9 мая 🎖', video: 'video/formats/city-3.mp4', poster: 'img/format-city-3.jpg', vertical: false },
-    { title: 'Памятная церемония 🕊', video: 'video/formats/city-4.mp4', poster: 'img/format-city-4.jpg', vertical: true }
+    { title: 'День памяти и скорби 🕊', video: 'video/formats/city-4.mp4', poster: 'img/format-city-4.jpg', vertical: true }
   ],
   'Специальное мероприятие': [
-    { title: 'Выступление на сцене 🎤', video: 'video/formats/special-1.mp4', poster: 'img/format-special-1.jpg', vertical: false },
-    { title: 'Промо «Глобус» 🌍', video: 'video/formats/special-2.mp4', poster: 'img/format-special-2.jpg', vertical: false },
+    { title: 'Оренбург. Фестиваль детского творчества 🎤', video: 'video/formats/special-1.mp4', poster: 'img/format-special-1.jpg', vertical: false },
+    { title: 'Концерты в Москве 🎶', video: 'video/formats/special-6.mp4', poster: 'img/format-special-6.jpg', vertical: true },
+    { title: 'Самара. Шоу на сцене «Абрис» ✨', video: 'video/formats/special-4.mp4', poster: 'img/format-special-4.jpg', vertical: true },
     { title: 'Live: спортивный праздник на стадионе 🏃', video: 'video/formats/special-3.mp4', poster: 'img/format-special-3.jpg', vertical: true },
-    { title: 'Шоу на сцене «Абрис» ✨', video: 'video/formats/special-4.mp4', poster: 'img/format-special-4.jpg', vertical: true },
-    { title: 'Ведущий спортивного турнира ⚽', video: 'video/formats/special-5.mp4', poster: 'img/format-special-5.jpg', vertical: true }
+    { title: 'Ведущий кубка футбольной лиги «Молодёжь Москвы» ⚽', video: 'video/formats/special-5.mp4', poster: 'img/format-special-5.jpg', vertical: true },
+    { title: 'Промо «Глобус» 🌍', video: 'video/formats/special-2.mp4', poster: 'img/format-special-2.jpg', vertical: false }
   ]
 };
