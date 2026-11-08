@@ -9,6 +9,7 @@
   THREADS_ACCESS_TOKEN  — долгоживущий токен Threads API (обязательно)
   THREADS_USER_ID       — id профиля Threads (по умолчанию "me")
   TELEGRAM_URL          — ссылка на ТГ-канал (по умолчанию из константы ниже)
+  TELEGRAM_BOT_URL      — ссылка на ТГ-бота с чек-листом (по умолчанию из константы ниже)
   THREADS_TOPIC         — тема поста в Threads (по умолчанию из константы ниже,
                           пустая строка отключает)
   IMAGE_BASE_URL        — публичный адрес папки с картинками; если не задан,
@@ -39,6 +40,10 @@ MAX_TEXT = 500  # лимит Threads на длину поста
 # Ссылка на ТГ-канал: подставляется в посты вместо {tg}.
 # Можно переопределить переменной окружения TELEGRAM_URL.
 TELEGRAM_URL = "https://t.me/dudchenko_dmitry"
+
+# Ссылка на ТГ-бота с чек-листом: подставляется в посты вместо {bot}.
+# Можно переопределить переменной окружения TELEGRAM_BOT_URL.
+TELEGRAM_BOT_URL = ""
 
 # Тема (topic tag) помогает Threads показать пост тем, кто интересуется темой.
 # У поста можно задать свою тему полем "topic".
@@ -141,8 +146,11 @@ def main():
     tg = os.environ.get("TELEGRAM_URL") or TELEGRAM_URL
     if "your_channel" in tg and not args.dry_run:
         sys.exit("Укажите ссылку на ТГ-канал в TELEGRAM_URL")
+    bot_url = os.environ.get("TELEGRAM_BOT_URL") or TELEGRAM_BOT_URL
+    if not bot_url and not args.dry_run and any("{bot}" in p["text"] for p in posts):
+        sys.exit("Укажите ссылку на ТГ-бота в TELEGRAM_BOT_URL")
     for i, p in enumerate(posts):
-        p["text"] = p["text"].replace("{tg}", tg)
+        p["text"] = p["text"].replace("{tg}", tg).replace("{bot}", bot_url or "{bot}")
         if len(p["text"]) > MAX_TEXT:
             sys.exit(f"Пост #{i} длиннее {MAX_TEXT} символов")
 
