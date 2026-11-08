@@ -13,7 +13,8 @@ window.FORMATS = {
     { title: 'Выездная регистрация. Авторский текст ✍️', video: 'video/formats/wedding-4.mp4', poster: 'img/format-wedding-4.jpg', vertical: false },
     { title: 'Свет, тепло и улыбки ☀️', video: 'video/formats/wedding-5.mp4', poster: 'img/format-wedding-5.jpg', vertical: true },
     { title: 'Встречаем красиво наших молодожёнов 💐', video: 'video/formats/wedding-6.mp4', poster: 'img/format-wedding-6.jpg', vertical: true },
-    { title: 'Финал с бенгальскими огнями 🎇', video: 'video/formats/wedding-7.mp4', poster: 'img/format-wedding-7.jpg', vertical: true }
+    { title: 'Финал с бенгальскими огнями 🎇', video: 'video/formats/wedding-7.mp4', poster: 'img/format-wedding-7.jpg', vertical: true },
+    { title: 'Когда в кайф абсолютно всё 🤍', video: 'video/formats/wedding-8.mp4', poster: 'img/format-wedding-8.jpg', vertical: true }
   ],
   'Юбилей': [
     { title: 'Весёлый конкурс «Face to face» 😎', video: 'video/formats/jubilee-1.mp4', poster: 'img/format-jubilee-1.jpg', vertical: false },
