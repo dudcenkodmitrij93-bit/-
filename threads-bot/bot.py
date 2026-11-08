@@ -43,7 +43,7 @@ TELEGRAM_URL = "https://t.me/dudchenko_dmitry"
 
 # Ссылка на ТГ-бота с чек-листом: подставляется в посты вместо {bot}.
 # Можно переопределить переменной окружения TELEGRAM_BOT_URL.
-TELEGRAM_BOT_URL = ""
+TELEGRAM_BOT_URL = "https://t.me/dudchenko_gift_bot"
 
 # Тема (topic tag) помогает Threads показать пост тем, кто интересуется темой.
 # У поста можно задать свою тему полем "topic".
