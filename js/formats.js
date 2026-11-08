@@ -42,7 +42,8 @@ window.FORMATS = {
     { title: 'Зима в Москве: репортаж «Вестей» 📺', video: 'video/formats/city-1.mp4', poster: 'img/format-city-1.jpg', vertical: false },
     { title: 'ВДНХ. Масленица ☀️', video: 'video/formats/city-2.mp4', poster: 'img/format-city-2.jpg', vertical: true },
     { title: 'Концерт 9 мая 🎖', video: 'video/formats/city-3.mp4', poster: 'img/format-city-3.jpg', vertical: false },
-    { title: 'День памяти и скорби 🕊', video: 'video/formats/city-4.mp4', poster: 'img/format-city-4.jpg', vertical: true }
+    { title: 'День памяти и скорби 🕊', video: 'video/formats/city-4.mp4', poster: 'img/format-city-4.jpg', vertical: true },
+    { title: 'Москва. Районный праздник 🎈', video: 'video/formats/city-5.mp4', poster: 'img/format-city-5.jpg', vertical: true }
   ],
   'Специальное мероприятие': [
     { title: 'Оренбург. Фестиваль детского творчества 🎤', video: 'video/formats/special-1.mp4', poster: 'img/format-special-1.jpg', vertical: false },
