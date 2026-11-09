@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-"""Бот для Threads: публикует следующий пост из posts.json.
+"""Бот для Threads: настройки и публикация поста через Threads API.
 
-Запускается по расписанию (GitHub Actions, 7 раз в день). За один запуск
-публикует ровно один пост и сдвигает счётчик в state.json, поэтому посты
-идут по кругу и не повторяются подряд.
+Какой пост публиковать, решает index.py по времени запуска.
 
 Переменные окружения:
   THREADS_ACCESS_TOKEN  — долгоживущий токен Threads API (обязательно)
@@ -16,8 +14,6 @@
                           берётся raw.githubusercontent.com текущего репозитория
 
 Запуск:
-  python bot.py              — опубликовать следующий пост
-  python bot.py --dry-run    — показать, что будет опубликовано, без публикации
   python bot.py --refresh-token — продлить токен ещё на 60 дней
 """
 
@@ -34,7 +30,6 @@ from pathlib import Path
 API = "https://graph.threads.net/v1.0"
 HERE = Path(__file__).resolve().parent
 POSTS_FILE = HERE / "posts.json"
-STATE_FILE = HERE / "state.json"
 MAX_TEXT = 500  # лимит Threads на длину поста
 
 # Ссылка на ТГ-канал: подставляется в посты вместо {tg}.
@@ -64,18 +59,6 @@ def request(method, url, params):
             return json.load(resp)
     except urllib.error.HTTPError as e:
         raise ApiError(f"Threads API {e.code}: {e.read().decode(errors='replace')}")
-
-
-def load_state():
-    if STATE_FILE.exists():
-        return json.loads(STATE_FILE.read_text(encoding="utf-8"))
-    return {"next_index": 0}
-
-
-def save_state(state):
-    STATE_FILE.write_text(
-        json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
 
 
 def image_url(path):
@@ -131,44 +114,15 @@ def refresh_token(token):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--refresh-token", action="store_true")
     args = parser.parse_args()
+    if not args.refresh_token:
+        sys.exit("Посты публикует index.py; здесь только --refresh-token")
 
     token = os.environ.get("THREADS_ACCESS_TOKEN")
-    if not token and not args.dry_run:
+    if not token:
         sys.exit("Не задан THREADS_ACCESS_TOKEN")
-    if args.refresh_token:
-        refresh_token(token)
-        return
-
-    posts = json.loads(POSTS_FILE.read_text(encoding="utf-8"))
-    tg = os.environ.get("TELEGRAM_URL") or TELEGRAM_URL
-    if "your_channel" in tg and not args.dry_run:
-        sys.exit("Укажите ссылку на ТГ-канал в TELEGRAM_URL")
-    bot_url = os.environ.get("TELEGRAM_BOT_URL") or TELEGRAM_BOT_URL
-    if not bot_url and not args.dry_run and any("{bot}" in p["text"] for p in posts):
-        sys.exit("Укажите ссылку на ТГ-бота в TELEGRAM_BOT_URL")
-    for i, p in enumerate(posts):
-        p["text"] = p["text"].replace("{tg}", tg).replace("{bot}", bot_url or "{bot}")
-        if len(p["text"]) > MAX_TEXT:
-            sys.exit(f"Пост #{i} длиннее {MAX_TEXT} символов")
-
-    state = load_state()
-    index = state["next_index"] % len(posts)
-    post = posts[index]
-
-    if args.dry_run:
-        print(f"[dry-run] пост #{index}, картинка: {post.get('image') or '—'}")
-        print(post["text"])
-        return
-
-    topic = os.environ.get("THREADS_TOPIC", TOPIC)
-    post_id = publish(post, token, os.environ.get("THREADS_USER_ID") or "me", topic)
-    print(f"Опубликован пост #{index}, id {post_id}")
-    state["next_index"] = index + 1
-    save_state(state)
-
+    refresh_token(token)
 
 if __name__ == "__main__":
     try:

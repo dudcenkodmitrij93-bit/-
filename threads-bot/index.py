@@ -1,6 +1,7 @@
-"""Точка входа для Яндекс Cloud Functions (index.handler).
+"""Публикация поста по расписанию: GitHub Actions (python index.py) или
+Яндекс Cloud Functions (index.handler).
 
-Функцию запускает триггер-таймер 7 раз в день. Номер поста считается по
+Бота запускает расписание 7 раз в день. Номер поста считается по
 времени запуска, поэтому хранить state.json не нужно: каждый слот
 расписания соответствует своему посту, и посты идут по кругу.
 
@@ -9,11 +10,13 @@
   START_DATE            — день, с которого считаются слоты (по умолчанию ниже)
   START_INDEX           — номер поста, который выходит в первый слот START_DATE
 
-Тест без публикации: запустить функцию с входными данными {"dry_run": true}.
+Тест без публикации: python index.py --dry-run или запуск функции
+с входными данными {"dry_run": true}.
 """
 
 import json
 import os
+import sys
 from datetime import date, datetime, timedelta, timezone
 
 import bot
@@ -21,8 +24,8 @@ import bot
 MSK = timezone(timedelta(hours=3))
 # Часы публикаций по Москве. Должны совпадать с cron-выражением триггера.
 SLOTS = [8, 10, 12, 14, 16, 18, 20]
-START_DATE = "2026-11-10"
-START_INDEX = 37
+START_DATE = "2026-11-09"
+START_INDEX = 31
 
 
 def post_index(now, total):
@@ -68,3 +71,10 @@ def handler(event, context):
     post_id = bot.publish(post, token, user_id, topic)
     print(f"Опубликован пост #{index}, id {post_id}")
     return {"statusCode": 200, "body": f"пост #{index}, id {post_id}"}
+
+
+if __name__ == "__main__":
+    try:
+        print(handler({"dry_run": "--dry-run" in sys.argv}, None)["body"])
+    except bot.ApiError as e:
+        sys.exit(str(e))
