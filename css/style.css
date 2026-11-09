@@ -1224,3 +1224,6 @@ svg { flex-shrink: 0; }
 .about { min-width: 0; }
 .about__docs { width: 100%; max-width: 100%; min-width: 0; }
 .modal--about { overflow-x: hidden; }
+/* Горизонтальное видео целиком в вертикальной карточке, фон — размытый тот же кадр */
+.fmt__item .fmt__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(18px) brightness(.7); transform: scale(1.15); }
+.fmt__item video.is-whole { object-fit: contain; background: transparent; }
