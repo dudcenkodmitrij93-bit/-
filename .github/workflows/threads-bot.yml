@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: threads-bot
@@ -28,12 +28,4 @@ jobs:
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
           THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
           TELEGRAM_URL: ${{ vars.TELEGRAM_URL }}
-        run: python threads-bot/bot.py
-
-      - name: Save progress
-        run: |
-          git config user.name "threads-bot"
-          git config user.email "threads-bot@users.noreply.github.com"
-          git add threads-bot/state.json
-          git diff --cached --quiet || git commit -m "threads-bot: next post"
-          git push
+        run: python threads-bot/index.py
