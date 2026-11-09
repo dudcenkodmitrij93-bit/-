@@ -7,7 +7,7 @@
 */
 window.FORMATS = {
   'Свадьба': [
-    { title: 'История одной свадьбы', video: 'video/wedding-fast.mp4', poster: 'img/video-wedding-fast.jpg', vertical: false },
+    { title: 'История одной свадьбы', video: 'video/wedding-fast.mp4', poster: 'img/video-wedding-fast.jpg', vertical: false, fit: 'whole' },
     { title: 'Свадебный ведущий Евгений Глуховский 💍', video: 'video/reels/promo.mp4', poster: 'img/promo-wedding-h.jpg', vertical: false },
     { title: 'Свадебный вечер за минуту ✨', video: 'video/formats/wedding-3.mp4', poster: 'img/format-wedding-3.jpg', vertical: true },
     { title: 'Выездная регистрация. Авторский текст ✍️', video: 'video/formats/wedding-4.mp4', poster: 'img/format-wedding-4.jpg', vertical: false },
@@ -25,7 +25,7 @@ window.FORMATS = {
     { title: 'Тортик в ресторане «Старая Башня» 🕯', video: 'video/formats/jubilee-6.mp4', poster: 'img/format-jubilee-6.jpg', vertical: true }
   ],
   'Корпоратив': [
-    { title: 'Твой номер один: музлото 🎵', video: 'video/formats/corporate-1.mp4', poster: 'img/format-corporate-1.jpg', vertical: true },
+    { title: 'Музлото, или Твой номер один 😎', video: 'video/formats/corporate-1.mp4', poster: 'img/format-corporate-1.jpg', vertical: true },
     { title: 'Новогодний корпоратив 🎄', video: 'video/formats/corporate-2.mp4', poster: 'img/format-corporate-2.jpg', vertical: true },
     { title: 'Летний волейбольный турнир 🏐☀️', video: 'video/reels/summer.mp4', poster: 'img/reel-summer.jpg', vertical: true },
     { title: 'Корпоративо-мексикано 🇲🇽', video: 'video/reels/mexico.mp4', poster: 'img/reel-mexico.jpg', vertical: false },
