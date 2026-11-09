@@ -307,7 +307,8 @@
           return '<div class="fmt__item fmt__item--ph" data-i="' + i + '"><div class="fmt__ph"><svg><use href="#i-play"/></svg><b>' + esc(it.title) + '</b><span>Видео появится здесь</span></div></div>';
         }
         return '<button type="button" class="fmt__item reel" data-i="' + i + '" data-video="' + esc(it.video) + '"' + (it.vertical === false ? '' : ' data-portrait') + '>' +
-          '<video muted loop playsinline preload="none"' + (it.poster ? ' poster="' + esc(it.poster) + '"' : '') + ' data-fsrc="' + esc(it.video) + '"></video>' +
+          (it.fit === 'whole' && it.poster ? '<img class="fmt__bg" src="' + esc(it.poster) + '" alt="" aria-hidden="true">' : '') +
+          '<video muted loop playsinline preload="none"' + (it.fit === 'whole' ? ' class="is-whole"' : '') + (it.poster ? ' poster="' + esc(it.poster) + '"' : '') + ' data-fsrc="' + esc(it.video) + '"></video>' +
           '<span class="reel__play"><svg><use href="#i-play"/></svg></span>' +
           '<span class="reel__cap"><b>' + esc(it.title) + '</b></span></button>';
       }).join('');
