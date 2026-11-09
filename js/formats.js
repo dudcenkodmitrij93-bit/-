@@ -30,7 +30,7 @@ window.FORMATS = {
     { title: 'Летний волейбольный турнир 🏐☀️', video: 'video/reels/summer.mp4', poster: 'img/reel-summer.jpg', vertical: true },
     { title: 'Корпоративо-мексикано 🇲🇽', video: 'video/reels/mexico.mp4', poster: 'img/reel-mexico.jpg', vertical: false },
     { title: 'Корпоратив компании «Бани с Чехова» 🪆 Русские традиции', video: 'video/formats/corporate-5.mp4', poster: 'img/format-corporate-5.jpg', vertical: true },
-    { title: 'Живой вокал на корпоративе 🎤', video: 'video/formats/corporate-6.mp4', poster: 'img/format-corporate-6.jpg', vertical: true }
+    { title: 'Заряжаем по-новогоднему! 🎤', video: 'video/formats/corporate-6.mp4', poster: 'img/format-corporate-6.jpg', vertical: true }
   ],
   'Выпускной': [
     { title: '«Энергия этого вечера ⚡»', video: 'video/reels/energy.mp4', poster: 'img/reel-energy.jpg', vertical: true },
