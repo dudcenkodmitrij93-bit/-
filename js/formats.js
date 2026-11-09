@@ -51,6 +51,6 @@ window.FORMATS = {
     { title: 'Самара. Шоу на сцене «Абрис» ✨', video: 'video/formats/special-4.mp4', poster: 'img/format-special-4.jpg', vertical: true },
     { title: 'Live: спортивный праздник на стадионе 🏃', video: 'video/formats/special-3.mp4', poster: 'img/format-special-3.jpg', vertical: true },
     { title: 'Ведущий кубка футбольной лиги «Молодёжь Москвы» ⚽', video: 'video/formats/special-5.mp4', poster: 'img/format-special-5.jpg', vertical: true },
-    { title: 'Промо «Глобус» 🌍', video: 'video/formats/special-2.mp4', poster: 'img/format-special-2.jpg', vertical: false }
+    { title: 'Промо в гипермаркете «Глобус» 🌍', video: 'video/formats/special-2.mp4', poster: 'img/format-special-2.jpg', vertical: false }
   ]
 };
