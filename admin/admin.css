@@ -93,6 +93,13 @@ button { font: inherit; cursor: pointer; }
 .fmt-it__opts label { display: inline-flex; align-items: center; gap: 6px; }
 .fmt-it .row .btn { min-height: 36px; padding: 6px 10px; font-size: 13px; }
 
+.leads { display: grid; gap: 10px; margin-top: 14px; }
+.lead { padding: 14px; border: 1px solid var(--line); border-radius: var(--r); background: #fff; }
+.lead__head { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-bottom: 6px; }
+.lead__time { font-size: 13px; color: var(--muted); }
+.lead dl { display: grid; grid-template-columns: max-content 1fr; gap: 3px 12px; margin: 0; font-size: 14px; }
+.lead dt { color: var(--muted); }
+.lead dd { margin: 0; overflow-wrap: anywhere; white-space: pre-line; }
 .backups { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; max-height: 360px; overflow-y: auto; }
 .backups li { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; }
 

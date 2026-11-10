@@ -6,3 +6,5 @@ content/.pass
 content/.lock_*
 img/uploads/
 video/uploads/
+content/leads/
+content/send-config.php

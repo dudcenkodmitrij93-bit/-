@@ -30,6 +30,7 @@
     <nav class="tabs" aria-label="Разделы">
       <button type="button" class="tab is-on" data-tab="page">Страница</button>
       <button type="button" class="tab" data-tab="formats">Видео в форматах</button>
+      <button type="button" class="tab" data-tab="leads">Заявки</button>
       <button type="button" class="tab" data-tab="settings">Настройки</button>
     </nav>
     <div class="bar__right">
@@ -105,6 +106,15 @@
       <h2>Видео в окнах «Какой праздник вы планируете?»</h2>
       <p class="note">Здесь видео, которые открываются по нажатию на «Свадьба», «Юбилей» и другие форматы. Можно менять названия, порядок, обложки, добавлять и удалять видео.</p>
       <div id="fmtList"></div>
+    </div>
+  </section>
+
+  <!-- Заявки -->
+  <section class="pane pane--settings" data-pane="leads">
+    <div class="wrap">
+      <h2>Заявки с сайта</h2>
+      <p class="note">Каждая заявка сохраняется здесь и одновременно приходит в Telegram. Если Telegram вдруг не прислал заявку, она всё равно будет в этом списке. Заявки старше года удаляются сами. Если человек попросит удалить его данные, удалите его заявку здесь и в переписке.</p>
+      <div id="leadList" class="leads"></div>
     </div>
   </section>
 

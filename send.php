@@ -14,6 +14,10 @@ $MAIL_TO            = getenv('MAIL_TO') ?: '';        // e-mail для заяв�
 $MAIL_FROM          = getenv('MAIL_FROM') ?: 'no-reply@' . ($_SERVER['HTTP_HOST'] ?? 'localhost');
 // =====================
 
+// Ключи можно держать отдельно от кода, в content/send-config.php (папка content закрыта от доступа из интернета).
+// Тогда этот файл можно обновлять, не вписывая токен заново.
+if (is_file(__DIR__ . '/content/send-config.php')) require __DIR__ . '/content/send-config.php';
+
 header('Content-Type: application/json; charset=utf-8');
 
 function respond($ok, $error = null, $code = 200) {
@@ -75,6 +79,20 @@ if ($message) $lines[] = 'Комментарий: ' . $message;
 if ($site)    $lines[] = 'Версия сайта: ' . $site;
 $text = implode("\n", $lines);
 
+// Сначала заявка сохраняется на хостинге в России (152-ФЗ, локализация), потом пересылается в Telegram.
+// Сохранённые заявки видны в панели правок, раздел «Заявки». Заявки старше года удаляются сами.
+$saved = false;
+$leadDir = __DIR__ . '/content/leads';
+if (!is_dir($leadDir)) @mkdir($leadDir, 0700, true);
+$lead = array_filter([
+    'time' => date('c'), 'name' => $name, 'phone' => $hasPhone ? $phone : '', 'telegram' => $telegram,
+    'contact' => $contact, 'event' => $event, 'date' => $date, 'tariff' => $tariff, 'topic' => $topic,
+    'guests' => $guests, 'message' => $message,
+], function ($v) { return $v !== ''; });
+if (@file_put_contents($leadDir . '/' . date('Y-m') . '.jsonl', json_encode($lead, JSON_UNESCAPED_UNICODE) . "\n", FILE_APPEND | LOCK_EX) !== false) $saved = true;
+$oldest = date('Y-m', strtotime('-12 months'));
+foreach (glob($leadDir . '/*.jsonl') ?: [] as $f) if (basename($f, '.jsonl') < $oldest) @unlink($f);
+
 $sent = false;
 
 if ($TELEGRAM_BOT_TOKEN && $TELEGRAM_CHAT_ID) {
@@ -119,5 +137,5 @@ if ($MAIL_TO) {
     if (@mail($MAIL_TO, $subject, $text, $headers)) $sent = true;
 }
 
-if (!$sent) respond(false, 'Не настроена отправка заявок', 500);
+if (!$sent && !$saved) respond(false, 'Не удалось отправить заявку', 500);
 respond(true);

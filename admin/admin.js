@@ -666,8 +666,42 @@
       finishEdit();
       $$('.tab').forEach(function (x) { x.classList.toggle('is-on', x === t); });
       $$('.pane').forEach(function (p) { p.classList.toggle('is-on', p.dataset.pane === t.dataset.tab); });
+      if (t.dataset.tab === 'leads') loadLeads();
     };
   });
+
+  /* ---------- Заявки ---------- */
+  var LEAD_FIELDS = [['name', 'Имя'], ['phone', 'Телефон'], ['telegram', 'Telegram'], ['contact', 'Связь'], ['event', 'Праздник'], ['date', 'Дата'], ['tariff', 'Тариф'], ['topic', 'Тема'], ['guests', 'Гостей'], ['message', 'Комментарий']];
+  var loadLeads = function () {
+    var box = $('#leadList');
+    box.textContent = 'Загружаю…';
+    api('leads').then(function (res) {
+      box.textContent = '';
+      if (!res.ok) { box.textContent = res.error || 'Не удалось загрузить заявки'; return; }
+      if (!res.leads.length) { box.appendChild(h('p', { class: 'note', text: 'Пока заявок нет.' })); return; }
+      res.leads.forEach(function (l) {
+        var dl = h('dl');
+        LEAD_FIELDS.forEach(function (f) {
+          if (!l[f[0]]) return;
+          var v = f[0] === 'telegram' ? '@' + l[f[0]] : (f[0] === 'date' ? new Date(l.date).toLocaleDateString('ru-RU') : l[f[0]]);
+          dl.appendChild(h('dt', { text: f[1] }));
+          dl.appendChild(h('dd', { text: v }));
+        });
+        box.appendChild(h('div', { class: 'lead' }, [
+          h('div', { class: 'lead__head' }, [
+            h('span', { class: 'lead__time', text: new Date(l.time).toLocaleString('ru-RU', { dateStyle: 'medium', timeStyle: 'short' }) }),
+            h('button', { type: 'button', class: 'btn btn--sm btn--danger', text: 'Удалить', onclick: function () {
+              if (!confirm('Удалить заявку ' + (l.name || '') + '?')) return;
+              var fd = new FormData();
+              fd.append('id', l._id);
+              api('lead_delete', fd).then(function (r) { if (r.ok) { toast('Заявка удалена'); loadLeads(); } else toast(r.error, 'err'); });
+            } })
+          ]),
+          dl
+        ]));
+      });
+    });
+  };
 
   $('#passForm').onsubmit = function (e) {
     e.preventDefault();

@@ -300,4 +300,32 @@ if ($action === 'upload') {
     out(['ok' => true, 'path' => $path, 'w' => $info[0], 'h' => $info[1]]);
 }
 
+/* ---------- Заявки с сайта (их сохраняет send.php) ---------- */
+if ($action === 'leads') {
+    $res = [];
+    $files = glob($DATA . '/leads/*.jsonl') ?: [];
+    rsort($files);
+    foreach ($files as $f) {
+        $lines = file($f, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
+        for ($i = count($lines) - 1; $i >= 0; $i--) {
+            $row = json_decode($lines[$i], true);
+            if (!is_array($row)) continue;
+            $row['_id'] = basename($f, '.jsonl') . ':' . $i;
+            $res[] = $row;
+            if (count($res) >= 500) break 2;
+        }
+    }
+    out(['ok' => true, 'leads' => $res]);
+}
+
+if ($action === 'lead_delete') {
+    if (!preg_match('~^(\d{4}-\d{2}):(\d+)$~', (string)($_POST['id'] ?? ''), $m)) fail('Заявка не найдена', 404);
+    $f = $DATA . '/leads/' . $m[1] . '.jsonl';
+    $lines = is_file($f) ? (file($f, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: []) : [];
+    if (!isset($lines[(int)$m[2]])) fail('Заявка не найдена', 404);
+    unset($lines[(int)$m[2]]);
+    try { write_atomic($f, $lines ? implode("\n", $lines) . "\n" : ''); } catch (RuntimeException $e) { fail($e->getMessage(), 500); }
+    out(['ok' => true]);
+}
+
 fail('Неизвестное действие', 404);
