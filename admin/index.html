@@ -2,13 +2,13 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex, nofollow">
-  <title>Редактор сайта</title>
+  <title>Панель правок сайта</title>
   <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+Display:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="admin.css">
 </head>
 <body>
@@ -17,49 +17,154 @@
 <section class="login" id="login" hidden>
   <form class="login__box" id="loginForm">
     <p class="brand">Евгений Глуховский</p>
-    <h1>Редактор сайта</h1>
+    <h1>Панель правок сайта</h1>
     <label class="f"><span>Пароль</span><input type="password" name="password" id="password" autocomplete="current-password" required></label>
     <button class="btn btn--gold" type="submit">Войти</button>
-    <p class="login__err" id="loginErr" role="alert"></p>
-    <p class="login__hint" id="demoHint" hidden>Демо-версия: подойдёт любой пароль. Изменения не сохраняются на сайте.</p>
+    <p class="err" id="loginErr" role="alert"></p>
   </form>
 </section>
 
-<!-- Редактор -->
+<!-- Панель -->
 <div class="app" id="app" hidden>
-  <header class="top">
-    <div class="top__in">
-      <div><p class="brand">Евгений Глуховский</p><p class="top__title">Редактор сайта</p></div>
-      <div class="top__actions">
-        <a class="link" href="../" target="_blank" rel="noopener">Открыть сайт ↗</a>
-        <button class="link" type="button" id="logout">Выйти</button>
-      </div>
-    </div>
-    <nav class="tabs" id="tabs" aria-label="Разделы">
-      <a href="#s-hero">Первый экран</a>
-      <a href="#s-prices">Тарифы</a>
-      <a href="#s-scen">Сценарии</a>
-      <a href="#s-faq">Вопросы</a>
-      <a href="#s-about">Обо мне</a>
-      <a href="#s-fears">Страхи</a>
-      <a href="#s-takes">Что беру на себя</a>
-      <a href="#s-photos">Фото</a>
-      <a href="#s-socials">Соцсети</a>
-      <a href="#s-settings">Пароль</a>
+  <header class="bar" id="bar">
+    <nav class="tabs" aria-label="Разделы">
+      <button type="button" class="tab is-on" data-tab="page">Страница</button>
+      <button type="button" class="tab" data-tab="formats">Видео в форматах</button>
+      <button type="button" class="tab" data-tab="settings">Настройки</button>
     </nav>
+    <div class="bar__right">
+      <span class="status" id="status">Все изменения сохранены</span>
+      <button type="button" class="btn btn--ghost" id="discard" hidden>Отменить</button>
+      <button type="button" class="btn btn--gold" id="save" disabled>Сохранить</button>
+    </div>
   </header>
 
-  <main class="wrap" id="editor"></main>
+  <!-- Страница -->
+  <section class="pane pane--page is-on" data-pane="page">
+    <div class="hint" id="pageHint">
+      <b>Как править:</b> нажмите на текст, фото или видео прямо на странице. Внизу появятся кнопки.
+      Нажмите на выбранный текст ещё раз, чтобы его изменить. В конце нажмите «Сохранить».
+      <button type="button" class="hint__x" id="hintClose" aria-label="Скрыть подсказку">×</button>
+    </div>
+    <div class="stage" id="stage">
+      <div class="device" id="device"><iframe id="frame" title="Страница сайта"></iframe></div>
+    </div>
+    <div class="view-switch" id="viewSwitch">
+      <button type="button" data-view="phone">Телефон</button>
+      <button type="button" data-view="desktop" class="is-on">Компьютер</button>
+    </div>
 
-  <div class="bar" id="bar">
-    <p class="bar__status" id="status">Все изменения сохранены</p>
-    <div class="bar__btns">
-      <button class="btn btn--ghost" type="button" id="undo">Вернуть как было</button>
-      <button class="btn btn--gold" type="button" id="save" disabled>Сохранить</button>
+    <!-- Действия с выбранным элементом -->
+    <aside class="panel" id="panel" hidden>
+      <div class="panel__head">
+        <b id="pTitle">Выбрано</b>
+        <button type="button" class="panel__x" id="pClose" aria-label="Снять выделение">×</button>
+      </div>
+      <div class="panel__body">
+        <div class="grp" id="gText" hidden>
+          <button type="button" class="btn btn--gold" id="aEdit">✎ Изменить текст</button>
+          <button type="button" class="btn btn--gold" id="aDone" hidden>✓ Готово</button>
+          <p class="note" id="nText">Текст можно менять прямо на странице. Enter — новая строка.</p>
+        </div>
+        <div class="grp" id="gLink" hidden>
+          <label class="f"><span>Ссылка (куда ведёт)</span><input type="url" id="aLink" placeholder="https://"></label>
+        </div>
+        <div class="grp" id="gGroup" hidden>
+          <label class="f"><span>Раздел отзывов</span>
+            <select id="aGroup"><option>Свадьбы</option><option>Юбилеи</option><option>Корпоративы</option><option>Выпускные</option></select>
+          </label>
+        </div>
+        <div class="grp" id="gImg" hidden>
+          <button type="button" class="btn" id="aImg">🖼 Заменить фото</button>
+        </div>
+        <div class="grp" id="gVideo" hidden>
+          <button type="button" class="btn" id="aVideo">🎬 Заменить видео</button>
+          <button type="button" class="btn" id="aFrame">Обложка: кадр из видео</button>
+          <button type="button" class="btn" id="aPoster">Обложка: загрузить фото</button>
+          <button type="button" class="btn btn--ghost" id="aWatch">Посмотреть видео</button>
+        </div>
+        <div class="grp" id="gItem" hidden>
+          <p class="note" id="nItem"></p>
+          <div class="row">
+            <button type="button" class="btn" id="aUp" title="Переместить выше">↑ Выше</button>
+            <button type="button" class="btn" id="aDown" title="Переместить ниже">↓ Ниже</button>
+            <button type="button" class="btn" id="aCopy">+ Копия</button>
+            <button type="button" class="btn btn--danger" id="aDel">Удалить</button>
+          </div>
+          <p class="note">Чтобы добавить новый пункт, сделайте копию похожего и измените её.</p>
+        </div>
+        <button type="button" class="btn btn--ghost btn--sm" id="aParent" hidden>Выделить блок крупнее</button>
+        <p class="note" id="nNothing" hidden>Этот элемент нельзя изменить из панели. Если нужно, напишите Дмитрию.</p>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Видео в форматах -->
+  <section class="pane pane--formats" data-pane="formats">
+    <div class="wrap">
+      <h2>Видео в окнах «Какой праздник вы планируете?»</h2>
+      <p class="note">Здесь видео, которые открываются по нажатию на «Свадьба», «Юбилей» и другие форматы. Можно менять названия, порядок, обложки, добавлять и удалять видео.</p>
+      <div id="fmtList"></div>
+    </div>
+  </section>
+
+  <!-- Настройки -->
+  <section class="pane pane--settings" data-pane="settings">
+    <div class="wrap">
+      <div class="card">
+        <h2>Сайт</h2>
+        <p><a class="btn" href="../" target="_blank" rel="noopener">Открыть сайт ↗</a></p>
+        <p class="note">После сохранения обновите страницу сайта. На телефоне иногда нужно подождать минуту или открыть сайт заново.</p>
+      </div>
+      <div class="card">
+        <h2>Сохранённые версии</h2>
+        <p class="note">Перед каждым сохранением панель запоминает прошлую версию сайта. Если что-то пошло не так, верните нужную.</p>
+        <ul class="backups" id="backups"></ul>
+      </div>
+      <div class="card">
+        <h2>Сменить пароль</h2>
+        <form id="passForm" class="row">
+          <label class="f"><span>Новый пароль (не короче 8 символов)</span><input type="password" name="new" minlength="8" autocomplete="new-password" required></label>
+          <button class="btn btn--gold" type="submit">Сменить</button>
+        </form>
+      </div>
+      <div class="card">
+        <button type="button" class="btn btn--ghost" id="logout">Выйти из панели</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Выбор кадра для обложки -->
+<div class="dlg" id="frameDlg" hidden>
+  <div class="dlg__box">
+    <h3>Выберите кадр для обложки</h3>
+    <video id="fVideo" playsinline muted preload="auto"></video>
+    <input type="range" id="fRange" min="0" max="1" step="0.04" value="0" aria-label="Время в видео">
+    <div class="row row--c">
+      <button type="button" class="btn" id="fBack">−0,2 с</button>
+      <span class="time" id="fTime">0:00</span>
+      <button type="button" class="btn" id="fFwd">+0,2 с</button>
+    </div>
+    <p class="note">Двигайте ползунок, пока не найдёте удачный кадр: открытые глаза, без смазанности.</p>
+    <div class="row">
+      <button type="button" class="btn btn--ghost" id="fCancel">Отмена</button>
+      <button type="button" class="btn btn--gold" id="fTake">Взять этот кадр</button>
     </div>
   </div>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </div>
+
+<!-- Загрузка -->
+<div class="dlg dlg--busy" id="busy" hidden>
+  <div class="dlg__box">
+    <p id="busyText">Загрузка…</p>
+    <div class="progress"><i id="busyBar"></i></div>
+  </div>
+</div>
+
+<input type="file" id="fileImg" accept="image/jpeg,image/png,image/webp" hidden>
+<input type="file" id="fileVideo" accept="video/mp4,.mp4" hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="admin.js"></script>
 </body>

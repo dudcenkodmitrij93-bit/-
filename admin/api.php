@@ -1,8 +1,11 @@
 <?php
 /**
- * Серверная часть страницы правок /admin.
- * Хранит содержимое сайта в content/content.json, делает резервные копии
- * перед каждым сохранением и принимает загрузку фото.
+ * Серверная часть панели правок /admin.
+ *
+ * Панель правит сами файлы сайта: index.html и js/formats.js.
+ * Перед каждым сохранением старые версии кладутся в content/backups,
+ * к любой из них можно вернуться из панели.
+ * Новые фото и видео сохраняются в img/uploads и video/uploads.
  */
 declare(strict_types=1);
 
@@ -21,46 +24,53 @@ header('X-Robots-Tag: noindex, nofollow');
 header('Cache-Control: no-store');
 
 $ROOT     = dirname(__DIR__);
-$CONTENT  = $ROOT . '/content/content.json';
-$BACKUPS  = $ROOT . '/content/backups';
-$PASSFILE = $ROOT . '/content/.pass';
-$UPLOADS  = $ROOT . '/img/uploads';
-const KEEP_BACKUPS = 30;
+$PAGE     = $ROOT . '/index.html';
+$FORMATS  = $ROOT . '/js/formats.js';
+$DATA     = $ROOT . '/content';
+$BACKUPS  = $DATA . '/backups';
+$TMP      = $DATA . '/tmp';
+$PASSFILE = $DATA . '/.pass';
+const KEEP_BACKUPS = 40;
+const MAX_VIDEO = 400 * 1024 * 1024;
+const MAX_IMAGE = 25 * 1024 * 1024;
 
 function out(array $data, int $code = 200): void {
     http_response_code($code);
-    echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
+}
+function fail(string $msg, int $code = 400): void { out(['ok' => false, 'error' => $msg], $code); }
+
+function ensure_data_dir(string $dir): void {
+    if (!is_dir($dir)) @mkdir($dir, 0755, true);
+    $ht = dirname($dir) === dirname(__DIR__) ? $dir . '/.htaccess' : null;
+    if ($ht && !is_file($ht)) @file_put_contents($ht, "Require all denied\n");
 }
 
 $action = $_GET['action'] ?? '';
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
-// Все изменения только POST и только со своей страницы (заголовок не подделать с чужого сайта)
-if ($method !== 'POST' && $action !== 'me') out(['ok' => false, 'error' => 'Метод не поддерживается'], 405);
-if ($method === 'POST' && ($_SERVER['HTTP_X_ADMIN'] ?? '') !== '1') out(['ok' => false, 'error' => 'Неверный запрос'], 400);
+// Всё, кроме проверки входа, только POST и только со своей страницы
+if ($method !== 'POST' && $action !== 'me') fail('Метод не поддерживается', 405);
+if ($method === 'POST' && ($_SERVER['HTTP_X_ADMIN'] ?? '') !== '1') fail('Неверный запрос');
+
+ensure_data_dir($DATA);
 
 /* ---------- Вход ---------- */
 if ($action === 'me') out(['ok' => true, 'auth' => !empty($_SESSION['admin'])]);
 
 if ($action === 'login') {
-    $lock  = sys_get_temp_dir() . '/egadmin_' . md5($_SERVER['REMOTE_ADDR'] ?? '');
+    $lock  = $DATA . '/.lock_' . md5($_SERVER['REMOTE_ADDR'] ?? '');
     $fails = is_file($lock) ? (int)file_get_contents($lock) : 0;
-    if ($fails >= 5 && time() - filemtime($lock) < 600) {
-        out(['ok' => false, 'error' => 'Слишком много попыток. Подождите 10 минут'], 429);
-    }
+    if ($fails >= 5 && time() - filemtime($lock) < 900) fail('Слишком много попыток. Подождите 15 минут', 429);
     if ($fails >= 5) $fails = 0;
 
     $pass = (string)($_POST['password'] ?? '');
-    if (is_file($PASSFILE)) {
-        $ok = password_verify($pass, trim((string)file_get_contents($PASSFILE)));
-    } else {
-        $ok = ADMIN_PASSWORD !== '' && ADMIN_PASSWORD !== 'ПОМЕНЯЙТЕ-ПАРОЛЬ' && hash_equals(ADMIN_PASSWORD, $pass);
-    }
-    if (!$ok) {
-        file_put_contents($lock, (string)($fails + 1));
-        usleep(400000);
-        out(['ok' => false, 'error' => 'Неверный пароль'], 401);
+    $hash = is_file($PASSFILE) ? trim((string)file_get_contents($PASSFILE)) : ADMIN_PASSWORD_HASH;
+    if ($hash === '' || !password_verify($pass, $hash)) {
+        @file_put_contents($lock, (string)($fails + 1));
+        usleep(500000);
+        fail('Неверный пароль', 401);
     }
     @unlink($lock);
     session_regenerate_id(true);
@@ -68,7 +78,7 @@ if ($action === 'login') {
     out(['ok' => true]);
 }
 
-if (empty($_SESSION['admin'])) out(['ok' => false, 'error' => 'Нужно войти заново'], 401);
+if (empty($_SESSION['admin'])) fail('Нужно войти заново', 401);
 
 if ($action === 'logout') {
     $_SESSION = [];
@@ -76,187 +86,218 @@ if ($action === 'logout') {
     out(['ok' => true]);
 }
 
-/* ---------- Проверка содержимого перед сохранением ---------- */
-function clean_text($v, int $max = 2000): string {
-    $v = is_string($v) ? $v : '';
-    $v = str_replace("\r\n", "\n", $v);
-    $v = strip_tags($v);
-    return mb_substr(trim($v), 0, $max);
+if ($action === 'password') {
+    $new = (string)($_POST['new'] ?? '');
+    if (mb_strlen($new) < 8) fail('Пароль должен быть не короче 8 символов', 422);
+    if (@file_put_contents($PASSFILE, password_hash($new, PASSWORD_DEFAULT), LOCK_EX) === false) fail('Не удалось сохранить пароль', 500);
+    @chmod($PASSFILE, 0600);
+    out(['ok' => true]);
 }
-function clean_list($v, int $maxItems = 20, int $max = 300): array {
-    if (!is_array($v)) return [];
-    $out = [];
-    foreach ($v as $item) {
-        $t = clean_text($item, $max);
-        if ($t !== '') $out[] = $t;
-        if (count($out) >= $maxItems) break;
+
+/* ---------- Резервные копии ---------- */
+function list_backups(string $dir): array {
+    $all = glob($dir . '/*', GLOB_ONLYDIR) ?: [];
+    rsort($all);
+    $res = [];
+    foreach ($all as $d) {
+        $id = basename($d);
+        if (!preg_match('~^\d{8}-\d{6}-[a-z0-9]{4}$~', $id)) continue;
+        $t = DateTime::createFromFormat('Ymd-His', substr($id, 0, 15));
+        $res[] = ['id' => $id, 'date' => $t ? $t->format('d.m.Y H:i') : $id];
     }
-    return $out;
+    return $res;
 }
-function clean_img($v, string $fallback): string {
-    return (is_string($v) && preg_match('~^img/[\w\-/]+\.(jpe?g|png|webp)$~i', $v) && strpos($v, '..') === false) ? $v : $fallback;
+function make_backup(string $dir, array $files): void {
+    if (!is_dir($dir)) @mkdir($dir, 0755, true);
+    $d = $dir . '/' . date('Ymd-His') . '-' . substr(bin2hex(random_bytes(2)), 0, 4);
+    @mkdir($d, 0755, true);
+    foreach ($files as $name => $path) if (is_file($path)) copy($path, $d . '/' . $name);
+    $all = glob($dir . '/*', GLOB_ONLYDIR) ?: [];
+    sort($all);
+    while (count($all) > KEEP_BACKUPS) {
+        $old = array_shift($all);
+        array_map('unlink', glob($old . '/*') ?: []);
+        @rmdir($old);
+    }
 }
-function clean_url($v): string {
-    return (is_string($v) && preg_match('~^(https?://|tel:|mailto:)~i', $v)) ? mb_substr(trim($v), 0, 300) : '';
+function write_atomic(string $file, string $data): void {
+    $tmp = $file . '.tmp-' . bin2hex(random_bytes(3));
+    if (@file_put_contents($tmp, $data, LOCK_EX) === false || !@rename($tmp, $file)) {
+        @unlink($tmp);
+        throw new RuntimeException('Не удалось записать файл ' . basename($file) . '. Проверьте права на папку сайта');
+    }
 }
 
-function validate(array $in, array $old): array {
-    $c = [];
-    $h = $in['hero'] ?? [];
-    $c['hero'] = [
-        'eyebrow'   => clean_text($h['eyebrow'] ?? '', 120),
-        'title'     => clean_text($h['title'] ?? '', 120),
-        'titleGold' => clean_text($h['titleGold'] ?? '', 120),
-        'text'      => clean_text($h['text'] ?? '', 400),
-        'photo'     => clean_img($h['photo'] ?? '', $old['hero']['photo'] ?? 'img/hero.jpg'),
-    ];
-    if ($c['hero']['title'] === '') throw new RuntimeException('Заголовок первого экрана не может быть пустым');
+/* ---------- Проверки содержимого ---------- */
+function ok_media(string $p, string $kind): bool {
+    $ext = $kind === 'video' ? 'mp4' : '(jpe?g|png|webp|svg)';
+    $base = $kind === 'video' ? 'video/' : 'img/';
+    return strpos($p, '..') === false && (bool)preg_match('~^' . $base . '[\w\-/]+\.' . $ext . '$~i', $p);
+}
 
-    foreach (['facts' => ['num', 'text'], 'takes' => ['title', 'text'], 'fears' => ['q', 'a']] as $key => $fields) {
-        $c[$key] = [];
-        foreach (($in[$key] ?? []) as $item) {
-            $row = [];
-            foreach ($fields as $f) $row[$f] = clean_text($item[$f] ?? '', 500);
-            $c[$key][] = $row;
+function check_page(string $html): string {
+    if (strlen($html) > 3 * 1024 * 1024) throw new RuntimeException('Страница получилась слишком большой');
+    if (stripos($html, '<html') === false || stripos($html, '</body>') === false) throw new RuntimeException('Страница повреждена, сохранение отменено');
+    // На странице допустимы только наши скрипты и разметка для поисковиков
+    if (!preg_match_all('~<script\b([^>]*)>~i', $html, $m)) throw new RuntimeException('Пропали скрипты сайта');
+    $need = ['js/formats.js' => false, 'js/main.js' => false];
+    foreach ($m[1] as $attrs) {
+        if (preg_match('~type\s*=\s*"application/ld\+json"~i', $attrs)) continue;
+        if (preg_match('~^\s*src\s*=\s*"(js/(formats|main)\.js)(\?v=\d+)?"\s*$~i', $attrs, $s)) { $need[$s[1]] = true; continue; }
+        throw new RuntimeException('На странице появился посторонний скрипт, сохранение отменено');
+    }
+    foreach ($need as $f => $found) if (!$found) throw new RuntimeException('Пропал файл ' . $f . ', сохранение отменено');
+    if (preg_match('~\son[a-z]+\s*=|javascript:|<iframe|<object|<embed~i', $html)) throw new RuntimeException('На странице появился недопустимый код, сохранение отменено');
+    return $html;
+}
+
+function build_formats(array $in): string {
+    $out = [];
+    $cats = 0;
+    foreach ($in as $cat => $items) {
+        $cat = trim(strip_tags((string)$cat));
+        if ($cat === '' || !is_array($items) || ++$cats > 12) continue;
+        $out[$cat] = [];
+        foreach ($items as $it) {
+            if (!is_array($it)) continue;
+            $video = (string)($it['video'] ?? '');
+            if (!ok_media($video, 'video')) continue;
+            $row = ['title' => mb_substr(trim(strip_tags((string)($it['title'] ?? ''))), 0, 140), 'video' => $video];
+            $poster = (string)($it['poster'] ?? '');
+            if ($poster !== '' && ok_media($poster, 'image')) $row['poster'] = $poster;
+            $row['vertical'] = !isset($it['vertical']) || $it['vertical'] !== false;
+            if (($it['fit'] ?? '') === 'whole') $row['fit'] = 'whole';
+            $out[$cat][] = $row;
+            if (count($out[$cat]) >= 40) break;
         }
     }
-
-    $c['about'] = ['bio' => clean_text($in['about']['bio'] ?? '', 4000)];
-
-    $c['scenarios'] = [];
-    foreach (($in['scenarios'] ?? []) as $s) {
-        $c['scenarios'][] = [
-            'meta'  => clean_text($s['meta'] ?? '', 100),
-            'title' => clean_text($s['title'] ?? '', 100),
-            'steps' => clean_list($s['steps'] ?? [], 10, 160),
-        ];
-    }
-
-    $c['prices'] = [];
-    foreach (($in['prices'] ?? []) as $i => $p) {
-        $row = [
-            'name'     => clean_text($p['name'] ?? '', 60),
-            'costs'    => clean_list($p['costs'] ?? [], 4, 80),
-            'features' => clean_list($p['features'] ?? [], 12, 160),
-        ];
-        if ($row['name'] === '') throw new RuntimeException('У тарифа №' . ($i + 1) . ' пустое название');
-        if (!$row['costs']) throw new RuntimeException('У тарифа «' . $row['name'] . '» не указана цена');
-        $c['prices'][] = $row;
-    }
-    $c['pricesNote'] = clean_text($in['pricesNote'] ?? '', 400);
-
-    $c['faq'] = [];
-    foreach (($in['faq'] ?? []) as $f) {
-        $q = clean_text($f['q'] ?? '', 200);
-        $a = clean_text($f['a'] ?? '', 1500);
-        if ($q !== '') $c['faq'][] = ['q' => $q, 'a' => $a];
-        if (count($c['faq']) >= 20) break;
-    }
-
-    $c['photos'] = [];
-    foreach (['atmosphere', 'moment1', 'moment2', 'moment3', 'moment4'] as $k) {
-        $c['photos'][$k] = clean_img($in['photos'][$k] ?? '', $old['photos'][$k] ?? '');
-    }
-
-    $c['socials'] = [];
-    foreach (['telegram', 'vk', 'youtube', 'instagram'] as $k) {
-        $c['socials'][$k] = clean_url($in['socials'][$k] ?? '');
-    }
-    return $c;
+    if (!$out) throw new RuntimeException('Список видео пуст, сохранение отменено');
+    $js = "/*\n  Видео для плиток «Какой праздник вы планируете?».\n  Этот файл меняется из панели правок /admin (раздел «Видео в форматах»).\n  vertical: true — ролик снят вертикально, fit: 'whole' — показывать кадр целиком.\n*/\n";
+    $js .= 'window.FORMATS = ' . json_encode($out, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . ";\n";
+    return $js;
 }
 
-function write_atomic(string $file, string $data): void {
-    $tmp = $file . '.tmp';
-    if (file_put_contents($tmp, $data, LOCK_EX) === false || !rename($tmp, $file)) {
-        throw new RuntimeException('Не удалось записать файл. Проверьте права на папку content');
-    }
-}
-
-function backup(string $content, string $dir): void {
-    if (!is_dir($dir)) mkdir($dir, 0755, true);
-    copy($content, $dir . '/content-' . date('Y-m-d_H-i-s') . '-' . substr(uniqid(), -4) . '.json');
-    $all = glob($dir . '/content-*.json') ?: [];
-    sort($all);
-    while (count($all) > KEEP_BACKUPS) @unlink(array_shift($all));
+/* ---------- Загрузка содержимого в панель ---------- */
+if ($action === 'load') {
+    out(['ok' => true, 'page' => (string)@file_get_contents($PAGE), 'backups' => list_backups($BACKUPS)]);
 }
 
 /* ---------- Сохранение ---------- */
 if ($action === 'save') {
     $raw = file_get_contents('php://input');
-    if ($raw === false || strlen($raw) > 300000) out(['ok' => false, 'error' => 'Слишком большой объём данных'], 413);
+    if ($raw === false || strlen($raw) > 6 * 1024 * 1024) fail('Слишком большой объём данных', 413);
     $in = json_decode($raw, true);
-    if (!is_array($in)) out(['ok' => false, 'error' => 'Неверные данные'], 400);
-    $old = json_decode((string)@file_get_contents($CONTENT), true) ?: [];
+    if (!is_array($in)) fail('Неверные данные');
     try {
-        $clean = validate($in, $old);
-        backup($CONTENT, $BACKUPS);
-        write_atomic($CONTENT, json_encode($clean, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+        $page = isset($in['page']) ? check_page((string)$in['page']) : null;
+        $fmt  = isset($in['formats']) && is_array($in['formats']) ? build_formats($in['formats']) : null;
+        if ($page === null && $fmt === null) fail('Нечего сохранять');
+        if ($fmt !== null) {
+            // Новая версия файла с видео, чтобы браузеры не показывали старую из кэша
+            $page = $page ?? (string)file_get_contents($PAGE);
+            $page = preg_replace('~src="js/formats\.js(\?v=\d+)?"~', 'src="js/formats.js?v=' . time() . '"', $page);
+            check_page($page);
+        }
+        make_backup($BACKUPS, ['index.html' => $PAGE, 'formats.js' => $FORMATS]);
+        if ($fmt !== null) write_atomic($FORMATS, $fmt);
+        write_atomic($PAGE, $page);
     } catch (RuntimeException $e) {
-        out(['ok' => false, 'error' => $e->getMessage()], 422);
+        fail($e->getMessage(), 422);
     }
-    out(['ok' => true, 'content' => $clean, 'backups' => count(glob($BACKUPS . '/content-*.json') ?: [])]);
+    out(['ok' => true, 'page' => $page, 'backups' => list_backups($BACKUPS)]);
 }
 
-/* ---------- Вернуть как было (последняя копия) ---------- */
-if ($action === 'undo') {
-    $all = glob($BACKUPS . '/content-*.json') ?: [];
-    sort($all);
-    $last = array_pop($all);
-    if (!$last) out(['ok' => false, 'error' => 'Сохранённых копий пока нет'], 404);
-    $data = (string)file_get_contents($last);
-    if (!is_array(json_decode($data, true))) out(['ok' => false, 'error' => 'Копия повреждена'], 500);
-    try { write_atomic($CONTENT, $data); } catch (RuntimeException $e) { out(['ok' => false, 'error' => $e->getMessage()], 500); }
-    @unlink($last);
-    out(['ok' => true, 'content' => json_decode($data, true), 'backups' => count($all)]);
+if ($action === 'restore') {
+    $id = (string)($_POST['id'] ?? '');
+    if (!preg_match('~^\d{8}-\d{6}-[a-z0-9]{4}$~', $id) || !is_dir($BACKUPS . '/' . $id)) fail('Копия не найдена', 404);
+    $d = $BACKUPS . '/' . $id;
+    try {
+        make_backup($BACKUPS, ['index.html' => $PAGE, 'formats.js' => $FORMATS]);
+        if (is_file($d . '/formats.js')) write_atomic($FORMATS, (string)file_get_contents($d . '/formats.js'));
+        if (is_file($d . '/index.html')) {
+            $page = (string)file_get_contents($d . '/index.html');
+            $page = preg_replace('~src="js/formats\.js(\?v=\d+)?"~', 'src="js/formats.js?v=' . time() . '"', $page);
+            write_atomic($PAGE, $page);
+        }
+    } catch (RuntimeException $e) {
+        fail($e->getMessage(), 500);
+    }
+    out(['ok' => true, 'page' => (string)file_get_contents($PAGE), 'backups' => list_backups($BACKUPS)]);
 }
 
-if ($action === 'info') {
-    out(['ok' => true, 'backups' => count(glob($BACKUPS . '/content-*.json') ?: [])]);
-}
-
-/* ---------- Загрузка фото ---------- */
+/* ---------- Загрузка фото и видео частями ---------- */
 if ($action === 'upload') {
-    $f = $_FILES['file'] ?? null;
-    if (!$f || $f['error'] !== UPLOAD_ERR_OK) out(['ok' => false, 'error' => 'Файл не загрузился. Попробуйте фото меньше 15 МБ'], 400);
-    if ($f['size'] > 15 * 1024 * 1024) out(['ok' => false, 'error' => 'Фото больше 15 МБ'], 413);
-    $info = @getimagesize($f['tmp_name']);
+    $kind  = ($_POST['kind'] ?? '') === 'video' ? 'video' : 'image';
+    $uid   = preg_replace('~[^a-z0-9]~', '', strtolower((string)($_POST['uid'] ?? '')));
+    $index = (int)($_POST['index'] ?? -1);
+    $total = (int)($_POST['total'] ?? 0);
+    $f     = $_FILES['blob'] ?? null;
+    if (strlen($uid) < 8 || $index < 0 || $total < 1 || $index >= $total) fail('Неверные данные загрузки');
+    if (!$f || $f['error'] !== UPLOAD_ERR_OK) fail('Часть файла не загрузилась. Проверьте интернет и попробуйте ещё раз');
+
+    if (!is_dir($TMP)) @mkdir($TMP, 0755, true);
+    foreach (glob($TMP . '/*.part') ?: [] as $old) if (time() - filemtime($old) > 86400) @unlink($old);
+    $part = $TMP . '/' . $uid . '.part';
+    if ($index === 0) @unlink($part);
+    elseif (!is_file($part)) fail('Загрузка прервалась, начните заново');
+    if (@file_put_contents($part, (string)file_get_contents($f['tmp_name']), FILE_APPEND | LOCK_EX) === false) fail('Не удалось сохранить файл', 500);
+    $size = filesize($part);
+    if ($size > ($kind === 'video' ? MAX_VIDEO : MAX_IMAGE)) { @unlink($part); fail($kind === 'video' ? 'Видео больше 400 МБ' : 'Фото больше 25 МБ', 413); }
+    if ($index < $total - 1) out(['ok' => true, 'next' => $index + 1]);
+
+    $slot = preg_replace('~[^a-z0-9\-]~', '', strtolower((string)($_POST['slot'] ?? ''))) ?: $kind;
+    $slot = substr($slot, 0, 30);
+    $name = $slot . '-' . date('Ymd-His') . '-' . substr(bin2hex(random_bytes(2)), 0, 4);
+
+    if ($kind === 'video') {
+        $fh = fopen($part, 'rb');
+        $head = fread($fh, 12);
+        fclose($fh);
+        if (substr($head, 4, 4) !== 'ftyp') { @unlink($part); fail('Подходят только видео в формате MP4', 415); }
+        $dir = $ROOT . '/video/uploads';
+        if (!is_dir($dir)) @mkdir($dir, 0755, true);
+        $path = 'video/uploads/' . $name . '.mp4';
+        if (!@rename($part, $ROOT . '/' . $path)) fail('Не удалось сохранить видео', 500);
+        @chmod($ROOT . '/' . $path, 0644);
+        out(['ok' => true, 'path' => $path]);
+    }
+
+    $info = @getimagesize($part);
     $types = [IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_WEBP => 'webp'];
-    if (!$info || !isset($types[$info[2]])) out(['ok' => false, 'error' => 'Подходят только фото JPG, PNG или WEBP'], 415);
+    if (!$info || !isset($types[$info[2]])) { @unlink($part); fail('Подходят только фото JPG, PNG или WEBP', 415); }
+    $dir = $ROOT . '/img/uploads';
+    if (!is_dir($dir)) @mkdir($dir, 0755, true);
+    $max = max(400, min(2400, (int)($_POST['max'] ?? 1800)));
 
-    if (!is_dir($UPLOADS)) mkdir($UPLOADS, 0755, true);
-    $slot = preg_replace('~[^a-z0-9\-]~', '', strtolower((string)($_POST['slot'] ?? 'photo'))) ?: 'photo';
-    $name = $slot . '-' . date('Ymd-His');
-
-    // Уменьшаем большие фото, чтобы сайт грузился быстро
+    // Уменьшаем большие фото и поворачиваем снимки с телефона, чтобы сайт грузился быстро
     if (function_exists('imagecreatefromstring')) {
-        $src = @imagecreatefromstring((string)file_get_contents($f['tmp_name']));
+        $src = @imagecreatefromstring((string)file_get_contents($part));
         if ($src) {
+            if ($info[2] === IMAGETYPE_JPEG && function_exists('exif_read_data')) {
+                $o = (int)(@exif_read_data($part)['Orientation'] ?? 1);
+                if ($o === 3) $src = imagerotate($src, 180, 0);
+                if ($o === 6) $src = imagerotate($src, -90, 0);
+                if ($o === 8) $src = imagerotate($src, 90, 0);
+            }
             [$w, $h] = [imagesx($src), imagesy($src)];
-            $max = 1800;
             $k = min(1, $max / max($w, $h));
-            $dst = imagecreatetruecolor((int)round($w * $k), (int)round($h * $k));
-            imagecopyresampled($dst, $src, 0, 0, 0, 0, imagesx($dst), imagesy($dst), $w, $h);
+            $nw = (int)round($w * $k);
+            $nh = (int)round($h * $k);
+            $dst = imagecreatetruecolor($nw, $nh);
+            imagefill($dst, 0, 0, imagecolorallocate($dst, 255, 255, 255));
+            imagecopyresampled($dst, $src, 0, 0, 0, 0, $nw, $nh, $w, $h);
             $path = 'img/uploads/' . $name . '.jpg';
+            imageinterlace($dst, true);
             imagejpeg($dst, $ROOT . '/' . $path, 84);
             imagedestroy($src);
             imagedestroy($dst);
-            out(['ok' => true, 'path' => $path]);
+            @unlink($part);
+            out(['ok' => true, 'path' => $path, 'w' => $nw, 'h' => $nh]);
         }
     }
     $path = 'img/uploads/' . $name . '.' . $types[$info[2]];
-    if (!move_uploaded_file($f['tmp_name'], $ROOT . '/' . $path)) out(['ok' => false, 'error' => 'Не удалось сохранить фото'], 500);
-    out(['ok' => true, 'path' => $path]);
+    if (!@rename($part, $ROOT . '/' . $path)) fail('Не удалось сохранить фото', 500);
+    out(['ok' => true, 'path' => $path, 'w' => $info[0], 'h' => $info[1]]);
 }
 
-/* ---------- Смена пароля ---------- */
-if ($action === 'password') {
-    $new = (string)($_POST['new'] ?? '');
-    if (mb_strlen($new) < 8) out(['ok' => false, 'error' => 'Пароль должен быть не короче 8 символов'], 422);
-    if (file_put_contents($PASSFILE, password_hash($new, PASSWORD_DEFAULT), LOCK_EX) === false) {
-        out(['ok' => false, 'error' => 'Не удалось сохранить пароль'], 500);
-    }
-    @chmod($PASSFILE, 0600);
-    out(['ok' => true]);
-}
-
-out(['ok' => false, 'error' => 'Неизвестное действие'], 404);
+fail('Неизвестное действие', 404);

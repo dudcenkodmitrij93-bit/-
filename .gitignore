@@ -1,2 +1,8 @@
 __pycache__/
 threads-bot-yandex.zip
+content/backups/
+content/tmp/
+content/.pass
+content/.lock_*
+img/uploads/
+video/uploads/

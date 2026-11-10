@@ -1,4 +1,4 @@
-# Страница правок не должна попадать в поиск
+# Панель правок не должна попадать в поиск
 Header set X-Robots-Tag "noindex, nofollow"
 <Files "config.php">
   Require all denied

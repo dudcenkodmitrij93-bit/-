@@ -13,3 +13,10 @@ Options -Indexes
   ExpiresByType image/webp "access plus 30 days"
   ExpiresByType image/svg+xml "access plus 30 days"
 </IfModule>
+
+# Страница всегда свежая: правки из панели видны сразу
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
