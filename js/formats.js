@@ -25,7 +25,7 @@ window.FORMATS = {
     { title: 'Тортик в ресторане «Старая Башня» 🕯', video: 'video/formats/jubilee-6.mp4', poster: 'img/format-jubilee-6.jpg', vertical: true }
   ],
   'Корпоратив': [
-    { title: 'Музлото, или Твой номер один 😎', video: 'video/formats/corporate-1.mp4', poster: 'img/format-corporate-1.jpg', vertical: true },
+    { title: 'Твой номер один: музлото 🎵', video: 'video/formats/corporate-1.mp4', poster: 'img/format-corporate-1.jpg', vertical: true },
     { title: 'Новогодний корпоратив 🎄', video: 'video/formats/corporate-2.mp4', poster: 'img/format-corporate-2.jpg', vertical: true },
     { title: 'Летний волейбольный турнир 🏐☀️', video: 'video/reels/summer.mp4', poster: 'img/reel-summer.jpg', vertical: true },
     { title: 'Корпоративо-мексикано 🇲🇽', video: 'video/reels/mexico.mp4', poster: 'img/reel-mexico.jpg', vertical: false },
