@@ -1,5 +1,7 @@
 # Панель правок не должна попадать в поиск
-Header set X-Robots-Tag "noindex, nofollow"
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
 <Files "config.php">
   Require all denied
 </Files>
