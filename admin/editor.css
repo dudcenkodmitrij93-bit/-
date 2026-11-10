@@ -1,0 +1,20 @@
+/* Подключается только внутри панели правок, на сайте не используется */
+html { scroll-behavior: auto !important; }
+html, body { overflow-x: hidden !important; }
+.header { position: absolute !important; }
+.cookie, #mediaModal, #formatModal, .modal__overlay, .modal__close { display: none !important; }
+
+/* Окна «Обо мне» и «Заявка» показываем внизу страницы, чтобы их тоже можно было править */
+#aboutModal, #formModal { display: block !important; position: static !important; inset: auto !important; z-index: auto !important; padding: 40px 16px; background: #e9e4dc; }
+#aboutModal > .about, #formModal > .modal__box { position: static !important; transform: none !important; max-height: none !important; margin: 0 auto; }
+#aboutModal::before, #formModal::before { display: block; max-width: 900px; margin: 0 auto 14px; font: 700 13px/1.3 Inter, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #8a7656; }
+#aboutModal::before { content: "Окно «Узнать больше обо мне»"; }
+#formModal::before { content: "Окно заявки"; }
+
+.reveal { opacity: 1 !important; transform: none !important; }
+
+/* Подсветка */
+.ed-hover { outline: 2px dashed rgba(201, 162, 90, .9) !important; outline-offset: 2px; cursor: pointer; }
+.ed-item { outline: 2px dashed #3d7be0 !important; outline-offset: 3px; }
+.ed-sel { outline: 3px solid #c9a25a !important; outline-offset: 2px; }
+[contenteditable="true"] { outline: 3px solid #3d7be0 !important; outline-offset: 2px; background: rgba(61, 123, 224, .08) !important; cursor: text !important; -webkit-user-select: text !important; user-select: text !important; }

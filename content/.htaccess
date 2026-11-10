@@ -1,4 +1,1 @@
-# Открыт только сам файл с содержимым, пароль и копии закрыты
-<FilesMatch "^\.pass$">
-  Require all denied
-</FilesMatch>
+Require all denied
