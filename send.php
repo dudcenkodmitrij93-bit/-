@@ -51,10 +51,18 @@ $site    = field('site', 30);
 // Имя необязательно: в формах второй версии сайта только дата и телефон
 if ($name === '') $name = 'не указано';
 $telegram = ltrim(field('telegram', 40), '@');
-if ($telegram !== '' && !preg_match('/^[A-Za-z0-9_]{4,32}$/', $telegram)) respond(false, 'Проверьте ник в Telegram', 422);
+// Ник в Telegram начинается с буквы: 5–32 символа, латиница, цифры и _
+if ($telegram !== '' && !preg_match('/^[A-Za-z][A-Za-z0-9_]{4,31}$/', $telegram)) respond(false, 'Проверьте ник в Telegram: он начинается с буквы, например @ivan_petrov', 422);
 $hasPhone = strlen(preg_replace('/\D/', '', $phone)) >= 10;
 if (!$hasPhone && $telegram === '') respond(false, 'Укажите телефон или ник в Telegram', 422);
 if (empty($_POST['agree'])) respond(false, 'Нужно согласие на обработку данных', 422);
+
+// Защита от спам-роботов: они почти всегда вставляют в комментарий ссылки на свои сайты
+// и пишут без единой русской буквы. Такие заявки молча отбрасываются.
+$all = $name . ' ' . $message . ' ' . $topic;
+$hasLink = preg_match('~https?://|www\.|\b[a-z0-9-]+\.(pro|com|net|org|info|biz|io|xyz|online|site|top|ru|рф)\b~iu', $message . ' ' . $topic);
+$noCyrillic = $message !== '' && !preg_match('/\p{Cyrillic}/u', $all);
+if ($hasLink || ($noCyrillic && !$hasPhone)) respond(true);
 
 // Простое ограничение частоты: не чаще 1 заявки в 20 секунд с одного IP
 $ip = $_SERVER['REMOTE_ADDR'] ?? '0';
